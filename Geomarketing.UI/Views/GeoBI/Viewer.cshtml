@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Mapa";
+    Layout = "~/Views/Shared/_LayoutMaps.cshtml";
+}
+
+<nav class="navbar navbar-default" style="margin-bottom: 1px;" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+
+            <form class="navbar-form navbar-left" role="menu">
+                <div class="form-group" style="margin:2px">
+                    <button type="submit" class="btn btn-default">Detalle</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Mapa Base <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><div id="basemapGallery"></div></li>                       
+                    </ul>                
+                </div>
+
+            </form>
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Busqueda">
+                </div>
+                <button type="submit" class="btn btn-default">Buscar</button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+<div kendo-splitter="splitter"
+     k-panes="[ { collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
+     k-orientation="'horizontal'"
+     style="height:91%">
+    <div>
+
+        <section class="tab" style="margin:5px" ng-controller="TabController as tab">
+            <ul class="nav nav-pills">
+                <li ng-class="{ active: tab.isSet(1) }">
+                    <a href="# ng-click=" tab.settab(1)">Contenido</a>
+                </li>
+                <li ng-class="{ active: tab.isSet(2) }">
+                    <a href="# ng-click=" tab.settab(2)">Leyenda</a>
+                </li>
+                <li ng-class="{ active: tab.isSet(3) }">
+                    <a href="# ng-click=" tab.settab(3)">Herramientas</a>
+                </li>
+            </ul>
+            <div ng-show="tab.isSet(1)">
+                <h4>Description</h4>
+                <blockquote>agregar Contenido</blockquote>
+            </div>
+            <div ng-show="tab.isSet(2)">
+                <h4>Specs</h4>
+                <blockquote>Agregar Leyenda</blockquote>
+            </div>
+            <div ng-show="tab.isSet(3)">
+                <h4>Reviews</h4>
+                <blockquote>Agregar Herramientas</blockquote>
+            </div>
+        </section>
+
+    </div>
+    <div>   
+        
+        <div esri-map="map">            
+            <div id="HomeButton"></div>
+            <div id="LocateButton"></div>            
+            <div id="LogoGeo"></div>    
+            <div id="progressbar"></div>        
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,31 @@
+﻿@model Geomarketing.UI.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar.</h2>
+
+<h3>¿Seguro que quieres borrar este usuario?</h3>
+<div>
+    <h4>Usuario.</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
+        </div>
+    }
+</div>
