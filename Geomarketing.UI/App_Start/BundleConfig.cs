@@ -19,7 +19,9 @@ namespace Geomarketing.UI
                         "~/Scripts/Angular/angular-ui.min.js",
                         "~/Scripts/Angular/app.js",
                         "~/Scripts/Angular/Controllers/*.js",
-                        "~/Scripts/Angular/Directives/*.js"
+                        "~/Scripts/Angular/Directives/*.js",
+                        "~/Scripts/Angular/Services/*.js"
+                        
                         ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

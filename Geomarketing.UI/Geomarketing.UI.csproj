@@ -157,11 +157,15 @@
     <Content Include="Scripts\Angular\angular.min.js" />
     <Content Include="Scripts\Angular\app.js" />
     <Content Include="Scripts\Angular\Controllers\About.js" />
-    <Content Include="Scripts\Angular\Controllers\Map.js" />
+    <Content Include="Scripts\Angular\Controllers\Viewer.js" />
     <Content Include="Scripts\Angular\Controllers\Tab.js" />
     <Content Include="Scripts\Angular\Directives\Map.js" />
+    <Content Include="Scripts\Angular\Services\Buffer.js" />
+    <Content Include="Scripts\Angular\Services\ToolBarService.js" />
+    <Content Include="Scripts\dojo.js" />
     <Content Include="Views\GeoBI\Viewer.cshtml" />
     <Content Include="Views\Shared\_LayoutMaps.cshtml" />
+    <None Include="Properties\PublishProfiles\GeoBI_New.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -255,9 +259,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\Angular\Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

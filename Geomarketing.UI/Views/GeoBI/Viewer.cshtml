@@ -2,84 +2,99 @@
     ViewBag.Title = "Mapa";
     Layout = "~/Views/Shared/_LayoutMaps.cshtml";
 }
-
-<nav class="navbar navbar-default" style="margin-bottom: 1px;" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-        </div>
-        <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-
-            <form class="navbar-form navbar-left" role="menu">
-                <div class="form-group" style="margin:2px">
-                    <button type="submit" class="btn btn-default">Detalle</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        Mapa Base <span class="caret"></span>
+<div class="map" ng-controller="ViewerController as ctrl">
+    @*<nav class="navbar navbar-default" style="margin-bottom: 1px;" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><div id="basemapGallery"></div></li>                       
-                    </ul>                
-                </div>
 
-            </form>
-            <form class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Busqueda">
                 </div>
-                <button type="submit" class="btn btn-default">Buscar</button>
-            </form>
+                <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+
+                    <form class="navbar-form navbar-left" role="menu">
+                        <div class="form-group" style="margin:2px">
+                            <button type="submit" class="btn btn-default">Detalle</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Mapa Base <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><div id="basemapGallery"></div></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Analisis
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Zonas</a></li>
+                                <li><a href="#">Barrios</a></li>
+
+                            </ul>
+                        </div>
+                    </form>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Busqueda">
+                        </div>
+                        <button type="submit" class="btn btn-default">Buscar</button>
+                    </form>
+
+                </div>
+            </div>
+        </nav>*@
+    <div kendo-toolbar k-options="ctrl.toolbarOptions"></div>
+    <div kendo-splitter="splitter"
+         k-panes="[ { collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
+         k-orientation="'horizontal'"
+         style="height:93.5%">
+        <div ng-controller="TabController as tab">
+
+            <section class="tab">
+                <ul class="nav nav-pills">
+                    <li ng-class="{ active: tab.isSet(1) }">
+                        <a href ng-click="tab.setTab(1)">Contenido</a>
+                    </li>
+                    <li ng-class="{ active: tab.isSet(2) }">
+                        <a href ng-click="tab.setTab(2)">Leyenda</a>
+                    </li>
+                    <li ng-class="{ active: tab.isSet(3) }">
+                        <a href ng-click="tab.setTab(3)">Acerca</a>
+                    </li>
+                </ul>
+                <div ng-show="tab.isSet(1)">
+
+                    <blockquote>
+
+                        <input id="contenido" type="checkbox" ng-model="ctrl.checked" ng-change="ctrl.ver(ctrl.checked)" />
+                        <label for="contenido">Barrios</label><br />
+
+                    </blockquote>
+                </div>
+                <div ng-show="tab.isSet(2)">
+                    <h4>Specs</h4>
+                    <blockquote>Reviews2</blockquote>
+                </div>
+                <div ng-show="tab.isSet(3)">
+                    <h4>Reviews3</h4>
+                </div>
+            </section>
 
         </div>
-    </div>
-</nav>
-<div kendo-splitter="splitter"
-     k-panes="[ { collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
-     k-orientation="'horizontal'"
-     style="height:91%">
-    <div>
+        <div style="width:100%">
 
-        <section class="tab" style="margin:5px" ng-controller="TabController as tab">
-            <ul class="nav nav-pills">
-                <li ng-class="{ active: tab.isSet(1) }">
-                    <a href="# ng-click=" tab.settab(1)">Contenido</a>
-                </li>
-                <li ng-class="{ active: tab.isSet(2) }">
-                    <a href="# ng-click=" tab.settab(2)">Leyenda</a>
-                </li>
-                <li ng-class="{ active: tab.isSet(3) }">
-                    <a href="# ng-click=" tab.settab(3)">Herramientas</a>
-                </li>
-            </ul>
-            <div ng-show="tab.isSet(1)">
-                <h4>Description</h4>
-                <blockquote>agregar Contenido</blockquote>
+            <div esri-map>
+                <div id="HomeButton"></div>
+                <div id="LocateButton"></div>
+                <div id="LogoGeo"></div>
             </div>
-            <div ng-show="tab.isSet(2)">
-                <h4>Specs</h4>
-                <blockquote>Agregar Leyenda</blockquote>
-            </div>
-            <div ng-show="tab.isSet(3)">
-                <h4>Reviews</h4>
-                <blockquote>Agregar Herramientas</blockquote>
-            </div>
-        </section>
-
-    </div>
-    <div>   
-        
-        <div esri-map="map">            
-            <div id="HomeButton"></div>
-            <div id="LocateButton"></div>            
-            <div id="LogoGeo"></div>    
-            <div id="progressbar"></div>        
         </div>
     </div>
+
+
 </div>
-
-

@@ -15,7 +15,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/Angular")
-    
+
     <link href="http://cdn.kendostatic.com/2014.2.1008/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="http://cdn.kendostatic.com/2014.2.1008/styles/kendo.bootstrap.min.css" rel="stylesheet" />
     
@@ -24,21 +24,25 @@
              
     @*<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/"></script>*@
     <script src="http://js.arcgis.com/3.11/"></script>
-    <script type="text/javascript">
+    
+ <script type="text/javascript">
         dojo.require("dojo.parser");
         dojo.require("dijit.layout.BorderContainer");
         dojo.require("dijit.layout.ContentPane");
         dojo.require('esri.map');
+        dojo.require('esri.config');
         dojo.require('esri.dijit.OverviewMap');
         dojo.require('esri.dijit.BasemapGallery');
         dojo.require('esri.dijit.HomeButton');
         dojo.require('esri.dijit.LocateButton');
         dojo.require('esri.dijit.Scalebar');
+        dojo.require('esri.layers.FeatureLayer');
+        dojo.require('esri.InfoTemplate');
         
-
     </script>
     <link rel="stylesheet" href="http://js.arcgis.com/3.11/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="http://js.arcgis.com/3.11/esri/css/esri.css">
+    
 
     <style>
         html, body {
@@ -62,7 +66,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("GeoMarketing", "Index", "Home", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("GeoBI", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -70,7 +74,7 @@
 
                     @if (Request.IsAuthenticated && User.IsInRole("SuperXtra"))
                     {
-                        <li>@Html.ActionLink("SuperXtra", "Mapa", "SuperXtra")</li>
+                        <li>@Html.ActionLink("GeoBI", "Viewer", "GeoBI")</li>
                     }
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
@@ -86,10 +90,10 @@
         </div>
     </div>
     
-    <div class="map">
+  
         @RenderBody()
 
-    </div>
+  
     @*<div class="container body-content">
 
             <hr />

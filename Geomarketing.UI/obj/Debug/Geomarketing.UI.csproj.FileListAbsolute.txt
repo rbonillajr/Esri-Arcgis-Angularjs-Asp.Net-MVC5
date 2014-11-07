@@ -50,6 +50,6 @@ D:\OneDrive\Fuentes\Geoinfo\Geomarketing\Geomarketing.UI\bin\System.Web.Razor.xm
 D:\OneDrive\Fuentes\Geoinfo\Geomarketing\Geomarketing.UI\bin\System.Web.WebPages.xml
 D:\OneDrive\Fuentes\Geoinfo\Geomarketing\Geomarketing.UI\bin\System.Web.WebPages.Deployment.xml
 D:\OneDrive\Fuentes\Geoinfo\Geomarketing\Geomarketing.UI\bin\System.Web.WebPages.Razor.xml
-D:\OneDrive\Fuentes\Geoinfo\Geomarketing\Geomarketing.UI\obj\Debug\Geomarketing.UI.csprojResolveAssemblyReference.cache
 D:\OneDrive\Fuentes\Geoinfo\Geomarketing\Geomarketing.UI\obj\Debug\Geomarketing.UI.dll
 D:\OneDrive\Fuentes\Geoinfo\Geomarketing\Geomarketing.UI\obj\Debug\Geomarketing.UI.pdb
+D:\OneDrive\Fuentes\Geoinfo\Geomarketing\Geomarketing.UI\obj\Debug\Geomarketing.UI.csprojResolveAssemblyReference.cache

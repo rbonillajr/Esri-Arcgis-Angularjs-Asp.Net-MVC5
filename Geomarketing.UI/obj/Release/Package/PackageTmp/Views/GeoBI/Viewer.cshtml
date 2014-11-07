@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Mapa";
+    Layout = "~/Views/Shared/_LayoutMaps.cshtml";
+}
+<div class="map" ng-controller="ViewerController as ctrl">
+    <nav class="navbar navbar-default" style="margin-bottom: 1px;" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+
+                <form class="navbar-form navbar-left" role="menu">
+                    <div class="form-group" style="margin:2px">
+                        <button type="submit" class="btn btn-default">Detalle</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Mapa Base <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><div id="basemapGallery"></div></li>
+                        </ul>
+                    </div>
+
+                </form>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Busqueda">
+                    </div>
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+    <div kendo-splitter="splitter"
+         k-panes="[ { collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
+         k-orientation="'horizontal'"
+         style="height:91%">
+        <div>
+
+            <section class="tab">
+                <ul class="nav nav-pills">
+                    <li ng-class="{ active: ctrl.isSet(1) }">
+                        <a href ng-click="ctrl.setTab(1)">Contenido</a>
+                    </li>
+                    <li ng-class="{ active: ctrl.isSet(2) }">
+                        <a href ng-click="ctrl.setTab(2)">Leyenda</a>
+                    </li>
+                    <li ng-class="{ active: ctrl.isSet(3) }">
+                        <a href ng-click="ctrl.setTab(3)">Acerca</a>
+                    </li>
+                </ul>
+                <div ng-show="ctrl.isSet(1)">
+
+                    <blockquote>
+
+                        <input id="contenido" type="checkbox" ng-model="ctrl.checked" ng-change="ctrl.ver(ctrl.checked)" />
+                        <label for="contenido">Barrios</label><br />
+
+                    </blockquote>
+                </div>
+                <div ng-show="ctrl.isSet(2)">
+                    <h4>Specs</h4>
+                    <blockquote>Reviews2</blockquote>
+                </div>
+                <div ng-show="ctrl.isSet(3)">
+                    <h4>Reviews3</h4>
+                </div>
+            </section>
+
+        </div>
+        <div>
+
+            <div esri-map="map">
+                <div id="HomeButton"></div>
+                <div id="LocateButton"></div>
+                <div id="LogoGeo"></div>
+                <div id="progressbar"></div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
