@@ -3,8 +3,8 @@
       return {
           options: {
               items: [
-                  { type: "button", text: "Button" },
-                  { type: "button", text: "Toggle Button", togglable: true },
+                  { type: "button", text: "Analisis" },
+                  { type: "button", text: "Buffer"},
                   {
                       type: "splitButton",
                       text: "Insert",

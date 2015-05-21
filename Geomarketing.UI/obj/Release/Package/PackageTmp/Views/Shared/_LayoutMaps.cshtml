@@ -25,7 +25,7 @@
     @*<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/"></script>*@
     <script src="http://js.arcgis.com/3.11/"></script>
     
- <script type="text/javascript">
+ @*<script type="text/javascript">
         dojo.require("dojo.parser");
         dojo.require("dijit.layout.BorderContainer");
         dojo.require("dijit.layout.ContentPane");
@@ -39,7 +39,7 @@
         dojo.require('esri.layers.FeatureLayer');
         dojo.require('esri.InfoTemplate');
         
-    </script>
+    </script>*@
     <link rel="stylesheet" href="http://js.arcgis.com/3.11/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="http://js.arcgis.com/3.11/esri/css/esri.css">
     
@@ -66,7 +66,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("GeoMarketing", "Index", "Home", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("GeoBI", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

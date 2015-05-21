@@ -32,7 +32,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
-                    @if (Request.IsAuthenticated && User.IsInRole("SuperXtra"))
+                    @if (Request.IsAuthenticated && User.IsInRole("MapViewer"))
                     {
                         <li>@Html.ActionLink("GeoBI", "Viewer", "GeoBI")</li>
                     }

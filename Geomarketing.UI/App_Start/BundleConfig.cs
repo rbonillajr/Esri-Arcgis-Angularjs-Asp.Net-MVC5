@@ -17,7 +17,8 @@ namespace Geomarketing.UI
                         "~/Scripts/Angular/angular.min.js",
                         "~/Scripts/Angular/angular-route.min.js",
                         "~/Scripts/Angular/angular-ui.min.js",
-                        "~/Scripts/Angular/app.js",
+                        "~/Scripts/Angular/angular-esri-map.min.js",
+                        "~/Scripts/Angular/app.js",                        
                         "~/Scripts/Angular/Controllers/*.js",
                         "~/Scripts/Angular/Directives/*.js",
                         "~/Scripts/Angular/Services/*.js"

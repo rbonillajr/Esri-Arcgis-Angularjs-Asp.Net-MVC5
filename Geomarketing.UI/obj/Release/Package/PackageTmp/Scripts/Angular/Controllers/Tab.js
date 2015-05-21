@@ -1,12 +1,13 @@
 ﻿angular.module("geomarketing")
     .controller('TabController', function () {
-        this.tab = 1;
+        var vm = this;
+        vm.tab = 1;
 
-        this.setTab = function (newValue) {
-            this.tab = newValue;
+        vm.setTab = function (newValue) {
+            vm.tab = newValue;
         };
 
-        this.isSet = function (tabName) {
-            return this.tab === tabName;
+        vm.isSet = function (tabName) {
+            return vm.tab === tabName;
         };
 });

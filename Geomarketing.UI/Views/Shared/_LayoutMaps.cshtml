@@ -21,11 +21,25 @@
     
     <script src="http://cdn.kendostatic.com/2014.2.1008/js/kendo.ui.core.min.js"></script>
     <script src="http://cdn.kendostatic.com/2014.2.1008/js/kendo.all.min.js"></script>
-             
+
+    @*<script src="~/Scripts/TableOfContents.js" ></script>*@
+    <script type="text/javascript">
+    var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+    var dojoConfig = {
+        //locale: "ar",
+        // The locationPath logic below may look confusing but all its doing is
+        // enabling us to load the api from a CDN and load local modules from the correct location.
+        packages: [{
+            name: "application",
+            location: '/Scripts'
+        }]
+    };
+    </script>
+
     @*<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/"></script>*@
-    <script src="http://js.arcgis.com/3.11/"></script>
+    <script src="http://jsdev.arcgis.com/3.14/"></script>
     
- <script type="text/javascript">
+ @*<script type="text/javascript">
         dojo.require("dojo.parser");
         dojo.require("dijit.layout.BorderContainer");
         dojo.require("dijit.layout.ContentPane");
@@ -39,11 +53,12 @@
         dojo.require('esri.layers.FeatureLayer');
         dojo.require('esri.InfoTemplate');
         
-    </script>
-    <link rel="stylesheet" href="http://js.arcgis.com/3.11/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.11/esri/css/esri.css">
-    
+    </script>*@
+    <link rel="stylesheet" href="http://jsdev.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" type="text/css" href="http://jsdev.arcgis.com/3.14/esri/css/esri.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/TableOfContents/css/TableOfContents.css">
 
+   
     <style>
         html, body {
             margin: 0;
