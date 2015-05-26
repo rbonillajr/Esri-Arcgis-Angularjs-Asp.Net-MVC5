@@ -1,103 +1,132 @@
-﻿//angular.module("geomarketing")
-//    .directive('esriMap', function ($timeout) {
-//        return {
-//            //template: '<div></div>',          
-//            link: function postLink(scope, element, attrs) {
-//                //debugger;
+﻿angular.module("geomarketing")
+    .directive('esriMap', function ($timeout) {
+        return {
+            //template: '<div></div>',          
+            link: function postLink(scope, element, attrs) {
+                //debugger;
 
-//                var init = function () {
-//                    //MapSetting
+                var init = function () {
+                    //MapSetting
 
-//                    esri.config.defaults.io.proxyUrl = "/proxy/";
-//                    var startExtent = new esri.geometry.Extent({
-//                        "xmin": -9146655.03, "ymin": 780775.46,
-//                        "xmax": -8596308.43, "ymax": 1147673.20,
-//                        "spatialReference": { "wkid": 102100 }
-//                    });
+                    esri.config.defaults.io.proxyUrl = "/proxy/";
+                    var startExtent = new esri.geometry.Extent({
+                        "xmin": -9146655.03, "ymin": 780775.46,
+                        "xmax": -8596308.43, "ymax": 1147673.20,
+                        "spatialReference": { "wkid": 102100 }
+                    });
 
-//                    scope.map = new esri.Map(element[0], {
+                    scope.map = new esri.Map(element[0], {
 
-//                        basemap: 'topo',
-//                        sliderOrientation: "vertical",
-//                        extent: startExtent,
-//                        logo: false
-//                    });
+                        basemap: 'topo',
+                        sliderOrientation: "vertical",
+                        extent: startExtent,
+                        zoom: 8,
+                        logo: false
+                    });
 
-//                    dojo.connect(scope.map, "onLoad", function (map) {
+                    dojo.connect(scope.map, "onLoad", function (map) {
+                        featurelayer = new esri.layers.FeatureLayer("http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0",
+                    {
+                        id: "Capa1",
+                        visible: true,
+                        infoTemplate: new esri.InfoTemplate(" ", "${GENERALES.PDV} <br/> <img src='../Content/Fotos/${GENERALES.fotout}'  height='200' width='200'/>"),
+                        outFields: ["*"]
+                    });
+                        scope.map.addLayer(featurelayer);
 
-//                        //BaseMapGallery
-//                        /*var basemaps = [];
-//                        basemaps.push(new esri.dijit.Basemap({
-//                            layers: [new esri.dijit.BasemapLayer({
-//                                type: 'GoogleMapsHybrid'
-//                            })],
-//                            title: "Google Hybrid",
-//                            id: 'GoogleHybrid',
-//                            thumbnailUrl: dojo.moduleUrl("agsjs.dijit", "images/googlehybrid.png")
-//                        }));*/
+                        toc = new agsjs.dijit.TOC({
+                            map: map,
+                            layerInfos: [{
+                                layer: featurelayer,
+                                title: featurelayer.id
+                            }]
+                        }, 'TableOfContents');
+                        toc.startup();
 
-//                        var basemapGallery = new esri.dijit.BasemapGallery({
-//                            showArcGISBasemaps: true,
-//                            map: map
-//                        }, dojo.byId("basemapGallery"));
+                        //BaseMapGallery
+                        /*var basemaps = [];
+                        basemaps.push(new esri.dijit.Basemap({
+                            layers: [new esri.dijit.BasemapLayer({
+                                type: 'GoogleMapsHybrid'
+                            })],
+                            title: "Google Hybrid",
+                            id: 'GoogleHybrid',
+                            thumbnailUrl: dojo.moduleUrl("agsjs.dijit", "images/googlehybrid.png")
+                        }));*/
+
+                        var basemapGallery = new esri.dijit.BasemapGallery({
+                            showArcGISBasemaps: true,
+                            map: map
+                        }, dojo.byId("basemapGallery"));
 
 
-//                        var layer = new esri.dijit.BasemapLayer({
+                        var layer = new esri.dijit.BasemapLayer({
 
-//                            url: "http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/" //colocar dynamic factory
-//                            //url: "http://190.97.161.17/arcgis/rest/services/DEMOS/MAPA_DE_SECTORIZACION_CSS/MapServer"
-//                        });
-//                        var basemap = new esri.dijit.Basemap({
-//                            layers: [layer],
-//                            title: "Geoinfo",
-//                            id: 'Geoinfo',
-//                            thumbnailUrl: "../Content/Images/GeoBaseMap.png"
-//                        });
+                            url: "http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/" //colocar dynamic factory
+                            //url: "http://190.97.161.17/arcgis/rest/services/DEMOS/MAPA_DE_SECTORIZACION_CSS/MapServer"
+                        });
+                        var basemap = new esri.dijit.Basemap({
+                            layers: [layer],
+                            title: "Geoinfo",
+                            id: 'Geoinfo',
+                            thumbnailUrl: "../Content/Images/GeoBaseMap.png"
+                        });
 
-//                        basemapGallery.add(basemap);
-//                        basemapGallery.select('Geoinfo');
-//                        basemapGallery.startup();
+                        basemapGallery.add(basemap);
+                        basemapGallery.select('Geoinfo');
+                        basemapGallery.startup();
 
-//                        //overviewMap
-//                        overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
+                        //overviewMap
+                        overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
 
-//                        basemapGallery.on("load", function () {
+                        basemapGallery.on("load", function () {
 
-//                            overviewMap.startup();
-//                        });
-//                        //overviewMap's event
-//                        basemapGallery.on("selection-change", function () {
+                            overviewMap.startup();
+                        });
+                        //overviewMap's event
+                        basemapGallery.on("selection-change", function () {
 
-//                            overviewMap.destroy();
-//                            overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
-//                            overviewMap.startup();
-//                        });
-//                        basemapGallery.on("error", function (msg) {
-//                            console.log("basemap gallery error:  ", msg);
-//                        });
+                            overviewMap.destroy();
+                            overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
+                            overviewMap.startup();
+                        });
+                        basemapGallery.on("error", function (msg) {
+                            console.log("basemap gallery error:  ", msg);
+                        });
 
-//                        //Home Button
-//                        var homeButton = new esri.dijit.HomeButton({ map: map }, "HomeButton");
-//                        homeButton.startup();
+                        //Home Button
+                        var homeButton = new esri.dijit.HomeButton({ map: map }, "HomeButton");
+                        homeButton.startup();
 
-//                        //LocateButton
-//                        geoLocate = new esri.dijit.LocateButton({
-//                            map: map
-//                        }, "LocateButton");
-//                        geoLocate.startup();
+                        //LocateButton
+                        geoLocate = new esri.dijit.LocateButton({
+                            map: map
+                        }, "LocateButton");
+                        geoLocate.startup();
 
-//                        //ScaleBar
-//                        var scalebar = new esri.dijit.Scalebar({
-//                            map: map,
-//                            scalebarUnit: "dual"
-//                        });
+                        //ScaleBar
+                        var scalebar = new esri.dijit.Scalebar({
+                            map: map,
+                            scalebarUnit: "dual"
+                        });
 
-//                    });
+                        var resizeTimer;
+                        dojo.connect(map, 'onLoad', function (theMap) {
+                            dojo.connect(dijit.byId('map'), 'resize', function () { //resize the map if the div is resized
+                                clearTimeout(resizeTimer);
+                                resizeTimer = setTimeout(function () {
+                                    map.resize();
+                                    map.reposition();
+                                }, 500);
+                            });
+                        });
 
-//                };
-//                //dojo.addOnLoad(init);
-//                dojo.ready(init);
+                    });
 
-//            }
-//        };
-//    });
+                };
+                //dojo.addOnLoad(init);
+                dojo.ready(init);
+
+            }
+        };
+    });

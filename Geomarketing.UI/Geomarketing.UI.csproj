@@ -773,6 +773,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
+    <Content Include="Scripts\agsjs\css\agsjs.css" />
+    <Content Include="Scripts\agsjs\dijit\css\TOC.css" />
+    <Content Include="Scripts\agsjs\dijit\images\googlehybrid.png" />
+    <Content Include="Scripts\agsjs\dijit\images\googleroad.png" />
+    <Content Include="Scripts\agsjs\dijit\images\googlesatellite.png" />
+    <Content Include="Scripts\agsjs\dijit\templates\tocNode.html" />
+    <Content Include="Scripts\agsjs\dijit\TOC.js" />
     <Content Include="Scripts\Angular\angular-esri-map.min.js" />
     <Content Include="Scripts\Angular\angular-route.min.js" />
     <Content Include="Scripts\Angular\angular-ui.min.js" />
@@ -785,9 +792,6 @@
     <Content Include="Scripts\Angular\Services\Buffer.js" />
     <Content Include="Scripts\Angular\Services\ToolBarService.js" />
     <Content Include="Scripts\dojo.js" />
-    <Content Include="Scripts\TableOfContents.js" />
-    <Content Include="Scripts\TableOfContents\css\TableOfContents.css" />
-    <Content Include="Scripts\TableOfContents\templates\TableOfContents.html" />
     <Content Include="Views\GeoBI\Viewer.cshtml" />
     <Content Include="Views\Shared\_LayoutMaps.cshtml" />
     <None Include="Properties\PublishProfiles\GeoBI_New.pubxml" />
