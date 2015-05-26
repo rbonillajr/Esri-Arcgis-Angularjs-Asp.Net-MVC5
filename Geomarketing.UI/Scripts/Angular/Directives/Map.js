@@ -20,22 +20,28 @@
                         basemap: 'topo',
                         sliderOrientation: "vertical",
                         extent: startExtent,
+                        zoom: 8,
                         logo: false
                     });
-                    require(["esri/arcgis/utils"], function (arcgisUtils) { 
 
-
-                    });
                     dojo.connect(scope.map, "onLoad", function (map) {
-                        debugger;
-                        require(["dojo/_base/lang"], function (lang) {
-                            lang.hitch(map, function (response) {
-                                //map = response.map;
-                                var layers = response.itemInfo.itemData.operationalLayers;
-                                alert('funciona');
-                            });
-                        });
-                        
+                        featurelayer = new esri.layers.FeatureLayer("http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0",
+                    {
+                        id: "Capa1",
+                        visible: true,
+                        infoTemplate: new esri.InfoTemplate(" ", "${GENERALES.PDV} <br/> <img src='../Content/Fotos/${GENERALES.fotout}'  height='200' width='200'/>"),
+                        outFields: ["*"]
+                    });
+                        scope.map.addLayer(featurelayer);
+
+                        toc = new agsjs.dijit.TOC({
+                            map: map,
+                            layerInfos: [{
+                                layer: featurelayer,
+                                title: featurelayer.id
+                            }]
+                        }, 'TableOfContents');
+                        toc.startup();
 
                         //BaseMapGallery
                         /*var basemaps = [];
@@ -102,6 +108,17 @@
                         var scalebar = new esri.dijit.Scalebar({
                             map: map,
                             scalebarUnit: "dual"
+                        });
+
+                        var resizeTimer;
+                        dojo.connect(map, 'onLoad', function (theMap) {
+                            dojo.connect(dijit.byId('map'), 'resize', function () { //resize the map if the div is resized
+                                clearTimeout(resizeTimer);
+                                resizeTimer = setTimeout(function () {
+                                    map.resize();
+                                    map.reposition();
+                                }, 500);
+                            });
                         });
 
                     });

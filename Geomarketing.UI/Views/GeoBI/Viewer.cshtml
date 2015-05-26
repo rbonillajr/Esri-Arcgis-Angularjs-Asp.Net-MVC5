@@ -50,7 +50,7 @@
         </nav>*@
     <div kendo-toolbar k-options="ctrl.toolbarOptions"></div>
     <div kendo-splitter="splitter"
-         k-panes="[ { collapsible: true, size: '15%' }, { collapsible: false, size: '85%'} ]"
+         k-panes="[ {collapsed: true, collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
          k-orientation="'horizontal'"
          style="height:93.5%">
         <div ng-controller="TabController as tab">
@@ -61,48 +61,36 @@
                         <a href ng-click="tab.setTab(1)">Contenido</a>
                     </li>
                     <li ng-class="{ active: tab.isSet(2) }">
-                        <a href ng-click="tab.setTab(2)">Leyenda</a>
-                    </li>
-                    <li ng-class="{ active: tab.isSet(3) }">
-                        <a href ng-click="tab.setTab(3)">BaseMaps</a>
+                        <a href ng-click="tab.setTab(2)">BaseMaps</a>
                     </li>
                 </ul>
                 <div ng-show="tab.isSet(1)">
-
-                    @*<blockquote>
-
-                        <input id="contenido" type="checkbox" ng-model="ctrl.checked" ng-change="ctrl.ver(ctrl.checked)" />
-                        <label for="contenido">Comercios</label><br />
-
-                    </blockquote>*@
                     <div id="TableOfContents"></div>
                 </div>
                 <div ng-show="tab.isSet(2)">
-                    <div id="legend"></div>
-                </div>
-                <div ng-show="tab.isSet(3)">
                     <div id="basemapGallery"></div>
                 </div>
+
             </section>
 
         </div>
-        <div >
+        <div>
             @*<esri-map id="map" register-as="map" center="ctrl.map.center" zoom="ctrl.map.zoom" >
-                <esri-feature-layer url="http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0"></esri-feature-layer>
-                <esri-feature-layer url="http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/0"></esri-feature-layer>
-                <div esri-legend target-id="legend"></div>
+                    <esri-feature-layer url="http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0"></esri-feature-layer>
+                    <esri-feature-layer url="http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/0"></esri-feature-layer>
+                    <div esri-legend target-id="legend"></div>
+                    <div id="LocateButton"></div>
+                    <div id="HomeButton"></div>
+                    <div id="LogoGeo"></div>
+                </esri-map>*@
+
+            <div esri-map>
                 <div id="LocateButton"></div>
                 <div id="HomeButton"></div>
                 <div id="LogoGeo"></div>
-            </esri-map>*@
-
-                        <div esri-map>
-            <div id="LocateButton"></div>
-            <div id="HomeButton"></div>
-            <div id="LogoGeo"></div>
 
 
-        </div>
+            </div>
         </div>
     </div>
 
