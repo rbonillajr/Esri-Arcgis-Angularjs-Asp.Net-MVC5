@@ -3,51 +3,7 @@
     Layout = "~/Views/Shared/_LayoutMaps.cshtml";
 }
 <div class="map" ng-controller="ViewerController as ctrl">
-    @*<nav class="navbar navbar-default" style="margin-bottom: 1px;" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                </div>
-                <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-
-                    <form class="navbar-form navbar-left" role="menu">
-                        <div class="form-group" style="margin:2px">
-                            <button type="submit" class="btn btn-default">Detalle</button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                Mapa Base <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><div id="basemapGallery"></div></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                Analisis
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Zonas</a></li>
-                                <li><a href="#">Barrios</a></li>
-
-                            </ul>
-                        </div>
-                    </form>
-                    <form class="navbar-form navbar-right" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Busqueda">
-                        </div>
-                        <button type="submit" class="btn btn-default">Buscar</button>
-                    </form>
-
-                </div>
-            </div>
-        </nav>*@
+   
     <div kendo-toolbar k-options="ctrl.toolbarOptions"></div>
     <div kendo-splitter="splitter"
          k-panes="[ {collapsed: true, collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
@@ -75,21 +31,11 @@
 
         </div>
         <div>
-            @*<esri-map id="map" register-as="map" center="ctrl.map.center" zoom="ctrl.map.zoom" >
-                    <esri-feature-layer url="http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0"></esri-feature-layer>
-                    <esri-feature-layer url="http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/0"></esri-feature-layer>
-                    <div esri-legend target-id="legend"></div>
-                    <div id="LocateButton"></div>
-                    <div id="HomeButton"></div>
-                    <div id="LogoGeo"></div>
-                </esri-map>*@
 
             <div esri-map>
                 <div id="LocateButton"></div>
                 <div id="HomeButton"></div>
                 <div id="LogoGeo"></div>
-
-
             </div>
         </div>
     </div>

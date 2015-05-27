@@ -6,25 +6,21 @@
                 //debugger;
 
                 var init = function () {
-                    //MapSetting
-
-                    esri.config.defaults.io.proxyUrl = "/proxy/";
                     var startExtent = new esri.geometry.Extent({
                         "xmin": -9146655.03, "ymin": 780775.46,
                         "xmax": -8596308.43, "ymax": 1147673.20,
                         "spatialReference": { "wkid": 102100 }
                     });
-
                     scope.map = new esri.Map(element[0], {
-
-                        basemap: 'topo',
                         sliderOrientation: "vertical",
                         extent: startExtent,
                         zoom: 8,
                         logo: false
                     });
+                    createBasemapGallery()
 
                     dojo.connect(scope.map, "onLoad", function (map) {
+
                         featurelayer = new esri.layers.FeatureLayer("http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0",
                     {
                         id: "Capa1",
@@ -43,56 +39,9 @@
                         }, 'TableOfContents');
                         toc.startup();
 
-                        //BaseMapGallery
-                        /*var basemaps = [];
-                        basemaps.push(new esri.dijit.Basemap({
-                            layers: [new esri.dijit.BasemapLayer({
-                                type: 'GoogleMapsHybrid'
-                            })],
-                            title: "Google Hybrid",
-                            id: 'GoogleHybrid',
-                            thumbnailUrl: dojo.moduleUrl("agsjs.dijit", "images/googlehybrid.png")
-                        }));*/
-
-                        var basemapGallery = new esri.dijit.BasemapGallery({
-                            showArcGISBasemaps: true,
-                            map: map
-                        }, dojo.byId("basemapGallery"));
-
-
-                        var layer = new esri.dijit.BasemapLayer({
-
-                            url: "http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/" //colocar dynamic factory
-                            //url: "http://190.97.161.17/arcgis/rest/services/DEMOS/MAPA_DE_SECTORIZACION_CSS/MapServer"
-                        });
-                        var basemap = new esri.dijit.Basemap({
-                            layers: [layer],
-                            title: "Geoinfo",
-                            id: 'Geoinfo',
-                            thumbnailUrl: "../Content/Images/GeoBaseMap.png"
-                        });
-
-                        basemapGallery.add(basemap);
-                        basemapGallery.select('Geoinfo');
-                        basemapGallery.startup();
 
                         //overviewMap
                         overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
-
-                        basemapGallery.on("load", function () {
-
-                            overviewMap.startup();
-                        });
-                        //overviewMap's event
-                        basemapGallery.on("selection-change", function () {
-
-                            overviewMap.destroy();
-                            overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
-                            overviewMap.startup();
-                        });
-                        basemapGallery.on("error", function (msg) {
-                            console.log("basemap gallery error:  ", msg);
-                        });
 
                         //Home Button
                         var homeButton = new esri.dijit.HomeButton({ map: map }, "HomeButton");
@@ -122,9 +71,50 @@
                         });
 
                     });
-
                 };
-                //dojo.addOnLoad(init);
+
+
+                function createBasemapGallery() {
+                    
+                    var basemaps = [];
+                    basemaps.push(new esri.dijit.Basemap({
+                        layers: [new esri.dijit.BasemapLayer({
+                            url: "http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/"
+                        })],
+                        title: "Geoinfo",
+                        thumbnailUrl: "../Content/Images/GeoBaseMap.png"
+                    }));
+
+                    basemaps.push(new esri.dijit.Basemap({
+                        layers: [new esri.dijit.BasemapLayer({
+                            url: 'http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer'
+                        })],
+                        title: "National Geographic",
+                        id: 'NatGeo_World_Map',
+                        thumbnailUrl: 'http://www.arcgis.com/sharing/rest/content/items/b9b1b422198944fbbd5250b3241691b6/info/thumbnail/natgeo3.jpg'
+                    }));
+
+                    basemaps.push(new esri.dijit.Basemap({
+                        layers: [new esri.dijit.BasemapLayer({
+                            url: 'http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer'
+                        })],
+                        title: "Oceans",
+                        id: 'World_Oceans',
+                        thumbnailUrl: 'http://www.arcgis.com/sharing/rest/content/items/5ae9e138a17842688b0b79283a4353f6/info/thumbnail/oceans_5_0_gulf.jpg'
+                    }));
+
+                    var basemapGallery = new esri.dijit.BasemapGallery({
+                        showArcGISBasemaps: false,
+                        basemaps: basemaps,
+                        map: scope.map
+                    }, "basemapGallery");
+                    basemapGallery.startup();
+
+                    dojo.connect(basemapGallery, "onError", function (error) {
+                        console.log(error);
+                    });
+                };
+                
                 dojo.ready(init);
 
             }
