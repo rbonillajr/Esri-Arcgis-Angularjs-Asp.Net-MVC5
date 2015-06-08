@@ -2,9 +2,9 @@
     ViewBag.Title = "Mapa";
     Layout = "~/Views/Shared/_LayoutMaps.cshtml";
 }
-<div class="map" ng-controller="ViewerController as ctrl">
+<div class="map" ng-controller="ViewerController as vm">
    
-    <div kendo-toolbar k-options="ctrl.toolbarOptions"></div>
+    <div kendo-toolbar k-options="vm.toolbarOptions"></div>
     <div kendo-splitter="splitter"
          k-panes="[ {collapsed: true, collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
          k-orientation="'horizontal'"
@@ -32,13 +32,24 @@
         </div>
         <div>
 
-            <div esri-map>
+            <div esri-map id="map">
                 <div id="LocateButton"></div>
                 <div id="HomeButton"></div>
                 <div id="LogoGeo"></div>
             </div>
         </div>
     </div>
-
+    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="400" k-height="400">
+        <div class="container-fluid">
+            <div class="row">Desactivar la cuenta <strong> </strong>?</div>
+            <div class="row"></div>
+            <div class="row">
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-primary" id="yesButton" ng-click="vm.yesFilter">Si</button>
+                    <button class="btn btn-sm" id="noButton" ng-click="vm.cancelFilter">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>

@@ -1,7 +1,8 @@
 ﻿angular.module("geomarketing")
     .directive('esriMap', function ($timeout) {
         return {
-            //template: '<div></div>',          
+            //template: '<div></div>',  
+            
             link: function postLink(scope, element, attrs) {
                 //debugger;
 
@@ -25,19 +26,20 @@
                     {
                         id: "Capa1",
                         visible: true,
+                        //mode: esri.layers.FeatureLayer.MODE_SELECTION,
                         infoTemplate: new esri.InfoTemplate(" ", "${GENERALES.PDV} <br/> <img src='../Content/Fotos/${GENERALES.fotout}'  height='200' width='200'/>"),
                         outFields: ["*"]
                     });
                         scope.map.addLayer(featurelayer);
 
-                        toc = new agsjs.dijit.TOC({
+                        scope.toc = new agsjs.dijit.TOC({
                             map: map,
                             layerInfos: [{
                                 layer: featurelayer,
                                 title: featurelayer.id
                             }]
                         }, 'TableOfContents');
-                        toc.startup();
+                        scope.toc.startup();
 
 
                         //overviewMap
