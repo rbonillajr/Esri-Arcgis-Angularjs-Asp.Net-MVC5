@@ -20,36 +20,49 @@
     <script src="http://cdn.kendostatic.com/2014.2.1008/js/kendo.ui.core.min.js"></script>
     <script src="http://cdn.kendostatic.com/2014.2.1008/js/kendo.all.min.js"></script>
 
-    <script type="text/javascript">   
+    <!-- Load Leaflet from CDN-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.css" />
+    <script src="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.js"></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <!-- we encourage you to replace 'latest' with a hardcode version number (like '1.0.0-rc.7') in production applications -->
+    <script src="//cdn.jsdelivr.net/leaflet.esri/latest/esri-leaflet.js"></script>
+
+    @*<script type="text/javascript">   
     
         var dojoConfig = {
             paths: {                
                 agsjs: location.pathname.replace(/\/[^/]+$/, '') + '/../Scripts/agsjs'
             }           
     };
-    </script>
+    </script>*@
             
-    <script src="http://jsdev.arcgis.com/3.14/"></script>
+    @*<script src="http://jsdev.arcgis.com/3.14/"></script>*@
     
  <script type="text/javascript">
-        dojo.require('dojo.parser');
-        dojo.require('dijit.layout.BorderContainer');
-        dojo.require('dijit.layout.ContentPane');
-        dojo.require('esri.map');
-        dojo.require('esri.config');
-        dojo.require('esri.dijit.OverviewMap');
-        dojo.require('esri.dijit.BasemapGallery');
-        dojo.require('esri.dijit.HomeButton');
-        dojo.require('esri.dijit.LocateButton');
-        dojo.require('esri.dijit.Scalebar');
-        dojo.require('esri.layers.FeatureLayer');
-        dojo.require('esri.InfoTemplate');
-        dojo.require('agsjs.dijit.TOC');
+        //dojo.require('dojo.parser');
+        //dojo.require('dijit.layout.BorderContainer');
+        //dojo.require('dijit.layout.ContentPane');
+        //dojo.require('esri.map');
+        //dojo.require('esri.config');
+        //dojo.require('esri.dijit.OverviewMap');
+        //dojo.require('esri.dijit.BasemapGallery');
+        //dojo.require('esri.dijit.HomeButton');
+        //dojo.require('esri.dijit.LocateButton');
+        //dojo.require('esri.dijit.Scalebar');
+        //dojo.require('esri.layers.FeatureLayer');
+        //dojo.require('esri.InfoTemplate');
+        //dojo.require('esri.tasks.QueryTask');
+        //dojo.require('esri.tasks.query');
+        //dojo.require('esri.symbols.SimpleMarkerSymbol')
+
+        //dojo.require('agsjs.dijit.TOC');
+
              
     </script>
-    <link rel="stylesheet" href="http://jsdev.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    @*<link rel="stylesheet" href="http://jsdev.arcgis.com/3.14/dijit/themes/claro/claro.css">
     <link rel="stylesheet" type="text/css" href="http://jsdev.arcgis.com/3.14/esri/css/esri.css">
-    <link rel="stylesheet" type="text/css" href="~/Scripts/agsjs/css/agsjs.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/agsjs/css/agsjs.css">*@
 
    
     <style>
@@ -59,6 +72,7 @@
             width: 100%;
             height: 100%;
         }
+         #map { position: absolute; top:0; bottom:0; right:0; left:0; }
     </style>
 
 
