@@ -16,14 +16,15 @@
         <div id="LogoGeo"></div>
     </div>
 
-    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="400" k-height="225">
+    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="250" k-height="230">
         <div class="container-fluid">
             <div class="row">Selccione los datos a filtrar: <strong> </strong>?</div>
             <div class="row">
                 <input kendo-drop-down-list
                        k-data-text-field="'text'"
                        k-data-value-field="'value'"
-                       k-data-source="vm.data" />
+                       k-data-source="vm.data"
+                       ng-model="vm.selected" />
             </div>
             <div class="row">
                 <br />

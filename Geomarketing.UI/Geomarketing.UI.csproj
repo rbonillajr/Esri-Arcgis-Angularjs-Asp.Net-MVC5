@@ -794,9 +794,11 @@
     <Content Include="Scripts\Angular\Services\Buffer.js" />
     <Content Include="Scripts\Angular\Services\ToolBarService.js" />
     <Content Include="Scripts\dojo.js" />
+    <Content Include="Scripts\Underscore\underscore-min.js" />
     <Content Include="Views\GeoBI\Viewer.cshtml" />
     <Content Include="Views\Shared\_LayoutMaps.cshtml" />
     <None Include="Properties\PublishProfiles\GeoBI_New.pubxml" />
+    <Content Include="Scripts\Underscore\underscore-min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,8 +1,7 @@
 ﻿angular.module("geomarketing")
-    .directive('esriMap', function ($timeout) {
+    .directive('esriMap', ['$timeout', 'bufferService', function ($timeout, bufferService) {
         return {
-            template: "<div id='map'></div>",
-
+            template: "<div id='map'></div>",            
             link: function postLink(scope, element, attrs) {
                 //debugger;
                 scope.buffered = false;
@@ -34,16 +33,36 @@
                 map.on('click', function (e) {
                     debugger;
                     if (scope.buffered) {
-                        var marker = L.marker(new L.LatLng(e.latlng.lat, e.latlng.lng), {
 
+                        if (typeof buff != 'undefined') {
+                            map.removeLayer(buff);
+                        }
+
+                        bufferService.get(50, 'kilometers',e.latlng, function (buff) {
+                            buff.addTo(map);
                         });
-                        var pointMarker = marker.toGeoJSON();
-                        buffered = turf.buffer(pointMarker, 50, 'kilometers');
-                        buff = L.geoJson(buffered);
-                        buff.addTo(map);
+                        
+                        
+
+                        //var stationsInside = turf.within(L.esri.Util.arcgisToGeojson(stops), buff);
+
+                        //var stationsNumber=0;
+                        //var gasstationsinside =L.geoJson(stationsInside, {
+                        //    onEachFeature: function(feature, layer) {
+                        //        stationsNumber++
+                        //        layer.bindPopup("<h4>test</h4>"); 
+                        //    }, 
+                        //    pointToLayer: function (feature, latlng) { 
+                        //        return L.circleMarker(latlng); 
+                        //    }, 
+                        //    style:{ radius: 8, fillColor: "red", weight: 1 } 
+                        //}).addTo(map);
+
                     }else
                     {
-                        buff.removeTo(map);
+                        if (typeof buff != 'undefined') {
+                            map.removeLayer(buff);
+                        }
                     }
                 });
 
@@ -83,7 +102,16 @@
                 var controlLayers = L.control.layers(baseLayers, overlayMaps).addTo(map);
 
                 scope.query = function (param) {
-                    stops.setWhere(param);
+                    var filtro = '';                    
+                    _.each(param, function (item, index) {                        
+                        if (param.length == 1 || index == 0) {
+                            filtro = item;
+                        }else
+                        {
+                            filtro = filtro + ' AND ' + item
+                        }
+                    })
+                    stops.setWhere(filtro);
                 }
 
                 function getIcons() {
@@ -103,13 +131,8 @@
                             popupAnchor: [0, -11]
                         })
                     }
-                }
-
-                scope.setBuffered = function () {
-                    debugger;
-                    
-                }
+                }            
 
             }
         };
-    });
+    }]);

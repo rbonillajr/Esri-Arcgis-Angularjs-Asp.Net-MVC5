@@ -1,6 +1,7 @@
 ﻿angular.module('geomarketing')
     .controller('ViewerController', ['$scope', function (scope) {
         var vm = this;
+        vm.selected;
         vm.data = [
                 { text: "Disponibilidad", value: 7 },
                 { text: "Exhibidores", value: 9 },
@@ -16,8 +17,26 @@
         }
         vm.filtros = function () {
             $('#yesButton').click(function (e) {
-                
-                scope.query("GENERALES.PDV= 'DELTA'");
+                debugger;
+                filtro = [];
+
+                if (vm.filtroMarca.Mobil)
+                {
+                    filtro.push("GENERALES.MOBIL=1");
+                }
+                if (vm.filtroMarca.Shell) {
+                    filtro.push("GENERALES.SHELL=1");
+                }
+                if (vm.filtroMarca.Castrol) {
+                    filtro.push("GENERALES.CASTROL=1");
+                }
+                if (vm.filtroMarca.Valvoline) {
+                    filtro.push("GENERALES.VALVOLINE =1");
+                }
+                if (vm.filtroMarca.Chevron) {
+                    filtro.push("GENERALES.CHEVRON  =1");
+                }
+                scope.query(filtro);
                 vm.window.close();
             });
 
