@@ -3,46 +3,51 @@
     Layout = "~/Views/Shared/_LayoutMaps.cshtml";
 }
 <div class="map" ng-controller="ViewerController as vm">
-   
+
     <div kendo-toolbar k-options="vm.toolbarOptions"></div>
-    <div kendo-splitter="splitter"
-         k-panes="[ {collapsed: true, collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
-         k-orientation="'horizontal'"
-         style="height:93.5%">
-        <div ng-controller="TabController as tab">
 
-            <section class="tab">
-                <ul class="nav nav-pills">
-                    <li ng-class="{ active: tab.isSet(1) }">
-                        <a href ng-click="tab.setTab(1)">Contenido</a>
-                    </li>
-                    <li ng-class="{ active: tab.isSet(2) }">
-                        <a href ng-click="tab.setTab(2)">BaseMaps</a>
-                    </li>
-                </ul>
-                <div ng-show="tab.isSet(1)">
-                    <div id="TableOfContents"></div>
-                </div>
-                <div ng-show="tab.isSet(2)">
-                    <div id="basemapGallery"></div>
-                </div>
+    <div style="height:93.5%">
 
-            </section>
+        <div esri-map>
+            @*<div id="LocateButton"></div>
+                <div id="HomeButton"></div>*@
 
         </div>
-        <div>
-
-            <div esri-map>
-                @*<div id="LocateButton"></div>
-                <div id="HomeButton"></div>
-                <div id="LogoGeo"></div>*@
-            </div>
-        </div>
+        <div id="LogoGeo"></div>
     </div>
-    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="400" k-height="400">
+
+    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="400" k-height="225">
         <div class="container-fluid">
-            <div class="row">Desactivar la cuenta <strong> </strong>?</div>
-            <div class="row"></div>
+            <div class="row">Selccione los datos a filtrar: <strong> </strong>?</div>
+            <div class="row">
+                <input kendo-drop-down-list
+                       k-data-text-field="'text'"
+                       k-data-value-field="'value'"
+                       k-data-source="vm.data" />
+            </div>
+            <div class="row">
+                <br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Mobil">
+                    Mobil
+                </label><br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Shell">
+                    Shell
+                </label><br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Castrol">
+                    Castrol
+                </label><br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Valvoline">
+                    Valvoline
+                </label><br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Chevron">
+                    Chevron
+                </label>
+            </div>
             <div class="row">
                 <div class="pull-right">
                     <button class="btn btn-sm btn-primary" id="yesButton" ng-click="vm.yesFilter">Si</button>

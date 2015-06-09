@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="bin/Geomarketing.UI.dll">
-      <publishTime>05/06/2015 00:20:44</publishTime>
+      <publishTime>06/09/2015 06:34:52</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>05/05/2015 22:30:01</publishTime>
@@ -1965,14 +1965,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/Fotos/out_PANAMA_D_99.jpg">
       <publishTime>05/05/2015 23:59:31</publishTime>
     </File>
+    <File Include="Content/Images/bluepin.png">
+      <publishTime>06/08/2015 19:39:08</publishTime>
+    </File>
     <File Include="Content/Images/GeoBaseMap.png">
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Content/Images/LogoGeo.png">
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
+    <File Include="Content/Images/orangepin.png">
+      <publishTime>06/08/2015 19:39:08</publishTime>
+    </File>
     <File Include="Content/Site.css">
-      <publishTime>05/05/2015 22:29:59</publishTime>
+      <publishTime>06/08/2015 21:33:20</publishTime>
     </File>
     <File Include="Content/TableOfContents.css">
       <publishTime>10/29/2014 20:30:12</publishTime>
@@ -1995,6 +2001,27 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="packages.config">
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
+    <File Include="Scripts/agsjs/css/agsjs.css">
+      <publishTime>05/26/2015 22:32:38</publishTime>
+    </File>
+    <File Include="Scripts/agsjs/dijit/css/TOC.css">
+      <publishTime>05/26/2015 22:32:38</publishTime>
+    </File>
+    <File Include="Scripts/agsjs/dijit/images/googlehybrid.png">
+      <publishTime>05/26/2015 22:32:38</publishTime>
+    </File>
+    <File Include="Scripts/agsjs/dijit/images/googleroad.png">
+      <publishTime>05/26/2015 22:32:38</publishTime>
+    </File>
+    <File Include="Scripts/agsjs/dijit/images/googlesatellite.png">
+      <publishTime>05/26/2015 22:32:38</publishTime>
+    </File>
+    <File Include="Scripts/agsjs/dijit/templates/tocNode.html">
+      <publishTime>05/26/2015 22:32:38</publishTime>
+    </File>
+    <File Include="Scripts/agsjs/dijit/TOC.js">
+      <publishTime>05/26/2015 22:32:38</publishTime>
+    </File>
     <File Include="Scripts/Angular/angular-esri-map.min.js">
       <publishTime>05/05/2015 22:37:22</publishTime>
     </File>
@@ -2008,7 +2035,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Scripts/Angular/app.js">
-      <publishTime>05/05/2015 23:06:39</publishTime>
+      <publishTime>05/26/2015 22:32:38</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/About.js">
       <publishTime>05/05/2015 22:29:59</publishTime>
@@ -2020,16 +2047,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/Viewer.js">
-      <publishTime>05/19/2015 23:04:55</publishTime>
+      <publishTime>06/09/2015 06:33:21</publishTime>
     </File>
     <File Include="Scripts/Angular/Directives/Map.js">
-      <publishTime>05/19/2015 20:44:39</publishTime>
+      <publishTime>06/09/2015 06:33:25</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/Buffer.js">
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/ToolBarService.js">
-      <publishTime>05/05/2015 23:50:42</publishTime>
+      <publishTime>06/07/2015 20:11:44</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2116,7 +2143,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/GeoBI/Viewer.cshtml">
-      <publishTime>05/19/2015 23:03:53</publishTime>
+      <publishTime>06/08/2015 23:23:04</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2167,10 +2194,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/17/2015 20:45:02</publishTime>
+      <publishTime>06/07/2015 19:45:47</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutMaps.cshtml">
-      <publishTime>05/19/2015 21:25:31</publishTime>
+      <publishTime>06/08/2015 21:37:29</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2197,7 +2224,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/20/2015 08:24:35</publishTime>
+      <publishTime>06/09/2015 06:34:54</publishTime>
     </File>
   </ItemGroup>
 </Project>

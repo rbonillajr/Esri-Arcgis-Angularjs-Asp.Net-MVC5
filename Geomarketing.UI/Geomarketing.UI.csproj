@@ -767,8 +767,10 @@
     <Content Include="Content\Fotos\out_PANAMA_D_97.jpg" />
     <Content Include="Content\Fotos\out_PANAMA_D_98.jpg" />
     <Content Include="Content\Fotos\out_PANAMA_D_99.jpg" />
+    <Content Include="Content\Images\bluepin.png" />
     <Content Include="Content\Images\GeoBaseMap.png" />
     <Content Include="Content\Images\LogoGeo.png" />
+    <Content Include="Content\Images\orangepin.png" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />

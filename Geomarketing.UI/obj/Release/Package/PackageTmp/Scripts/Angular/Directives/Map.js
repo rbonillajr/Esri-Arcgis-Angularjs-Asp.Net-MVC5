@@ -1,103 +1,112 @@
-﻿//angular.module("geomarketing")
-//    .directive('esriMap', function ($timeout) {
-//        return {
-//            //template: '<div></div>',          
-//            link: function postLink(scope, element, attrs) {
-//                //debugger;
+﻿angular.module("geomarketing")
+    .directive('esriMap', function ($timeout) {
+        return {
+            template: "<div id='map'></div>",
 
-//                var init = function () {
-//                    //MapSetting
+            link: function postLink(scope, element, attrs) {
+                //debugger;
+                scope.buffered = false;
+                var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
 
-//                    esri.config.defaults.io.proxyUrl = "/proxy/";
-//                    var startExtent = new esri.geometry.Extent({
-//                        "xmin": -9146655.03, "ymin": 780775.46,
-//                        "xmax": -8596308.43, "ymax": 1147673.20,
-//                        "spatialReference": { "wkid": 102100 }
-//                    });
+                var icons = getIcons();
+                var stops = L.esri.featureLayer('http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0', {
+                    pointToLayer: function (geojson, latlng) {
 
-//                    scope.map = new esri.Map(element[0], {
+                        return L.marker(latlng, {
+                            icon: icons[geojson.properties['MOBIL_HOMOLOGACION_FINAL.STATUS']]
+                        });
+                    }
 
-//                        basemap: 'topo',
-//                        sliderOrientation: "vertical",
-//                        extent: startExtent,
-//                        logo: false
-//                    });
+                }).addTo(map);
 
-//                    dojo.connect(scope.map, "onLoad", function (map) {
+                stops.bindPopup(function (error, identifyResults) {
 
-//                        //BaseMapGallery
-//                        /*var basemaps = [];
-//                        basemaps.push(new esri.dijit.Basemap({
-//                            layers: [new esri.dijit.BasemapLayer({
-//                                type: 'GoogleMapsHybrid'
-//                            })],
-//                            title: "Google Hybrid",
-//                            id: 'GoogleHybrid',
-//                            thumbnailUrl: dojo.moduleUrl("agsjs.dijit", "images/googlehybrid.png")
-//                        }));*/
+                    return '<center><strong>' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.STATUS'] + '</strong></center><br/>' +
+                           'Nombre: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.NOMBRE'] + '<br/>' +
+                           'Provincia: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.PROVINCIA'] + '<br/>' +
+                           'Distrito: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.DISTRITO'] + '<br/>' +
+                           'Corregimiento: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.CORREGIMIE'] + '<br/>' +
+                           'Categoria: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.CATEGORIA'] + '<br/>' +
+                           'Dirección: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.DIRECCION'] + '<br/>';
 
-//                        var basemapGallery = new esri.dijit.BasemapGallery({
-//                            showArcGISBasemaps: true,
-//                            map: map
-//                        }, dojo.byId("basemapGallery"));
+                });
 
+                map.on('click', function (e) {
+                    debugger;
+                    if (scope.buffered) {
+                        var marker = L.marker(new L.LatLng(e.latlng.lat, e.latlng.lng), {
 
-//                        var layer = new esri.dijit.BasemapLayer({
+                        });
+                        var pointMarker = marker.toGeoJSON();
+                        buffered = turf.buffer(pointMarker, 50, 'kilometers');
+                        buff = L.geoJson(buffered);
+                        buff.addTo(map);
+                    }
+                });
 
-//                            url: "http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/" //colocar dynamic factory
-//                            //url: "http://190.97.161.17/arcgis/rest/services/DEMOS/MAPA_DE_SECTORIZACION_CSS/MapServer"
-//                        });
-//                        var basemap = new esri.dijit.Basemap({
-//                            layers: [layer],
-//                            title: "Geoinfo",
-//                            id: 'Geoinfo',
-//                            thumbnailUrl: "../Content/Images/GeoBaseMap.png"
-//                        });
+                var hydro = L.esri.tiledMapLayer('http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/');
 
-//                        basemapGallery.add(basemap);
-//                        basemapGallery.select('Geoinfo');
-//                        basemapGallery.startup();
+                // basemap layer groups so the hydro overlay always overlays the various basemaps
+                var nationalGeographic = L.layerGroup([
+                        L.esri.basemapLayer('NationalGeographic')
+                ]),
+                    esriTopo = L.layerGroup([
+                        L.esri.basemapLayer('Topographic')
+                    ]),
+                    esriShadedRelief = L.layerGroup([
+                        L.esri.tiledMapLayer('ShadedReliefLabels'),
+                        L.esri.basemapLayer('ShadedRelief')
+                    ]),
+                    geoinfo = L.layerGroup([
+                        hydro
+                    ]);
 
-//                        //overviewMap
-//                        overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
+                // add default layers to map
+                map.addLayer(geoinfo);
 
-//                        basemapGallery.on("load", function () {
+                // json object for layer switcher control basemaps
+                var baseLayers = {
+                    "National Geographic": nationalGeographic,
+                    "Esri Topographic": esriTopo,
+                    "Shaded Relief": esriShadedRelief,
+                    "Geoinfo": geoinfo
+                };
 
-//                            overviewMap.startup();
-//                        });
-//                        //overviewMap's event
-//                        basemapGallery.on("selection-change", function () {
+                var overlayMaps = {
 
-//                            overviewMap.destroy();
-//                            overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
-//                            overviewMap.startup();
-//                        });
-//                        basemapGallery.on("error", function (msg) {
-//                            console.log("basemap gallery error:  ", msg);
-//                        });
+                };
 
-//                        //Home Button
-//                        var homeButton = new esri.dijit.HomeButton({ map: map }, "HomeButton");
-//                        homeButton.startup();
+                // add layer groups to layer switcher control
+                var controlLayers = L.control.layers(baseLayers, overlayMaps).addTo(map);
 
-//                        //LocateButton
-//                        geoLocate = new esri.dijit.LocateButton({
-//                            map: map
-//                        }, "LocateButton");
-//                        geoLocate.startup();
+                scope.query = function (param) {
+                    stops.setWhere(param);
+                }
 
-//                        //ScaleBar
-//                        var scalebar = new esri.dijit.Scalebar({
-//                            map: map,
-//                            scalebarUnit: "dual"
-//                        });
+                function getIcons() {
+                    return {
+                        CLIENTES: L.icon({
+                            iconUrl: '/Content/Images/bluepin.png',
+                            iconRetinaUrl: '/Content/Images/bluepin.png',
+                            iconSize: [27, 31],
+                            iconAnchor: [13.5, 17.5],
+                            popupAnchor: [0, -11]
+                        }),
+                        PROSPECTOS: L.icon({
+                            iconUrl: '/Content/Images/orangepin.png',
+                            iconRetinaUrl: '/Content/Images/orangepin.png',
+                            iconSize: [27, 31],
+                            iconAnchor: [13.5, 13.5],
+                            popupAnchor: [0, -11]
+                        })
+                    }
+                }
 
-//                    });
+                scope.setBuffered = function () {
+                    debugger;
+                    
+                }
 
-//                };
-//                //dojo.addOnLoad(init);
-//                dojo.ready(init);
-
-//            }
-//        };
-//    });
+            }
+        };
+    });

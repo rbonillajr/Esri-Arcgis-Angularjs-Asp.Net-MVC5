@@ -1,13 +1,24 @@
 ﻿angular.module('geomarketing')
     .controller('ViewerController', ['$scope', function (scope) {
         var vm = this;
-        debugger;
-       
-
+        vm.data = [
+                { text: "Disponibilidad", value: 7 },
+                { text: "Exhibidores", value: 9 },
+                { text: "Comunicación Interna", value: 10 }
+               
+        ];
+        vm.filtroMarca = {
+            Mobil: false,
+            Shell: false,
+            Castrol: false,
+            Valvoline: false,
+            Chevron: false
+        }
         vm.filtros = function () {
-            $('#yesButton').click(function (e) {                          
+            $('#yesButton').click(function (e) {
+                
                 scope.query("GENERALES.PDV= 'DELTA'");
-                vm.window.close();                
+                vm.window.close();
             });
 
             $('#noButton').click(function (e) {
@@ -16,11 +27,21 @@
             vm.window.open().center();
         };
 
+        vm.buffer = function () {
+            if (scope.buffered) {
+                scope.buffered = false;
+            }
+            else {
+                scope.buffered = true;
+            }
+            //scope.setBuffered();
+            
+        };
         vm.toolbarOptions = {
             items: [
                 { type: "button", text: "Filtros", click: vm.filtros },
                 { type: "button", text: "Analisis" },
-                { type: "button", text: "Buffer" }
+                { type: "button", text: "Buffer", togglable: true, toggle: vm.buffer }
             ]
         };
         //vm.map = {
