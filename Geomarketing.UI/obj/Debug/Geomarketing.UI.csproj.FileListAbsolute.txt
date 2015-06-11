@@ -166,3 +166,4 @@ D:\Utils\otros\Esri-Arcgis-Angularjs-Asp.Net-MVC5\Geomarketing.UI\obj\Debug\Geom
 D:\Utils\otros\Esri-Arcgis-Angularjs-Asp.Net-MVC5\Geomarketing.UI\obj\Debug\Geomarketing.UI.csproj.GenerateResource.Cache
 D:\Utils\otros\Esri-Arcgis-Angularjs-Asp.Net-MVC5\Geomarketing.UI\obj\Debug\Geomarketing.UI.dll
 D:\Utils\otros\Esri-Arcgis-Angularjs-Asp.Net-MVC5\Geomarketing.UI\obj\Debug\Geomarketing.UI.pdb
+D:\Utils\otros\Esri-Arcgis-Angularjs-Asp.Net-MVC5\Geomarketing.UI\obj\Debug\Geomarketing.UI.csprojResolveAssemblyReference.cache

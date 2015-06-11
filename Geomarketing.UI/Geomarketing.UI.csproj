@@ -793,6 +793,7 @@
     <Content Include="Scripts\Angular\Directives\Map.js" />
     <Content Include="Scripts\Angular\Services\Buffer.js" />
     <Content Include="Scripts\Angular\Services\ToolBarService.js" />
+    <Content Include="Scripts\Angular\Services\UtilityService.js" />
     <Content Include="Scripts\dojo.js" />
     <Content Include="Views\GeoBI\Viewer.cshtml" />
     <Content Include="Views\Shared\_LayoutMaps.cshtml" />

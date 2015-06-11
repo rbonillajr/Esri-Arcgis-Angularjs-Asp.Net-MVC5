@@ -1,5 +1,5 @@
 ﻿angular.module("geomarketing")
-    .directive('esriMap', ['$timeout', 'bufferService', function ($timeout, bufferService) {
+    .directive('esriMap', ['$timeout', 'bufferService', 'utilityService', function ($timeout, bufferService, utilityService) {
         return {
             template: "<div id='map'></div>",
             link: function postLink(scope, element, attrs) {
@@ -8,28 +8,55 @@
                 var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
 
                 var icons = getIcons();
-                var stops = L.esri.featureLayer('http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0', {
-                    pointToLayer: function (geojson, latlng) {
+                //var stops = L.esri.featureLayer('http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0', {
+                //    pointToLayer: function (geojson, latlng) {
 
-                        return L.marker(latlng, {
-                            icon: icons[geojson.properties['STATUS']]
-                        });
-                    }
+                //        return L.marker(latlng, {
+                //            icon: icons[geojson.properties['STATUS']]
+                //        });
+                //    }
 
-                }).addTo(map);
+                //}).addTo(map);
+                //stops.bindPopup(function (error, identifyResults) {
+                        
+                //        return '<center><strong>' + identifyResults.feature.properties['STATUS'] + '</strong></center><br/>' +
+                //               'Nombre: ' + identifyResults.feature.properties['NOMBRE'] + '<br/>' +
+                //               'Provincia: ' + identifyResults.feature.properties['PROVINCIA'] + '<br/>' +
+                //               'Distrito: ' + identifyResults.feature.properties['DISTRITO'] + '<br/>' +
+                //               'Corregimiento: ' + identifyResults.feature.properties['CORREGIMIE'] + '<br/>' +
+                //               'Categoria: ' + identifyResults.feature.properties['CATEGORIA'] + '<br/>' +
+                //               'Dirección: ' + identifyResults.feature.properties['DIRECCION'] + '<br/>';
 
+                //    });
+                
+                var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0/query?where=objectid+%3D+objectid&outfields=*&f=json';
+                utilityService.arcgisToFeatureCollection(url, function (error, featureCollection) {
+                    debugger;
+                    var geojson = L.geoJson(featureCollection, {
+                        pointToLayer: function (geojson, latlng) {
+                            
+                                    return L.marker(latlng, {
+                                        icon: icons[geojson.properties['STATUS']]
+                                    });
+                                }
+                    }).addTo(map);
 
-                stops.bindPopup(function (error, identifyResults) {
+                    map.fitBounds(geojson.getBounds());
 
-                    return '<center><strong>' + identifyResults.feature.properties['STATUS'] + '</strong></center><br/>' +
-                           'Nombre: ' + identifyResults.feature.properties['NOMBRE'] + '<br/>' +
-                           'Provincia: ' + identifyResults.feature.properties['PROVINCIA'] + '<br/>' +
-                           'Distrito: ' + identifyResults.feature.properties['DISTRITO'] + '<br/>' +
-                           'Corregimiento: ' + identifyResults.feature.properties['CORREGIMIE'] + '<br/>' +
-                           'Categoria: ' + identifyResults.feature.properties['CATEGORIA'] + '<br/>' +
-                           'Dirección: ' + identifyResults.feature.properties['DIRECCION'] + '<br/>';
+                    geojson.bindPopup(function (error, identifyResults) {
+                        debugger
+                        return '<center><strong>' + identifyResults.feature.properties['STATUS'] + '</strong></center><br/>' +
+                               'Nombre: ' + identifyResults.feature.properties['NOMBRE'] + '<br/>' +
+                               'Provincia: ' + identifyResults.feature.properties['PROVINCIA'] + '<br/>' +
+                               'Distrito: ' + identifyResults.feature.properties['DISTRITO'] + '<br/>' +
+                               'Corregimiento: ' + identifyResults.feature.properties['CORREGIMIE'] + '<br/>' +
+                               'Categoria: ' + identifyResults.feature.properties['CATEGORIA'] + '<br/>' +
+                               'Dirección: ' + identifyResults.feature.properties['DIRECCION'] + '<br/>';
 
+                    });
                 });
+
+                
 
                 map.on('click', function (e) {
                     debugger;
@@ -56,7 +83,7 @@
                         for (var i = features.length - 1; i >= 0; i--) {
                             // convert ArcGIS Feature to GeoJSON Feature
                             var feature = L.esri.Util.arcgisToGeojson(features[i], idField);
-
+                            debugger;
                             // unproject the web mercator coordinates to lat/lng
                             var latlng = L.Projection.Mercator.unproject(L.point(feature.geometry.coordinates));
                             feature.geometry.coordinates = [latlng.lng, latlng.lat];
@@ -108,7 +135,7 @@
                     ]);
 
                 // add default layers to map
-                map.addLayer(geoinfo);
+                map.addLayer(esriTopo);
 
                 // json object for layer switcher control basemaps
                 var baseLayers = {
