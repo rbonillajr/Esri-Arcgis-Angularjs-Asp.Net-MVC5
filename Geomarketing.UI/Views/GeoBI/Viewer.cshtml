@@ -58,4 +58,20 @@
         </div>
     </div>
 
+    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="250" k-height="230">
+        <div class="container-fluid">
+            <div class="row">Selccione los datos a filtrar: <strong> </strong>?</div>
+            <div class="row">
+                <input kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="value" />
+            </div>
+            
+            <div class="row">
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-primary" id="yesButton" ng-click="vm.yesFilter">Si</button>
+                    <button class="btn btn-sm" id="noButton" ng-click="vm.cancelFilter">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

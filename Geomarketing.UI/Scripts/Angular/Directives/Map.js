@@ -1,32 +1,33 @@
 ﻿angular.module("geomarketing")
     .directive('esriMap', ['$timeout', 'bufferService', function ($timeout, bufferService) {
         return {
-            template: "<div id='map'></div>",            
+            template: "<div id='map'></div>",
             link: function postLink(scope, element, attrs) {
                 //debugger;
                 scope.buffered = false;
                 var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
 
                 var icons = getIcons();
-                var stops = L.esri.featureLayer('http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0', {
+                var stops = L.esri.featureLayer('http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0', {
                     pointToLayer: function (geojson, latlng) {
 
                         return L.marker(latlng, {
-                            icon: icons[geojson.properties['MOBIL_HOMOLOGACION_FINAL.STATUS']]
+                            icon: icons[geojson.properties['STATUS']]
                         });
                     }
 
                 }).addTo(map);
 
+
                 stops.bindPopup(function (error, identifyResults) {
 
-                    return '<center><strong>' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.STATUS'] + '</strong></center><br/>' +
-                           'Nombre: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.NOMBRE'] + '<br/>' +
-                           'Provincia: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.PROVINCIA'] + '<br/>' +
-                           'Distrito: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.DISTRITO'] + '<br/>' +
-                           'Corregimiento: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.CORREGIMIE'] + '<br/>' +
-                           'Categoria: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.CATEGORIA'] + '<br/>' +
-                           'Dirección: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.DIRECCION'] + '<br/>';
+                    return '<center><strong>' + identifyResults.feature.properties['STATUS'] + '</strong></center><br/>' +
+                           'Nombre: ' + identifyResults.feature.properties['NOMBRE'] + '<br/>' +
+                           'Provincia: ' + identifyResults.feature.properties['PROVINCIA'] + '<br/>' +
+                           'Distrito: ' + identifyResults.feature.properties['DISTRITO'] + '<br/>' +
+                           'Corregimiento: ' + identifyResults.feature.properties['CORREGIMIE'] + '<br/>' +
+                           'Categoria: ' + identifyResults.feature.properties['CATEGORIA'] + '<br/>' +
+                           'Dirección: ' + identifyResults.feature.properties['DIRECCION'] + '<br/>';
 
                 });
 
@@ -38,11 +39,35 @@
                             map.removeLayer(buff);
                         }
 
-                        bufferService.get(50, 'kilometers',e.latlng, function (buff) {
+                        bufferService.get(50, 'kilometers', e.latlng, function (buff) {
                             buff.addTo(map);
                         });
-                        
-                        
+
+                        debugger;
+                        var features = response.operationalLayers[0].featureCollection.layers[0].featureSet.features;
+                        var idField = response.operationalLayers[0].featureCollection.layers[0].layerDefinition.objectIdField;
+
+                        // empty geojson feature collection
+                        var featureCollection = {
+                            type: 'FeatureCollection',
+                            features: []
+                        };
+
+                        for (var i = features.length - 1; i >= 0; i--) {
+                            // convert ArcGIS Feature to GeoJSON Feature
+                            var feature = L.esri.Util.arcgisToGeojson(features[i], idField);
+
+                            // unproject the web mercator coordinates to lat/lng
+                            var latlng = L.Projection.Mercator.unproject(L.point(feature.geometry.coordinates));
+                            feature.geometry.coordinates = [latlng.lng, latlng.lat];
+
+                            featureCollection.features.push(feature);
+                        }
+
+                        var geojson = L.geoJson(featureCollection).addTo(map);
+
+                        map.fitBounds(geojson.getBounds());
+
 
                         //var stationsInside = turf.within(L.esri.Util.arcgisToGeojson(stops), buff);
 
@@ -58,8 +83,7 @@
                         //    style:{ radius: 8, fillColor: "red", weight: 1 } 
                         //}).addTo(map);
 
-                    }else
-                    {
+                    } else {
                         if (typeof buff != 'undefined') {
                             map.removeLayer(buff);
                         }
@@ -102,12 +126,11 @@
                 var controlLayers = L.control.layers(baseLayers, overlayMaps).addTo(map);
 
                 scope.query = function (param) {
-                    var filtro = '';                    
-                    _.each(param, function (item, index) {                        
+                    var filtro = '';
+                    _.each(param, function (item, index) {
                         if (param.length == 1 || index == 0) {
                             filtro = item;
-                        }else
-                        {
+                        } else {
                             filtro = filtro + ' AND ' + item
                         }
                     })
@@ -131,7 +154,7 @@
                             popupAnchor: [0, -11]
                         })
                     }
-                }            
+                }
 
             }
         };
