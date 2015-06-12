@@ -9,9 +9,8 @@ function ($q, $log) {
         var marker = L.marker(latlng, {});
         var pointMarker = marker.toGeoJSON();
         buffered = turf.buffer(pointMarker, radio, unidades);
-        buff = L.geoJson(buffered);
-        
-        callback(buff);
+               
+        callback(buffered);
     };
 
 

@@ -29,34 +29,39 @@
 
                 //    });
                 
-                var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0/query?where=objectid+%3D+objectid&outfields=*&f=json';
-                utilityService.arcgisToFeatureCollection(url, function (error, featureCollection) {
-                    debugger;
-                    var geojson = L.geoJson(featureCollection, {
-                        pointToLayer: function (geojson, latlng) {
-                            
-                                    return L.marker(latlng, {
-                                        icon: icons[geojson.properties['STATUS']]
-                                    });
-                                }
+                
+                var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0';
+                
+                L.esri.Tasks.query({
+                    url: url
+                }).run(function (error, data, response) {
+                    
+                    scope.stops = data;
+                                       
+                    L.geoJson(data, {
+                        style: function (feature) {                           
+                            return {
+                                weight: 1,
+                                opacity: .25,
+                                color: "#333",
+                                fillColor: "#0000ff",
+                                fillOpacity: 0.75
+                            }
+                        },
+                        onEachFeature: function (feature, layer) {
+                           
+                            layer.bindPopup('<center><strong>' + feature.properties.STATUS + '</strong></center><br/>' +
+                                           'Nombre: ' + feature.properties.NOMBRE + '<br/>' +
+                                           'Provincia: ' + feature.properties.PROVINCIA + '<br/>' +
+                                           'Distrito: ' + feature.properties.DISTRITO + '<br/>' +
+                                           'Corregimiento: ' + feature.properties.CORREGIMIE + '<br/>' +
+                                           'Categoria: ' + feature.properties.CATEGORIA + '<br/>' +
+                                           'Dirección: ' + feature.properties.DIRECCION + '<br/>');
+                        }
                     }).addTo(map);
 
-                    map.fitBounds(geojson.getBounds());
-
-                    geojson.bindPopup(function (error, identifyResults) {
-                        debugger
-                        return '<center><strong>' + identifyResults.feature.properties['STATUS'] + '</strong></center><br/>' +
-                               'Nombre: ' + identifyResults.feature.properties['NOMBRE'] + '<br/>' +
-                               'Provincia: ' + identifyResults.feature.properties['PROVINCIA'] + '<br/>' +
-                               'Distrito: ' + identifyResults.feature.properties['DISTRITO'] + '<br/>' +
-                               'Corregimiento: ' + identifyResults.feature.properties['CORREGIMIE'] + '<br/>' +
-                               'Categoria: ' + identifyResults.feature.properties['CATEGORIA'] + '<br/>' +
-                               'Dirección: ' + identifyResults.feature.properties['DIRECCION'] + '<br/>';
-
-                    });
                 });
-
-                
+                              
 
                 map.on('click', function (e) {
                     debugger;
@@ -66,53 +71,37 @@
                             map.removeLayer(buff);
                         }
 
-                        bufferService.get(50, 'kilometers', e.latlng, function (buff) {
+                        bufferService.get(50, 'kilometers', e.latlng, function (buffered) {
+                            buff = L.geoJson(buffered);
                             buff.addTo(map);
-                        });
 
-                        debugger;
-                        var features = response.operationalLayers[0].featureCollection.layers[0].featureSet.features;
-                        var idField = response.operationalLayers[0].featureCollection.layers[0].layerDefinition.objectIdField;
+                            var inside = turf.within(scope.stops, buffered);
 
-                        // empty geojson feature collection
-                        var featureCollection = {
-                            type: 'FeatureCollection',
-                            features: []
-                        };
+                            var pointsNumber = 0;
 
-                        for (var i = features.length - 1; i >= 0; i--) {
-                            // convert ArcGIS Feature to GeoJSON Feature
-                            var feature = L.esri.Util.arcgisToGeojson(features[i], idField);
-                            debugger;
-                            // unproject the web mercator coordinates to lat/lng
-                            var latlng = L.Projection.Mercator.unproject(L.point(feature.geometry.coordinates));
-                            feature.geometry.coordinates = [latlng.lng, latlng.lat];
+                            if (typeof pointsInside != 'undefined') {
+                                map.removeLayer(pointsInside);
+                            }
 
-                            featureCollection.features.push(feature);
-                        }
-
-                        var geojson = L.geoJson(featureCollection).addTo(map);
-
-                        map.fitBounds(geojson.getBounds());
-
-
-                        //var stationsInside = turf.within(L.esri.Util.arcgisToGeojson(stops), buff);
-
-                        //var stationsNumber=0;
-                        //var gasstationsinside =L.geoJson(stationsInside, {
-                        //    onEachFeature: function(feature, layer) {
-                        //        stationsNumber++
-                        //        layer.bindPopup("<h4>test</h4>"); 
-                        //    }, 
-                        //    pointToLayer: function (feature, latlng) { 
-                        //        return L.circleMarker(latlng); 
-                        //    }, 
-                        //    style:{ radius: 8, fillColor: "red", weight: 1 } 
-                        //}).addTo(map);
+                            pointsInside = L.geoJson(inside, {
+                                onEachFeature: function (feature, layer) {
+                                    pointsNumber++
+                                    layer.bindPopup("<h4>test</h4>");
+                                },
+                                pointToLayer: function (feature, latlng) {
+                                    return L.circleMarker(latlng);
+                                },
+                                style: { radius: 8, fillColor: "red", weight: 1 }
+                            }).addTo(map);
+                        });                     
+                        
 
                     } else {
                         if (typeof buff != 'undefined') {
                             map.removeLayer(buff);
+                        }
+                        if (typeof pointsInside != 'undefined') {
+                            map.removeLayer(pointsInside);
                         }
                     }
                 });
