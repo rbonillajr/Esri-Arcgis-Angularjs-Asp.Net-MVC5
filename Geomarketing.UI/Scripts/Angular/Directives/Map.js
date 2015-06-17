@@ -7,64 +7,54 @@
                 scope.buffered = false;
                 var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
 
-                var icons = getIcons();
-                //var stops = L.esri.featureLayer('http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0', {
-                //    pointToLayer: function (geojson, latlng) {
-
-                //        return L.marker(latlng, {
-                //            icon: icons[geojson.properties['STATUS']]
-                //        });
-                //    }
-
-                //}).addTo(map);
-                //stops.bindPopup(function (error, identifyResults) {
-                        
-                //        return '<center><strong>' + identifyResults.feature.properties['STATUS'] + '</strong></center><br/>' +
-                //               'Nombre: ' + identifyResults.feature.properties['NOMBRE'] + '<br/>' +
-                //               'Provincia: ' + identifyResults.feature.properties['PROVINCIA'] + '<br/>' +
-                //               'Distrito: ' + identifyResults.feature.properties['DISTRITO'] + '<br/>' +
-                //               'Corregimiento: ' + identifyResults.feature.properties['CORREGIMIE'] + '<br/>' +
-                //               'Categoria: ' + identifyResults.feature.properties['CATEGORIA'] + '<br/>' +
-                //               'Dirección: ' + identifyResults.feature.properties['DIRECCION'] + '<br/>';
-
-                //    });
-                
+               // var icons = getIcons();
                 
                 var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0';
-                
+
                 L.esri.Tasks.query({
                     url: url
                 }).run(function (error, data, response) {
-                    
+
                     scope.stops = data;
-                                       
+
                     L.geoJson(data, {
-                        style: function (feature) {                           
-                            return {
-                                weight: 1,
-                                opacity: .25,
-                                color: "#333",
-                                fillColor: "#0000ff",
-                                fillOpacity: 0.75
-                            }
-                        },
+                       
                         onEachFeature: function (feature, layer) {
-                           
+
                             layer.bindPopup('<center><strong>' + feature.properties.STATUS + '</strong></center><br/>' +
-                                           'Nombre: ' + feature.properties.NOMBRE + '<br/>' +
-                                           'Provincia: ' + feature.properties.PROVINCIA + '<br/>' +
-                                           'Distrito: ' + feature.properties.DISTRITO + '<br/>' +
-                                           'Corregimiento: ' + feature.properties.CORREGIMIE + '<br/>' +
-                                           'Categoria: ' + feature.properties.CATEGORIA + '<br/>' +
-                                           'Dirección: ' + feature.properties.DIRECCION + '<br/>');
+                                           '<strong>Nombre: </strong>' + feature.properties.NOMBRE + '<br/>' +
+                                           '<strong>Provincia: </strong>' + feature.properties.PROVINCIA + '<br/>' +
+                                           '<strong>Distrito: </strong>' + feature.properties.DISTRITO + '<br/>' +
+                                           '<strong>Corregimiento: </strong>' + feature.properties.CORREGIMIE + '<br/>' +
+                                           '<strong>Categoria: </strong>' + feature.properties.CATEGORIA + '<br/>' +
+                                           '<strong>Dirección: </strong>' + feature.properties.DIRECCION + '<br/>');
+                        },
+                        pointToLayer: function (feature, latlng) {
+                            switch (feature.properties.STATUS) {
+
+                                case 'CLIENTES':
+                                    return L.marker(latlng, {
+                                        icon: L.AwesomeMarkers.icon({
+                                            icon: 'flag',
+                                            markerColor: 'darkblue'
+                                        })
+                                    })
+                                default:
+                                    return L.marker(latlng, {
+                                        icon: L.AwesomeMarkers.icon({
+                                            icon: 'bookmark',
+                                            markerColor: 'green'
+                                        })
+                                    })
+                            }
                         }
                     }).addTo(map);
 
                 });
-                              
+
 
                 map.on('click', function (e) {
-                    debugger;
+
                     if (scope.buffered) {
 
                         if (typeof buff != 'undefined') {
@@ -86,15 +76,16 @@
                             pointsInside = L.geoJson(inside, {
                                 onEachFeature: function (feature, layer) {
                                     pointsNumber++
-                                    layer.bindPopup("<h4>test</h4>");
+                                    //layer.bindPopup("<h4>test</h4>");
                                 },
                                 pointToLayer: function (feature, latlng) {
                                     return L.circleMarker(latlng);
                                 },
-                                style: { radius: 8, fillColor: "red", weight: 1 }
+                                style: { radius: 10, fillColor: "red", weight: 1 }
                             }).addTo(map);
-                        });                     
-                        
+                           
+                        });
+
 
                     } else {
                         if (typeof buff != 'undefined') {
@@ -106,7 +97,7 @@
                     }
                 });
 
-                var hydro = L.esri.tiledMapLayer('http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/');
+                var mapaBaseGeoinfo = L.esri.tiledMapLayer('http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/');
 
                 // basemap layer groups so the hydro overlay always overlays the various basemaps
                 var nationalGeographic = L.layerGroup([
@@ -120,11 +111,11 @@
                         L.esri.basemapLayer('ShadedRelief')
                     ]),
                     geoinfo = L.layerGroup([
-                        hydro
+                        mapaBaseGeoinfo
                     ]);
 
                 // add default layers to map
-                map.addLayer(esriTopo);
+                map.addLayer(geoinfo);
 
                 // json object for layer switcher control basemaps
                 var baseLayers = {

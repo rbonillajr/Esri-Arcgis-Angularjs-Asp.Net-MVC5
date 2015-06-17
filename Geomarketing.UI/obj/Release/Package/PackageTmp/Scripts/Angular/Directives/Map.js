@@ -1,50 +1,102 @@
 ﻿angular.module("geomarketing")
-    .directive('esriMap', function ($timeout) {
+    .directive('esriMap', ['$timeout', 'bufferService', 'utilityService', function ($timeout, bufferService, utilityService) {
         return {
             template: "<div id='map'></div>",
-
             link: function postLink(scope, element, attrs) {
                 //debugger;
                 scope.buffered = false;
                 var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
 
-                var icons = getIcons();
-                var stops = L.esri.featureLayer('http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0', {
-                    pointToLayer: function (geojson, latlng) {
+               // var icons = getIcons();
+                
+                var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0';
 
-                        return L.marker(latlng, {
-                            icon: icons[geojson.properties['MOBIL_HOMOLOGACION_FINAL.STATUS']]
-                        });
-                    }
+                L.esri.Tasks.query({
+                    url: url
+                }).run(function (error, data, response) {
 
-                }).addTo(map);
+                    scope.stops = data;
 
-                stops.bindPopup(function (error, identifyResults) {
+                    L.geoJson(data, {
+                       
+                        onEachFeature: function (feature, layer) {
 
-                    return '<center><strong>' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.STATUS'] + '</strong></center><br/>' +
-                           'Nombre: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.NOMBRE'] + '<br/>' +
-                           'Provincia: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.PROVINCIA'] + '<br/>' +
-                           'Distrito: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.DISTRITO'] + '<br/>' +
-                           'Corregimiento: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.CORREGIMIE'] + '<br/>' +
-                           'Categoria: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.CATEGORIA'] + '<br/>' +
-                           'Dirección: ' + identifyResults.feature.properties['MOBIL_HOMOLOGACION_FINAL.DIRECCION'] + '<br/>';
+                            layer.bindPopup('<center><strong>' + feature.properties.STATUS + '</strong></center><br/>' +
+                                           '<strong>Nombre: </strong>' + feature.properties.NOMBRE + '<br/>' +
+                                           '<strong>Provincia: </strong>' + feature.properties.PROVINCIA + '<br/>' +
+                                           '<strong>Distrito: </strong>' + feature.properties.DISTRITO + '<br/>' +
+                                           '<strong>Corregimiento: </strong>' + feature.properties.CORREGIMIE + '<br/>' +
+                                           '<strong>Categoria: </strong>' + feature.properties.CATEGORIA + '<br/>' +
+                                           '<strong>Dirección: </strong>' + feature.properties.DIRECCION + '<br/>');
+                        },
+                        pointToLayer: function (feature, latlng) {
+                            switch (feature.properties.STATUS) {
+
+                                case 'CLIENTES':
+                                    return L.marker(latlng, {
+                                        icon: L.AwesomeMarkers.icon({
+                                            icon: 'flag',
+                                            markerColor: 'darkblue'
+                                        })
+                                    })
+                                default:
+                                    return L.marker(latlng, {
+                                        icon: L.AwesomeMarkers.icon({
+                                            icon: 'bookmark',
+                                            markerColor: 'green'
+                                        })
+                                    })
+                            }
+                        }
+                    }).addTo(map);
 
                 });
+
 
                 map.on('click', function (e) {
-                    debugger;
-                    if (scope.buffered) {
-                        var marker = L.marker(new L.LatLng(e.latlng.lat, e.latlng.lng), {
 
+                    if (scope.buffered) {
+
+                        if (typeof buff != 'undefined') {
+                            map.removeLayer(buff);
+                        }
+
+                        bufferService.get(50, 'kilometers', e.latlng, function (buffered) {
+                            buff = L.geoJson(buffered);
+                            buff.addTo(map);
+
+                            var inside = turf.within(scope.stops, buffered);
+
+                            var pointsNumber = 0;
+
+                            if (typeof pointsInside != 'undefined') {
+                                map.removeLayer(pointsInside);
+                            }
+
+                            pointsInside = L.geoJson(inside, {
+                                onEachFeature: function (feature, layer) {
+                                    pointsNumber++
+                                    //layer.bindPopup("<h4>test</h4>");
+                                },
+                                pointToLayer: function (feature, latlng) {
+                                    return L.circleMarker(latlng);
+                                },
+                                style: { radius: 10, fillColor: "red", weight: 1 }
+                            }).addTo(map);
                         });
-                        var pointMarker = marker.toGeoJSON();
-                        buffered = turf.buffer(pointMarker, 50, 'kilometers');
-                        buff = L.geoJson(buffered);
-                        buff.addTo(map);
+
+
+                    } else {
+                        if (typeof buff != 'undefined') {
+                            map.removeLayer(buff);
+                        }
+                        if (typeof pointsInside != 'undefined') {
+                            map.removeLayer(pointsInside);
+                        }
                     }
                 });
 
-                var hydro = L.esri.tiledMapLayer('http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/');
+                var mapaBaseGeoinfo = L.esri.tiledMapLayer('http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/');
 
                 // basemap layer groups so the hydro overlay always overlays the various basemaps
                 var nationalGeographic = L.layerGroup([
@@ -58,7 +110,7 @@
                         L.esri.basemapLayer('ShadedRelief')
                     ]),
                     geoinfo = L.layerGroup([
-                        hydro
+                        mapaBaseGeoinfo
                     ]);
 
                 // add default layers to map
@@ -80,7 +132,15 @@
                 var controlLayers = L.control.layers(baseLayers, overlayMaps).addTo(map);
 
                 scope.query = function (param) {
-                    stops.setWhere(param);
+                    var filtro = '';
+                    _.each(param, function (item, index) {
+                        if (param.length == 1 || index == 0) {
+                            filtro = item;
+                        } else {
+                            filtro = filtro + ' AND ' + item
+                        }
+                    })
+                    stops.setWhere(filtro);
                 }
 
                 function getIcons() {
@@ -102,11 +162,6 @@
                     }
                 }
 
-                scope.setBuffered = function () {
-                    debugger;
-                    
-                }
-
             }
         };
-    });
+    }]);

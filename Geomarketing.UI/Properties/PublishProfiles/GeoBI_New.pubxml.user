@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="bin/Geomarketing.UI.dll">
-      <publishTime>06/09/2015 06:34:52</publishTime>
+      <publishTime>06/12/2015 21:35:57</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>05/05/2015 22:30:01</publishTime>
@@ -1966,7 +1966,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 23:59:31</publishTime>
     </File>
     <File Include="Content/Images/bluepin.png">
-      <publishTime>06/08/2015 19:39:08</publishTime>
+      <publishTime>06/10/2015 21:54:43</publishTime>
     </File>
     <File Include="Content/Images/GeoBaseMap.png">
       <publishTime>05/05/2015 22:29:59</publishTime>
@@ -1975,7 +1975,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Content/Images/orangepin.png">
-      <publishTime>06/08/2015 19:39:08</publishTime>
+      <publishTime>06/10/2015 21:54:43</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>06/08/2015 21:33:20</publishTime>
@@ -2047,16 +2047,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/Viewer.js">
-      <publishTime>06/09/2015 06:33:21</publishTime>
+      <publishTime>06/10/2015 21:54:43</publishTime>
     </File>
     <File Include="Scripts/Angular/Directives/Map.js">
-      <publishTime>06/09/2015 06:33:25</publishTime>
+      <publishTime>06/12/2015 22:18:18</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/Buffer.js">
-      <publishTime>05/05/2015 22:29:59</publishTime>
+      <publishTime>06/12/2015 19:27:20</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/ToolBarService.js">
       <publishTime>06/07/2015 20:11:44</publishTime>
+    </File>
+    <File Include="Scripts/Angular/Services/UtilityService.js">
+      <publishTime>06/12/2015 19:27:20</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2091,6 +2094,36 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
+    <File Include="Scripts/Markers/images/markers-matte%402x.png">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
+    <File Include="Scripts/Markers/images/markers-matte.png">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
+    <File Include="Scripts/Markers/images/markers-plain.png">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
+    <File Include="Scripts/Markers/images/markers-shadow%402x.png">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
+    <File Include="Scripts/Markers/images/markers-shadow.png">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
+    <File Include="Scripts/Markers/images/markers-soft%402x.png">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
+    <File Include="Scripts/Markers/images/markers-soft.png">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
+    <File Include="Scripts/Markers/leaflet.awesome-markers.css">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
+    <File Include="Scripts/Markers/leaflet.awesome-markers.js">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
+    <File Include="Scripts/Markers/leaflet.awesome-markers.min.js">
+      <publishTime>06/12/2015 20:55:57</publishTime>
+    </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
@@ -2102,6 +2135,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/TableOfContents.js">
       <publishTime>10/29/2014 21:04:02</publishTime>
+    </File>
+    <File Include="Scripts/Underscore/underscore-min.js">
+      <publishTime>06/10/2015 21:54:43</publishTime>
+    </File>
+    <File Include="Scripts/Underscore/underscore-min.map">
+      <publishTime>06/10/2015 21:54:43</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2143,7 +2182,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/GeoBI/Viewer.cshtml">
-      <publishTime>06/08/2015 23:23:04</publishTime>
+      <publishTime>06/12/2015 19:23:53</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2197,7 +2236,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2015 19:45:47</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutMaps.cshtml">
-      <publishTime>06/08/2015 21:37:29</publishTime>
+      <publishTime>06/12/2015 21:01:03</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2224,7 +2263,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/09/2015 06:34:54</publishTime>
+      <publishTime>06/12/2015 20:14:37</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -795,6 +795,16 @@
     <Content Include="Scripts\Angular\Services\ToolBarService.js" />
     <Content Include="Scripts\Angular\Services\UtilityService.js" />
     <Content Include="Scripts\dojo.js" />
+    <Content Include="Scripts\Markers\images\markers-matte%402x.png" />
+    <Content Include="Scripts\Markers\images\markers-matte.png" />
+    <Content Include="Scripts\Markers\images\markers-plain.png" />
+    <Content Include="Scripts\Markers\images\markers-shadow%402x.png" />
+    <Content Include="Scripts\Markers\images\markers-shadow.png" />
+    <Content Include="Scripts\Markers\images\markers-soft%402x.png" />
+    <Content Include="Scripts\Markers\images\markers-soft.png" />
+    <Content Include="Scripts\Markers\leaflet.awesome-markers.css" />
+    <Content Include="Scripts\Markers\leaflet.awesome-markers.js" />
+    <Content Include="Scripts\Markers\leaflet.awesome-markers.min.js" />
     <Content Include="Scripts\Underscore\underscore-min.js" />
     <Content Include="Views\GeoBI\Viewer.cshtml" />
     <Content Include="Views\Shared\_LayoutMaps.cshtml" />
