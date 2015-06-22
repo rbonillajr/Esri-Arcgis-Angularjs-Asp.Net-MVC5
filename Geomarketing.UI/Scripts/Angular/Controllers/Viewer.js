@@ -7,9 +7,9 @@
         
         vm.data = [
                 { text: "Disponibilidad", value: 7 },
-                { text: "Exhibidores", value: 9 },
-                { text: "Comunicación Interna", value: 10 }
-               
+                /*{ text: "Exhibidores", value: 9 },
+                { text: "Comunicación Interna", value: 10 },*/
+                { text: "Top Of Mind", value: 11 }
         ];
         vm.unidades = [
                 { text: "Kilometros", value: "kilometers" },
@@ -28,30 +28,58 @@
 
         vm.filtros = function () {
             $('#yesButton').click(function (e) {
-                debugger;
+               
                 filtro = [];
+                switch (vm.selected) {
+                    case '7':
+                        if (vm.filtroMarca.Mobil) {
+                            filtro.push("MOBIL=1");
+                        }
+                        if (vm.filtroMarca.Shell) {
+                            filtro.push("SHELL=1");
+                        }
+                        if (vm.filtroMarca.Castrol) {
+                            filtro.push("CASTROL=1");
+                        }
+                        if (vm.filtroMarca.Valvoline) {
+                            filtro.push("VALVOLINE =1");
+                        }
+                        if (vm.filtroMarca.Chevron) {
+                            filtro.push("CHEVRON  =1");
+                        }
+                        break
+                    case '11':
+                        if (vm.filtroMarca.Mobil) {
+                            filtro.push("TOM_MOBIL=1");
+                        }
+                        if (vm.filtroMarca.Shell) {
+                            filtro.push("TOM_SHELL=1");
+                        }
+                        if (vm.filtroMarca.Castrol) {
+                            filtro.push("TOM_CASTROL=1");
+                        }
+                        if (vm.filtroMarca.Valvoline) {
+                            filtro.push("TOM_VALVOLINE =1");
+                        }
+                        if (vm.filtroMarca.Chevron) {
+                            filtro.push("TOM_CHEVRON  =1");
+                        }
+                        break;
+                    default:
 
-                if (vm.filtroMarca.Mobil)
-                {
-                    filtro.push("GENERALES.MOBIL=1");
                 }
-                if (vm.filtroMarca.Shell) {
-                    filtro.push("GENERALES.SHELL=1");
-                }
-                if (vm.filtroMarca.Castrol) {
-                    filtro.push("GENERALES.CASTROL=1");
-                }
-                if (vm.filtroMarca.Valvoline) {
-                    filtro.push("GENERALES.VALVOLINE =1");
-                }
-                if (vm.filtroMarca.Chevron) {
-                    filtro.push("GENERALES.CHEVRON  =1");
-                }
+                
+
+                
                 scope.query(filtro);
                 vm.window.close();
             });
 
             $('#noButton').click(function (e) {
+                vm.window.close();
+            });
+            $('#limpiarFilter').click(function (e) {
+                scope.query("1=1");
                 vm.window.close();
             });
             vm.window.open().center();

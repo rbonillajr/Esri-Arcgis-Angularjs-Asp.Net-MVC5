@@ -16,7 +16,7 @@
         <div id="LogoGeo"></div>
     </div>
 
-    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="250" k-height="230">
+    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="300" k-height="300">
         <div class="container-fluid">
             <div class="row">Selccione los datos a filtrar: <strong> </strong>?</div>
             <div class="row">
@@ -50,9 +50,11 @@
                 </label>
             </div>
             <div class="row">
+                
                 <div class="pull-right">
-                    <button class="btn btn-sm btn-primary" id="yesButton" ng-click="vm.yesFilter">Filtrar</button>
-                    <button class="btn btn-sm" id="noButton" ng-click="vm.cancelFilter">Cancelar</button>
+                    <button class="btn btn-sm btn-primary" id="yesButton" >Filtrar</button>
+                    <button class="btn btn-sm" id="noButton" >Cancelar</button>
+                    <button class="btn btn-sm btn-info" id="limpiarFilter">Limpiar Filtro</button>
                 </div>
             </div>
         </div>
@@ -76,7 +78,7 @@
                        ng-model="selectedUnidades" />
             </div>     
                 <div class="row">
-                    <br/>
+                    <br/>                    
                     <div class="pull-right">
                         <button class="btn btn-sm btn-primary" id="yesBuffer" ng-click="vm.yesBuffer">Aplicar</button>
                         <button class="btn btn-sm" id="cancelBuffer" ng-click="vm.cancelBuffer">Cancelar</button>

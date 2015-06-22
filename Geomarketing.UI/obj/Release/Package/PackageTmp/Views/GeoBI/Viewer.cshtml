@@ -16,7 +16,7 @@
         <div id="LogoGeo"></div>
     </div>
 
-    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="250" k-height="230">
+    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="300" k-height="300">
         <div class="container-fluid">
             <div class="row">Selccione los datos a filtrar: <strong> </strong>?</div>
             <div class="row">
@@ -50,28 +50,41 @@
                 </label>
             </div>
             <div class="row">
+                
                 <div class="pull-right">
-                    <button class="btn btn-sm btn-primary" id="yesButton" ng-click="vm.yesFilter">Si</button>
-                    <button class="btn btn-sm" id="noButton" ng-click="vm.cancelFilter">No</button>
+                    <button class="btn btn-sm btn-primary" id="yesButton" >Filtrar</button>
+                    <button class="btn btn-sm" id="noButton" >Cancelar</button>
+                    <button class="btn btn-sm btn-info" id="limpiarFilter">Limpiar Filtro</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="250" k-height="230">
+    <div id="winBuffer" kendo-window="winBuffer" k-title="'Buffer'" k-visible="false" k-modal="true" k-width="300" k-height="200">
         <div class="container-fluid">
-            <div class="row">Selccione los datos a filtrar: <strong> </strong>?</div>
+            <div class="row">Introduzca los datos del Buffer: </div>
             <div class="row">
-                <input kendo-numeric-text-box k-min="0" k-max="100" k-ng-model="value" />
-            </div>
-            
+                <br/>
+                <strong>Radio: </strong>
+                <input kendo-numeric-text-box k-min="0" k-max="1000" k-ng-model="bufferValue" />
+            </div>       
             <div class="row">
-                <div class="pull-right">
-                    <button class="btn btn-sm btn-primary" id="yesButton" ng-click="vm.yesFilter">Si</button>
-                    <button class="btn btn-sm" id="noButton" ng-click="vm.cancelFilter">No</button>
+                <br />
+                <strong>Unidades: </strong>
+                <input kendo-drop-down-list
+                       k-data-text-field="'text'"
+                       k-data-value-field="'value'"
+                       k-data-source="vm.unidades"
+                       ng-model="selectedUnidades" />
+            </div>     
+                <div class="row">
+                    <br/>                    
+                    <div class="pull-right">
+                        <button class="btn btn-sm btn-primary" id="yesBuffer" ng-click="vm.yesBuffer">Aplicar</button>
+                        <button class="btn btn-sm" id="cancelBuffer" ng-click="vm.cancelBuffer">Cancelar</button>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 
 </div>

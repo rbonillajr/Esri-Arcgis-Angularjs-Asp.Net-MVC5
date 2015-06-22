@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
-    <title>@ViewBag.Title - GeoMarketing</title>
+    <title>@ViewBag.Title - GeoBI</title>
     
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -98,11 +98,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
 
                     @if (Request.IsAuthenticated && User.IsInRole("SuperXtra"))
                     {
-                        <li>@Html.ActionLink("GeoBI", "Viewer", "GeoBI")</li>
+                        <li>@Html.ActionLink("Viewer", "Viewer", "GeoBI")</li>
                     }
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
@@ -110,8 +110,8 @@
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
                     }
 
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @*<li>@Html.ActionLink("Acerca", "About", "Home")</li>*@
+                    @*<li>@Html.ActionLink("Contactenos", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

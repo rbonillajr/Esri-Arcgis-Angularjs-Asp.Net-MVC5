@@ -98,11 +98,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
 
                     @if (Request.IsAuthenticated && User.IsInRole("SuperXtra"))
                     {
-                        <li>@Html.ActionLink("GeoBI", "Viewer", "GeoBI")</li>
+                        <li>@Html.ActionLink("Viewer", "Viewer", "GeoBI")</li>
                     }
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
@@ -110,8 +110,8 @@
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
                     }
 
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @*<li>@Html.ActionLink("Acerca", "About", "Home")</li>*@
+                    @*<li>@Html.ActionLink("Contactenos", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

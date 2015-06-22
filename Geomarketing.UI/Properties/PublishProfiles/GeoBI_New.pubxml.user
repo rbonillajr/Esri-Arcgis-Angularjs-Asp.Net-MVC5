@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="bin/Geomarketing.UI.dll">
-      <publishTime>06/12/2015 21:35:57</publishTime>
+      <publishTime>06/21/2015 22:51:27</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>05/05/2015 22:30:01</publishTime>
@@ -2022,11 +2022,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/agsjs/dijit/TOC.js">
       <publishTime>05/26/2015 22:32:38</publishTime>
     </File>
+    <File Include="Scripts/Angular/angular-animate.min.js">
+      <publishTime>06/21/2015 19:56:53</publishTime>
+    </File>
     <File Include="Scripts/Angular/angular-esri-map.min.js">
       <publishTime>05/05/2015 22:37:22</publishTime>
     </File>
     <File Include="Scripts/Angular/angular-route.min.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
+    </File>
+    <File Include="Scripts/Angular/angular-touch.min.js">
+      <publishTime>06/21/2015 19:56:20</publishTime>
     </File>
     <File Include="Scripts/Angular/angular-ui.min.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2047,10 +2053,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/Viewer.js">
-      <publishTime>06/10/2015 21:54:43</publishTime>
+      <publishTime>06/21/2015 23:11:53</publishTime>
     </File>
     <File Include="Scripts/Angular/Directives/Map.js">
-      <publishTime>06/12/2015 22:18:18</publishTime>
+      <publishTime>06/21/2015 23:16:08</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/Buffer.js">
       <publishTime>06/12/2015 19:27:20</publishTime>
@@ -2182,7 +2188,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/GeoBI/Viewer.cshtml">
-      <publishTime>06/12/2015 19:23:53</publishTime>
+      <publishTime>06/21/2015 23:10:54</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2233,13 +2239,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/07/2015 19:45:47</publishTime>
+      <publishTime>06/21/2015 23:26:44</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutMaps.cshtml">
-      <publishTime>06/12/2015 21:01:03</publishTime>
+      <publishTime>06/21/2015 23:28:14</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
-      <publishTime>05/05/2015 22:30:00</publishTime>
+      <publishTime>06/21/2015 23:24:13</publishTime>
     </File>
     <File Include="Views/UsersAdmin/Create.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>
