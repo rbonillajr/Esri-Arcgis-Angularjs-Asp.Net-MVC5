@@ -50,19 +50,19 @@
                         break
                     case '11':
                         if (vm.filtroMarca.Mobil) {
-                            filtro.push("TOM_MOBIL=1");
+                            filtro.push("TOM_Mobil=1");
                         }
                         if (vm.filtroMarca.Shell) {
-                            filtro.push("TOM_SHELL=1");
+                            filtro.push("TOM_Shell=1");
                         }
                         if (vm.filtroMarca.Castrol) {
-                            filtro.push("TOM_CASTROL=1");
+                            filtro.push("TOM_Castro=1");
                         }
                         if (vm.filtroMarca.Valvoline) {
-                            filtro.push("TOM_VALVOLINE =1");
+                            filtro.push("TOM_Valvol =1");
                         }
                         if (vm.filtroMarca.Chevron) {
-                            filtro.push("TOM_CHEVRON  =1");
+                            filtro.push("TOM_Chevro  =1");
                         }
                         break;
                     default:

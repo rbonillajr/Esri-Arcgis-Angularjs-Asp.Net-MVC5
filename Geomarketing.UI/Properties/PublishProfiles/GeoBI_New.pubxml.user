@@ -2053,7 +2053,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/Viewer.js">
-      <publishTime>06/21/2015 23:11:53</publishTime>
+      <publishTime>06/21/2015 23:44:41</publishTime>
     </File>
     <File Include="Scripts/Angular/Directives/Map.js">
       <publishTime>06/21/2015 23:16:08</publishTime>
@@ -2239,10 +2239,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/21/2015 23:26:44</publishTime>
+      <publishTime>06/21/2015 23:29:25</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutMaps.cshtml">
-      <publishTime>06/21/2015 23:28:14</publishTime>
+      <publishTime>06/21/2015 23:29:15</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>06/21/2015 23:24:13</publishTime>
