@@ -58,13 +58,13 @@
         </div>
     </div>
 
-    <div id="winBuffer" kendo-window="vm.winBuffer" k-title="'Buffer'" k-visible="false" k-modal="true" k-width="300" k-height="200">
+    <div id="winBuffer" kendo-window="winBuffer" k-title="'Buffer'" k-visible="false" k-modal="true" k-width="300" k-height="200">
         <div class="container-fluid">
             <div class="row">Introduzca los datos del Buffer: </div>
             <div class="row">
                 <br/>
                 <strong>Radio: </strong>
-                <input kendo-numeric-text-box k-min="0" k-max="1000" k-ng-model="value" />
+                <input kendo-numeric-text-box k-min="0" k-max="1000" k-ng-model="bufferValue" />
             </div>       
             <div class="row">
                 <br />
@@ -73,7 +73,7 @@
                        k-data-text-field="'text'"
                        k-data-value-field="'value'"
                        k-data-source="vm.unidades"
-                       ng-model="vm.selectedUnidades" />
+                       ng-model="selectedUnidades" />
             </div>     
                 <div class="row">
                     <br/>

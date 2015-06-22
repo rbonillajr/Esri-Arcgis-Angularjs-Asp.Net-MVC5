@@ -1,6 +1,8 @@
 ﻿angular.module('geomarketing')
     .controller('ViewerController', ['$scope', function (scope) {
         var vm = this;
+        scope.bufferValue = 3;
+        scope.selectedUnidades;
         vm.selected;
         
         vm.data = [
@@ -56,19 +58,24 @@
         };
 
         vm.buffer = function () {
-            $('#yesBuffer').click(function (e) {
-                if (scope.buffered) {
-                    scope.buffered = false;
-                }
-                else {
-                    scope.buffered = true;
-                }
+
+            if (scope.buffered) {
+                scope.buffered = false;
+            }
+            else {
+                scope.buffered = true;
+            }
+                        
+            $('#yesBuffer').click(function (e) {               
+                scope.buffer(scope.bufferValue, scope.selectedUnidades);
+                scope.winBuffer.close();
             });
 
             $('#cancelBuffer').click(function (e) {
-                vm.winBuffer.close();
+                scope.winBuffer.close();
             });
-            vm.winBuffer.open().center();
+            
+            //vm.winBuffer.open().center();
             
         };
 

@@ -7,8 +7,8 @@
                 scope.buffered = false;
                 var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
 
-               // var icons = getIcons();
-                
+                // var icons = getIcons();
+
                 var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0';
 
                 L.esri.Tasks.query({
@@ -18,7 +18,7 @@
                     scope.stops = data;
 
                     L.geoJson(data, {
-                       
+
                         onEachFeature: function (feature, layer) {
 
                             layer.bindPopup('<center><strong>' + feature.properties.STATUS + '</strong></center><br/>' +
@@ -54,39 +54,9 @@
 
 
                 map.on('click', function (e) {
-
                     if (scope.buffered) {
-
-                        if (typeof buff != 'undefined') {
-                            map.removeLayer(buff);
-                        }
-
-                        bufferService.get(50, 'kilometers', e.latlng, function (buffered) {
-                            buff = L.geoJson(buffered);
-                            buff.addTo(map);
-
-                            var inside = turf.within(scope.stops, buffered);
-
-                            var pointsNumber = 0;
-
-                            if (typeof pointsInside != 'undefined') {
-                                map.removeLayer(pointsInside);
-                            }
-
-                            pointsInside = L.geoJson(inside, {
-                                onEachFeature: function (feature, layer) {
-                                    pointsNumber++
-                                    //layer.bindPopup("<h4>test</h4>");
-                                },
-                                pointToLayer: function (feature, latlng) {
-                                    return L.circleMarker(latlng);
-                                },
-                                style: { radius: 10, fillColor: "red", weight: 1 }
-                            }).addTo(map);
-                           
-                        });
-
-
+                        scope.latlng = e.latlng;
+                        scope.winBuffer.open().center();
                     } else {
                         if (typeof buff != 'undefined') {
                             map.removeLayer(buff);
@@ -95,6 +65,7 @@
                             map.removeLayer(pointsInside);
                         }
                     }
+
                 });
 
                 var mapaBaseGeoinfo = L.esri.tiledMapLayer('http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/');
@@ -144,6 +115,37 @@
                     stops.setWhere(filtro);
                 }
 
+                scope.buffer = function (radio, unidades) {
+
+                    if (typeof buff != 'undefined') {
+                        map.removeLayer(buff);
+                    }
+
+                    bufferService.get(radio, unidades, scope.latlng, function (buffered) {
+                        buff = L.geoJson(buffered);
+                        buff.addTo(map);
+
+                        var inside = turf.within(scope.stops, buffered);
+                        debugger;
+                        var pointsNumber = 0;
+
+                        if (typeof pointsInside != 'undefined') {
+                            map.removeLayer(pointsInside);
+                        }
+
+                        pointsInside = L.geoJson(inside, {
+                            onEachFeature: function (feature, layer) {
+                                pointsNumber++
+                                //layer.bindPopup("<h4>test</h4>"); si se quiere mostrar info del punto seleccionado
+                            },
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng);
+                            },
+                            style: { radius: 10, fillColor: "red", weight: 1 }
+                        }).addTo(map);
+
+                    });
+                }
                 function getIcons() {
                     return {
                         CLIENTES: L.icon({
