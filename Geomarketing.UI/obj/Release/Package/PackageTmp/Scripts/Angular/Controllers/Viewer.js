@@ -3,8 +3,18 @@
         var vm = this;
         scope.bufferValue = 3;
         scope.selectedUnidades;
-        vm.selected;
         
+        vm.selectedCategoria;
+        vm.categorias = [{ text: "Estación de gasolina", value: "Estación de gasolina" },
+                        { text: "Ferretería", value: "Ferretería" },
+                        { text: "Hipermercado", value: "Hipermercado" },
+                        { text: "Repuestos de autos", value: "Repuestos de autos" },
+                        { text: "Supercentro", value: "Supercentro" },
+                        { text: "Supermercado", value: "Supermercado" },
+                        { text: "Supermercado Cadena", value: "Supermercado Cadena" },
+                        { text: "Taller Automotriz", value: "Taller Automotriz" },
+                        { text: "Tienda de conveniencia", value: "Tienda de conveniencia" }];
+        vm.selected;
         vm.data = [
                 { text: "Disponibilidad", value: 7 },
                 /*{ text: "Exhibidores", value: 9 },
@@ -28,8 +38,11 @@
 
         vm.filtros = function () {
             $('#yesButton').click(function (e) {
-               
+                
                 filtro = [];
+                if (vm.seletedCategoria != "Todas las Categorias") {
+                    filtro.push("CATEGORIA_1='" + vm.selectedCategoria + "'");
+                }
                 switch (vm.selected) {
                     case '7':
                         if (vm.filtroMarca.Mobil) {
@@ -56,31 +69,33 @@
                             filtro.push("TOM_Shell=1");
                         }
                         if (vm.filtroMarca.Castrol) {
-                            filtro.push("TOM_Castro=1");
+                            filtro.push("TOM_Castrol=1");
                         }
                         if (vm.filtroMarca.Valvoline) {
-                            filtro.push("TOM_Valvol =1");
+                            filtro.push("TOM_Valvoline =1");
                         }
                         if (vm.filtroMarca.Chevron) {
-                            filtro.push("TOM_Chevro  =1");
+                            filtro.push("TOM_Chevron  =1");
                         }
                         break;
                     default:
 
                 }
                 
-
+                scope.query(filtro, function (error, result) {
+                    vm.window.close();
+                });
                 
-                scope.query(filtro);
-                vm.window.close();
             });
 
             $('#noButton').click(function (e) {
                 vm.window.close();
             });
             $('#limpiarFilter').click(function (e) {
-                scope.query("1=1");
-                vm.window.close();
+                scope.query("1=1", function (error, result) {
+                    vm.window.close();
+                });
+                
             });
             vm.window.open().center();
         };

@@ -20,6 +20,17 @@
         <div class="container-fluid">
             <div class="row">Selccione los datos a filtrar: <strong> </strong>?</div>
             <div class="row">
+                <br/>
+                <label>Categoria: </label> 
+                <input kendo-drop-down-list
+                       k-option-label ="'Todas las Categorias'"
+                       k-data-text-field="'text'"
+                       k-data-value-field="'value'"
+                       k-data-source="vm.categorias"
+                       ng-model="vm.selectedCategoria" />               
+            </div>
+            <div class="row">
+                <br />
                 <input kendo-drop-down-list
                        k-data-text-field="'text'"
                        k-data-value-field="'value'"
