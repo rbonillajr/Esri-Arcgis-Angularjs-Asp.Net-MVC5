@@ -2053,10 +2053,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/19/2015 13:03:22</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/Viewer.js">
-      <publishTime>06/22/2015 12:30:38</publishTime>
+      <publishTime>06/22/2015 13:53:20</publishTime>
     </File>
     <File Include="Scripts/Angular/Directives/Map.js">
-      <publishTime>06/22/2015 11:47:29</publishTime>
+      <publishTime>06/22/2015 13:48:49</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/Buffer.js">
       <publishTime>06/12/2015 16:00:27</publishTime>
