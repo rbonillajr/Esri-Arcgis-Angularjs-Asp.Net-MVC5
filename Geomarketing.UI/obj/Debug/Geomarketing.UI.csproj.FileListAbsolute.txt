@@ -223,3 +223,4 @@ C:\bicsa\Utils\otros\Esri-Arcgis-Angularjs-Asp.Net-MVC5\Geomarketing.UI\obj\Debu
 C:\bicsa\Utils\otros\Esri-Arcgis-Angularjs-Asp.Net-MVC5\Geomarketing.UI\obj\Debug\Geomarketing.UI.csproj.GenerateResource.Cache
 C:\bicsa\Utils\otros\Esri-Arcgis-Angularjs-Asp.Net-MVC5\Geomarketing.UI\obj\Debug\Geomarketing.UI.dll
 C:\bicsa\Utils\otros\Esri-Arcgis-Angularjs-Asp.Net-MVC5\Geomarketing.UI\obj\Debug\Geomarketing.UI.pdb
+C:\fuentes\Geomarketing\Geomarketing.UI\obj\Debug\Geomarketing.UI.csprojResolveAssemblyReference.cache

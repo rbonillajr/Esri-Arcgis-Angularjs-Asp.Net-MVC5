@@ -97,5 +97,11 @@
                 </div>
             </div>
     </div>
-
+    <div id="winPivot" kendo-window="vm.winPivot" k-title="'Reportes'" k-visible="false" k-actions='[
+         "maximize",
+         "close"
+         ]' k-width="300" k-height="200">
+        <div kendo-pivot-configurator k-height="580" k-data-source="vm.dataSource" id="configurator"></div>
+        <div kendo-pivot-grid k-options="vm.options" id="pivotgrid"></div>
+    </div>
 </div>

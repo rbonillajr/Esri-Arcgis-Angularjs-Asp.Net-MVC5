@@ -3,8 +3,8 @@
         var vm = this;
         scope.bufferValue = 3;
         scope.selectedUnidades;
-        
-        vm.selectedCategoria='';
+
+        vm.selectedCategoria = '';
         vm.categorias = [{ text: "Estación de gasolina", value: "Estación de gasolina" },
                         { text: "Ferretería", value: "Ferretería" },
                         { text: "Hipermercado", value: "Hipermercado" },
@@ -39,7 +39,7 @@
         vm.filtros = function () {
             $("#yesButton").unbind();
             $('#yesButton').click(function (e) {
-                
+
                 filtro = [];
                 if (vm.selectedCategoria != '') {
                     filtro.push("CATEGORIA_1='" + vm.selectedCategoria + "'");
@@ -88,7 +88,7 @@
                 scope.query(filtro, function (error, result) {
                     vm.window.close();
                 });
-                
+
             });
             $("#noButton").unbind();
             $('#noButton').click(function (e) {
@@ -99,7 +99,7 @@
                 scope.query("1=1", function (error, result) {
                     vm.window.close();
                 });
-                
+
             });
             vm.window.open().center();
         };
@@ -113,7 +113,7 @@
                 scope.buffered = true;
             }
             $("#yesBuffer").unbind();
-            $('#yesBuffer').click(function (e) {               
+            $('#yesBuffer').click(function (e) {
                 scope.buffer(scope.bufferValue, scope.selectedUnidades);
                 scope.winBuffer.close();
             });
@@ -121,17 +121,45 @@
             $('#cancelBuffer').click(function (e) {
                 scope.winBuffer.close();
             });
-            
-            //vm.winBuffer.open().center();
-            
-        };
 
+            //vm.winBuffer.open().center();
+
+        };
+        vm.bufferReporte = function () {
+           
+            vm.winPivot.open().center();
+        };
         vm.toolbarOptions = {
             items: [
                 { type: "button", text: "Filtros", click: vm.filtros },
                 { type: "button", text: "Analisis" },
-                { type: "button", text: "Buffer", togglable: true, toggle: vm.buffer }
+                { type: "button", text: "Buffer", togglable: true, toggle: vm.buffer },
+                { type: "button", text: "Reportes Buffer", click: vm.bufferReporte }
             ]
         };
-       
+        vm.dataSource = new kendo.data.PivotDataSource({
+            type: "xmla",
+            columns: [{ name: "[Date].[Calendar]", expand: true }, { name: "[Product].[Category]" }],
+            rows: [{ name: "[Geography].[City]" }],
+            measures: ["[Measures].[Reseller Freight Cost]"],
+            transport: {
+                connection: {
+                    catalog: "Adventure Works DW 2008R2",
+                    cube: "Adventure Works"
+                },
+                read: "http://demos.telerik.com/olap/msmdpump.dll"
+            },
+            schema: {
+                type: "xmla"
+            },
+            error: function (e) {
+                alert("error: " + kendo.stringify(e.errors[0]));
+            }
+        });
+        vm.options = {
+            columnWidth: 200,
+            height: 580,
+            dataSource: vm.dataSource
+        };
+
     }]);
