@@ -20,14 +20,14 @@
         <div class="container-fluid">
             <div class="row">Selccione los datos a filtrar: <strong> </strong>?</div>
             <div class="row">
-                <br/>
-                <label>Categoria: </label> 
+                <br />
+                <label>Categoria: </label>
                 <input kendo-drop-down-list
-                       k-option-label ="'Todas las Categorias'"
+                       k-option-label="'Todas las Categorias'"
                        k-data-text-field="'text'"
                        k-data-value-field="'value'"
                        k-data-source="vm.categorias"
-                       ng-model="vm.selectedCategoria" />               
+                       ng-model="vm.selectedCategoria" />
             </div>
             <div class="row">
                 <br />
@@ -61,10 +61,10 @@
                 </label>
             </div>
             <div class="row">
-                
+
                 <div class="pull-right">
-                    <button class="btn btn-sm btn-primary" id="yesButton" >Filtrar</button>
-                    <button class="btn btn-sm" id="noButton" >Cancelar</button>
+                    <button class="btn btn-sm btn-primary" id="yesButton">Filtrar</button>
+                    <button class="btn btn-sm" id="noButton">Cancelar</button>
                     <button class="btn btn-sm btn-info" id="limpiarFilter">Limpiar Filtro</button>
                 </div>
             </div>
@@ -75,10 +75,10 @@
         <div class="container-fluid">
             <div class="row">Introduzca los datos del Buffer: </div>
             <div class="row">
-                <br/>
+                <br />
                 <strong>Radio: </strong>
                 <input kendo-numeric-text-box k-min="0" k-max="1000" k-ng-model="bufferValue" />
-            </div>       
+            </div>
             <div class="row">
                 <br />
                 <strong>Unidades: </strong>
@@ -87,15 +87,37 @@
                        k-data-value-field="'value'"
                        k-data-source="vm.unidades"
                        ng-model="selectedUnidades" />
-            </div>     
-                <div class="row">
-                    <br/>                    
-                    <div class="pull-right">
-                        <button class="btn btn-sm btn-primary" id="yesBuffer" ng-click="vm.yesBuffer">Aplicar</button>
-                        <button class="btn btn-sm" id="cancelBuffer" ng-click="vm.cancelBuffer">Cancelar</button>
-                    </div>
+            </div>
+            <div class="row">
+                <br />
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-primary" id="yesBuffer" ng-click="vm.yesBuffer">Aplicar</button>
+                    <button class="btn btn-sm" id="cancelBuffer" ng-click="vm.cancelBuffer">Cancelar</button>
                 </div>
             </div>
+        </div>
     </div>
+    <div id="winPivot" kendo-window="vm.winPivot" k-title="'Reportes'" k-visible="false" k-actions='[
+         "maximize",
+         "close"
+         ]' k-width="300" k-height="200">
+       
+        <div kendo-splitter="splitter"
+             k-panes="[ {collapsed: true, collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
+             k-orientation="'horizontal'"
+             style="height:100%">
+            <div>
+                <div id="ContentConfig">
+                    <div id="configurator"></div>
+                </div>
+            </div>
+            <div>
+                <div id="ContentPivot">
+                    <div id="pivotgrid"></div>
+                </div>
+            </div>
+        </div>
 
+
+    </div>
 </div>

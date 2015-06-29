@@ -1,10 +1,10 @@
 ﻿angular.module('geomarketing')
-    .controller('ViewerController', ['$scope', function (scope) {
+    .controller('ViewerController', ['$scope', 'utilityService', function (scope, utilityService) {
         var vm = this;
         scope.bufferValue = 3;
         scope.selectedUnidades;
-        
-        vm.selectedCategoria='';
+
+        vm.selectedCategoria = '';
         vm.categorias = [{ text: "Estación de gasolina", value: "Estación de gasolina" },
                         { text: "Ferretería", value: "Ferretería" },
                         { text: "Hipermercado", value: "Hipermercado" },
@@ -39,7 +39,7 @@
         vm.filtros = function () {
             $("#yesButton").unbind();
             $('#yesButton').click(function (e) {
-                
+
                 filtro = [];
                 if (vm.selectedCategoria != '') {
                     filtro.push("CATEGORIA_1='" + vm.selectedCategoria + "'");
@@ -88,7 +88,7 @@
                 scope.query(filtro, function (error, result) {
                     vm.window.close();
                 });
-                
+
             });
             $("#noButton").unbind();
             $('#noButton').click(function (e) {
@@ -99,7 +99,7 @@
                 scope.query("1=1", function (error, result) {
                     vm.window.close();
                 });
-                
+
             });
             vm.window.open().center();
         };
@@ -113,7 +113,7 @@
                 scope.buffered = true;
             }
             $("#yesBuffer").unbind();
-            $('#yesBuffer').click(function (e) {               
+            $('#yesBuffer').click(function (e) {
                 scope.buffer(scope.bufferValue, scope.selectedUnidades);
                 scope.winBuffer.close();
             });
@@ -121,17 +121,105 @@
             $('#cancelBuffer').click(function (e) {
                 scope.winBuffer.close();
             });
-            
-            //vm.winBuffer.open().center();
-            
-        };
 
+            //vm.winBuffer.open().center();
+
+        };
+        vm.bufferReporte = function () {
+
+            //debugger;
+            $("#pivotgrid").remove();
+            $("#ContentPivot").append("<div id='pivotgrid'></div>")
+
+            $("#configurator").remove();
+            $("#ContentConfig").append("<div id='configurator'></div>")
+
+            vm.winPivot.open().center();
+            utilityService.geoJsonToPivot(scope.inside.features, function (error, response) {
+                
+                var pivotgrid = $("#pivotgrid").kendoPivotGrid({
+                    columnWidth: 120,
+                    height: 700,
+                    dataSource: {
+                        data: response,
+                        schema: {
+                            model: {
+                                fields: {
+                                    Nombre: { type: "string" },
+                                    Categoria: { type: "string" },
+                                    Provincia: { type: "string" },
+                                    Distrito: { type: "string" },
+                                    Corregimiento: { type: "string" },
+                                    Barrio: { type: "string" },
+                                    Tipo: { type: "string" },
+                                    Mobil: { type: "number" },
+                                    Shell: { type: "number" },
+                                    Chevron: { type: "number" },
+                                    Castrol: { type: "number" },
+                                    Valvoline: { type: "number" },
+                                    TOM_Movil: { type: "number" },
+                                    TOM_Shell: { type: "number" },
+                                    TOM_Chevron: { type: "number" },
+                                    TOM_Castrol: { type: "number" },
+                                    TOM_Valvoline: { type: "number" }
+                                }
+                            },
+                            cube: {
+                                dimensions: {
+                                    Nombre: { caption: "PDVs" },
+                                    Categoria: { caption: "Categorias" },
+                                    Provincia: { caption: "Provincias" },
+                                    Distrito: { caption: "Distrito" },
+                                    Corregimiento: { caption: "Corregimiento" },
+                                    Barrio: { caption: "Barrio" },
+                                    Tipo: { caption: "Tipo" },                                    
+                                    Mobil: { caption: "Mobil" },
+                                    Shell: { caption: "Shell" },
+                                    Chevron: { caption: "Chevron" },
+                                    Castrol: {caption: "Castrol"},
+                                    Valvoline: { caption: "Valvoline" },
+                                    TOM_Movil: { caption: "TOM_Movil" },
+                                    TOM_Shell: { caption: "TOM_Shell" },
+                                    TOM_Chevron: { caption: "TOM_Chevron" },
+                                    TOM_Castrol: { caption: "TOM_Castrol" },
+                                    TOM_Valvoline: { caption: "TOM_Valvoline" }
+                                },
+                                measures: {
+                                    "Disp_Mobil": { field: "Mobil", format: "{0}", aggregate: "sum" },
+                                    "Disp_Shell": { field: "Shell", format: "{0}", aggregate: "sum" },
+                                    "Disp_Chevron": { field: "Chevron", format: "{0}", aggregate: "sum" },
+                                    "Disp_Castrol": { field: "Castrol", format: "{0}", aggregate: "sum" },
+                                    "Disp_Valvoline": { field: "Valvoline", format: "{0}", aggregate: "sum" },
+                                    "TOM_Movil": { field: "TOM_Movil", format: "{0}", aggregate: "sum" },
+                                    "TOM_Shell": { field: "TOM_Shell", format: "{0}", aggregate: "sum" },
+                                    "TOM_Chevron": { field: "TOM_Chevron", format: "{0}", aggregate: "sum" },
+                                    "TOM_Castrol": { field: "TOM_Castrol", format: "{0}", aggregate: "sum" },
+                                    "TOM_Valvoline": { field: "TOM_Valvoline", format: "{0}", aggregate: "sum" }
+                                }
+                            }
+                        },
+                        columns: [{ name: "Provincia", expand: true }],
+                        rows: [{ name: "Categoria", expand: true }],
+                        measures: ["Disp_Mobil"]
+                    }
+                }).data("kendoPivotGrid");
+                $("#configurator").kendoPivotConfigurator({
+                    dataSource: pivotgrid.dataSource,
+                    height: 570
+                });
+
+            });
+
+
+        };
         vm.toolbarOptions = {
             items: [
                 { type: "button", text: "Filtros", click: vm.filtros },
                 { type: "button", text: "Analisis" },
-                { type: "button", text: "Buffer", togglable: true, toggle: vm.buffer }
+                { type: "button", text: "Buffer", togglable: true, toggle: vm.buffer },
+                { type: "button", text: "Reportes Buffer", click: vm.bufferReporte }
             ]
         };
-       
+
+
     }]);

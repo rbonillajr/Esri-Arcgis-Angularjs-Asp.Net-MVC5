@@ -13,15 +13,15 @@
                         buff = L.geoJson(buffered);
                         buff.addTo(map);
 
-                        var inside = turf.within(scope.stops, buffered);
-
+                        scope.inside = turf.within(scope.stops, buffered);
+                        //debugger;
                         var pointsNumber = 0;
 
                         if (typeof pointsInside != 'undefined') {
                             map.removeLayer(pointsInside);
                         }
 
-                        pointsInside = L.geoJson(inside, {
+                        pointsInside = L.geoJson(scope.inside, {
                             onEachFeature: function (feature, layer) {
                                 pointsNumber++
                                 //layer.bindPopup("<h4>test</h4>"); si se quiere mostrar info del punto seleccionado
