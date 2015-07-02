@@ -100,8 +100,9 @@
     <div id="winPivot" kendo-window="vm.winPivot" k-title="'Reportes'" k-visible="false" k-actions='[
          "maximize",
          "close"
-         ]' k-width="300" k-height="200">
-       
+         ]' k-width="600" k-height="400">
+        <button id="export" class="k-button k-button-icontext"><span class="k-icon k-i-excel"></span>Export to Excel</button>
+        <div id="pivotgrid"></div>
         <div kendo-splitter="splitter"
              k-panes="[ {collapsed: true, collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
              k-orientation="'horizontal'"
@@ -117,7 +118,5 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>

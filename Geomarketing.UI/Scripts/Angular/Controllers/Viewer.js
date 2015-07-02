@@ -126,8 +126,7 @@
 
         };
         vm.bufferReporte = function () {
-
-            //debugger;
+            
             $("#pivotgrid").remove();
             $("#ContentPivot").append("<div id='pivotgrid'></div>")
 
@@ -136,10 +135,15 @@
 
             vm.winPivot.open().center();
             utilityService.geoJsonToPivot(scope.inside.features, function (error, response) {
-                
+
                 var pivotgrid = $("#pivotgrid").kendoPivotGrid({
                     columnWidth: 120,
                     height: 700,
+                    excel: {
+                        fileName: "BufferResult.xlsx",
+                        proxyURL: "http://demos.telerik.com/kendo-ui/service/export",
+                        filterable: true
+                    },
                     dataSource: {
                         data: response,
                         schema: {
@@ -172,17 +176,17 @@
                                     Distrito: { caption: "Distrito" },
                                     Corregimiento: { caption: "Corregimiento" },
                                     Barrio: { caption: "Barrio" },
-                                    Tipo: { caption: "Tipo" },                                    
+                                    Tipo: { caption: "Tipo" }/*,                                    
                                     Mobil: { caption: "Mobil" },
                                     Shell: { caption: "Shell" },
                                     Chevron: { caption: "Chevron" },
                                     Castrol: {caption: "Castrol"},
                                     Valvoline: { caption: "Valvoline" },
-                                    TOM_Movil: { caption: "TOM_Movil" },
+                                    TOM_Mobil: { caption: "TOM_Mobil" },
                                     TOM_Shell: { caption: "TOM_Shell" },
                                     TOM_Chevron: { caption: "TOM_Chevron" },
                                     TOM_Castrol: { caption: "TOM_Castrol" },
-                                    TOM_Valvoline: { caption: "TOM_Valvoline" }
+                                    TOM_Valvoline: { caption: "TOM_Valvoline" }*/
                                 },
                                 measures: {
                                     "Disp_Mobil": { field: "Mobil", format: "{0}", aggregate: "sum" },
@@ -190,7 +194,7 @@
                                     "Disp_Chevron": { field: "Chevron", format: "{0}", aggregate: "sum" },
                                     "Disp_Castrol": { field: "Castrol", format: "{0}", aggregate: "sum" },
                                     "Disp_Valvoline": { field: "Valvoline", format: "{0}", aggregate: "sum" },
-                                    "TOM_Movil": { field: "TOM_Movil", format: "{0}", aggregate: "sum" },
+                                    "TOM_Mobil": { field: "TOM_Mobil", format: "{0}", aggregate: "sum" },
                                     "TOM_Shell": { field: "TOM_Shell", format: "{0}", aggregate: "sum" },
                                     "TOM_Chevron": { field: "TOM_Chevron", format: "{0}", aggregate: "sum" },
                                     "TOM_Castrol": { field: "TOM_Castrol", format: "{0}", aggregate: "sum" },
@@ -198,8 +202,12 @@
                                 }
                             }
                         },
-                        columns: [{ name: "Provincia", expand: true }],
-                        rows: [{ name: "Categoria", expand: true }],
+                        columns: [{ name: "Tipo", expand: true }],
+                        rows: [{ name: "Provincia", expand: true },
+                                { name: "Distrito", expand: false },
+                                { name: "Corregimiento", expand: false },
+                                { name: "Barrio", expand: false },
+                                { name: "Categoria", expand: false }],
                         measures: ["Disp_Mobil"]
                     }
                 }).data("kendoPivotGrid");
@@ -207,10 +215,13 @@
                     dataSource: pivotgrid.dataSource,
                     height: 570
                 });
-
+                $("#export").unbind();
+                $("#export").click(function () {
+                    pivotgrid.saveAsExcel();
+                });
             });
 
-
+           
         };
         vm.toolbarOptions = {
             items: [

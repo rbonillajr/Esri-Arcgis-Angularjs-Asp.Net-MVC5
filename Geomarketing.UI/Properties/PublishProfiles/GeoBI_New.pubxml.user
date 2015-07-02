@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="bin/Geomarketing.UI.dll">
-      <publishTime>06/25/2015 21:50:34</publishTime>
+      <publishTime>06/30/2015 16:28:49</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>05/05/2015 22:30:01</publishTime>
@@ -2053,10 +2053,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/Viewer.js">
-      <publishTime>06/28/2015 22:06:49</publishTime>
+      <publishTime>06/30/2015 16:22:50</publishTime>
     </File>
     <File Include="Scripts/Angular/Directives/Map.js">
-      <publishTime>06/28/2015 11:11:07</publishTime>
+      <publishTime>06/30/2015 16:00:15</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/Buffer.js">
       <publishTime>06/12/2015 19:27:20</publishTime>
@@ -2099,6 +2099,30 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
+    </File>
+    <File Include="Scripts/LeafletNavBar/img/arrow-left_000000_14.png">
+      <publishTime>06/30/2015 15:57:08</publishTime>
+    </File>
+    <File Include="Scripts/LeafletNavBar/img/arrow-left_bbbbbb_14.png">
+      <publishTime>06/30/2015 15:57:08</publishTime>
+    </File>
+    <File Include="Scripts/LeafletNavBar/img/arrow-right_000000_14.png">
+      <publishTime>06/30/2015 15:57:08</publishTime>
+    </File>
+    <File Include="Scripts/LeafletNavBar/img/arrow-right_bbbbbb_14.png">
+      <publishTime>06/30/2015 15:57:08</publishTime>
+    </File>
+    <File Include="Scripts/LeafletNavBar/img/home_000000_14.png">
+      <publishTime>06/30/2015 15:57:08</publishTime>
+    </File>
+    <File Include="Scripts/LeafletNavBar/img/home_bbbbbb_14.png">
+      <publishTime>06/30/2015 15:57:08</publishTime>
+    </File>
+    <File Include="Scripts/LeafletNavBar/Leaflet.NavBar.css">
+      <publishTime>06/30/2015 15:57:08</publishTime>
+    </File>
+    <File Include="Scripts/LeafletNavBar/Leaflet.NavBar.js">
+      <publishTime>06/30/2015 15:57:08</publishTime>
     </File>
     <File Include="Scripts/Markers/images/markers-matte%402x.png">
       <publishTime>06/12/2015 20:55:57</publishTime>
@@ -2188,7 +2212,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/GeoBI/Viewer.cshtml">
-      <publishTime>06/28/2015 20:57:46</publishTime>
+      <publishTime>06/30/2015 16:13:48</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2242,7 +2266,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/21/2015 23:29:25</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutMaps.cshtml">
-      <publishTime>06/28/2015 17:59:48</publishTime>
+      <publishTime>06/30/2015 16:20:33</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>06/21/2015 23:24:13</publishTime>

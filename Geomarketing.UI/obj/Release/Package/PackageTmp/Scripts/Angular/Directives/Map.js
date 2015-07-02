@@ -82,7 +82,7 @@
 
                 }
                 function createLegend() {
-                    var legend1 = L.control({ position: 'topleft' });
+                    var legend1 = L.control({ position: 'bottomleft' });
                     legend1.onAdd = function (map) {
 
                         var div = L.DomUtil.create('div', 'info legend');
@@ -93,7 +93,7 @@
                             '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
                             '</div></td><td><strong>Clientes</strong></td>' +
                             '</tr></table></div>';
-                            
+
                         return div;
 
 
@@ -102,12 +102,14 @@
                 };
                 scope.buffered = false;
                 var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
-                                
+
 
                 var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0';
                 scope.addFeatures(url, '1=1', function (error, result) {
 
                 });
+
+                L.control.navbar().addTo(map);
 
                 createLegend();
                 map.on('click', function (e) {
@@ -187,13 +189,13 @@
                         //} else {
                         //    return callback(null, result);
                         //}
-                        
+
                     });
 
                     callback(null, true);
                 }
 
-        
+
 
             }
         };

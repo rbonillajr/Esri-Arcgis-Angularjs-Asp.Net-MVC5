@@ -176,6 +176,14 @@
     <Content Include="Scripts\Angular\Services\ToolBarService.js" />
     <Content Include="Scripts\Angular\Services\UtilityService.js" />
     <Content Include="Scripts\dojo.js" />
+    <Content Include="Scripts\LeafletNavBar\img\arrow-left_000000_14.png" />
+    <Content Include="Scripts\LeafletNavBar\img\arrow-left_bbbbbb_14.png" />
+    <Content Include="Scripts\LeafletNavBar\img\arrow-right_000000_14.png" />
+    <Content Include="Scripts\LeafletNavBar\img\arrow-right_bbbbbb_14.png" />
+    <Content Include="Scripts\LeafletNavBar\img\home_000000_14.png" />
+    <Content Include="Scripts\LeafletNavBar\img\home_bbbbbb_14.png" />
+    <Content Include="Scripts\LeafletNavBar\Leaflet.NavBar.css" />
+    <Content Include="Scripts\LeafletNavBar\Leaflet.NavBar.js" />
     <Content Include="Scripts\Markers\images\markers-matte%402x.png" />
     <Content Include="Scripts\Markers\images\markers-matte.png" />
     <Content Include="Scripts\Markers\images\markers-plain.png" />

@@ -82,7 +82,7 @@
 
                 }
                 function createLegend() {
-                    var legend1 = L.control({ position: 'topleft' });
+                    var legend1 = L.control({ position: 'bottomleft' });
                     legend1.onAdd = function (map) {
 
                         var div = L.DomUtil.create('div', 'info legend');
@@ -93,7 +93,7 @@
                             '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
                             '</div></td><td><strong>Clientes</strong></td>' +
                             '</tr></table></div>';
-                            
+
                         return div;
 
 
@@ -102,12 +102,14 @@
                 };
                 scope.buffered = false;
                 var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
-                                
+
 
                 var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0';
-                scope.addFeatures(url, '1=1', function (error, result) {
+                //scope.addFeatures(url, '1=1', function (error, result) {
 
-                });
+                //});
+
+                L.control.navbar().addTo(map);
 
                 createLegend();
                 map.on('click', function (e) {
@@ -126,21 +128,25 @@
                 });
 
                 var mapaBaseGeoinfo = L.esri.tiledMapLayer('http://geobi.geoinfo-int.com/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/');
-
+                var clientes = L.esri.tiledMapLayer('http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0');
                 // basemap layer groups so the hydro overlay always overlays the various basemaps
                 var nationalGeographic = L.layerGroup([
+                    clientes,
                         L.esri.basemapLayer('NationalGeographic')
                 ]),
                     esriTopo = L.layerGroup([
+                        clientes,
                         L.esri.basemapLayer('Topographic')
                     ]),
                     esriShadedRelief = L.layerGroup([
+                        clientes,
                         L.esri.tiledMapLayer('ShadedReliefLabels'),
                         L.esri.basemapLayer('ShadedRelief')
                     ]),
                     geoinfo = L.layerGroup([
+                        clientes,
                         mapaBaseGeoinfo
-                    ]);
+                    ])
 
                 // add default layers to map
                 map.addLayer(geoinfo);
@@ -154,7 +160,7 @@
                 };
 
                 var overlayMaps = {
-
+                    'Comercios': clientes
                 };
 
                 // add layer groups to layer switcher control
@@ -164,7 +170,8 @@
                 scope.query = function (param, callback) {
 
                     map.eachLayer(function (layer) {
-                        if (layer._leaflet_id > 27) {
+                        
+                        if (layer._leaflet_id > 42) {
                             map.removeLayer(layer);
                         }
 
@@ -187,13 +194,13 @@
                         //} else {
                         //    return callback(null, result);
                         //}
-                        
+
                     });
 
                     callback(null, true);
                 }
 
-        
+
 
             }
         };
