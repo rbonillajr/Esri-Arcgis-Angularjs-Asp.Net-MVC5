@@ -1,6 +1,7 @@
 ﻿angular.module('geomarketing')
     .controller('ViewerController', ['$scope', 'utilityService', function (scope, utilityService) {
         var vm = this;
+        scope.verClientesPor= "tipo";
         scope.bufferValue = 3;
         scope.selectedUnidades;
 
@@ -39,7 +40,7 @@
         vm.filtros = function () {
             $("#yesButton").unbind();
             $('#yesButton').click(function (e) {
-
+                
                 filtro = [];
                 if (vm.selectedCategoria != '') {
                     filtro.push("CATEGORIA_1='" + vm.selectedCategoria + "'");

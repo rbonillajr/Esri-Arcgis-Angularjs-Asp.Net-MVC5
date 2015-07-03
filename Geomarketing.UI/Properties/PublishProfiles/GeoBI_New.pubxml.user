@@ -2053,10 +2053,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/Viewer.js">
-      <publishTime>06/30/2015 16:22:50</publishTime>
+      <publishTime>07/02/2015 21:51:44</publishTime>
     </File>
     <File Include="Scripts/Angular/Directives/Map.js">
-      <publishTime>06/30/2015 16:00:15</publishTime>
+      <publishTime>07/02/2015 22:53:40</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/Buffer.js">
       <publishTime>06/12/2015 19:27:20</publishTime>
@@ -2146,7 +2146,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2015 20:55:57</publishTime>
     </File>
     <File Include="Scripts/Markers/leaflet.awesome-markers.css">
-      <publishTime>06/25/2015 21:50:34</publishTime>
+      <publishTime>07/02/2015 22:53:48</publishTime>
     </File>
     <File Include="Scripts/Markers/leaflet.awesome-markers.js">
       <publishTime>06/12/2015 20:55:57</publishTime>
@@ -2212,7 +2212,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/GeoBI/Viewer.cshtml">
-      <publishTime>06/30/2015 16:13:48</publishTime>
+      <publishTime>07/02/2015 22:54:58</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>

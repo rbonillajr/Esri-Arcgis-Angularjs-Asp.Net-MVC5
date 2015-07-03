@@ -16,12 +16,30 @@
         <div id="LogoGeo"></div>
     </div>
 
-    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="300" k-height="300">
+    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="300" k-height="450">
         <div class="container-fluid">
-            <div class="row">Selccione los datos a filtrar: <strong> </strong>?</div>
+            <div class="row"><strong>Ver Puntos de venta por: </strong></div>
             <div class="row">
                 <br />
-                <label>Categoria: </label>
+                <label>
+                    <input type="radio" ng-model="verClientesPor" value="tipo" />
+                    Tipo Cliente                    
+                </label>
+                <br />
+                <label>
+                    <input type="radio" ng-model="verClientesPor" value="ruta" />
+                    Ruta - Vendedor
+                </label>
+                <br />
+                <label>
+                    <input type="radio" ng-model="verClientesPor" value="abc" />
+                    ABC
+                </label>
+            </div>
+            <div class="row"><br /><strong>Selccione los datos a filtrar: </strong></div>
+            <div class="row">
+                <br />
+                
                 <input kendo-drop-down-list
                        k-option-label="'Todas las Categorias'"
                        k-data-text-field="'text'"
@@ -71,7 +89,7 @@
         </div>
     </div>
 
-    <div id="winBuffer" kendo-window="winBuffer" k-title="'Buffer'" k-visible="false" k-modal="true" k-width="300" k-height="200">
+    <div id="winBuffer" kendo-window="winBuffer" k-title="'Buffer'" k-visible="false" k-modal="true" k-width="300" k-height="250">
         <div class="container-fluid">
             <div class="row">Introduzca los datos del Buffer: </div>
             <div class="row">
@@ -100,7 +118,7 @@
     <div id="winPivot" kendo-window="vm.winPivot" k-title="'Reportes'" k-visible="false" k-actions='[
          "maximize",
          "close"
-         ]' k-width="600" k-height="400">
+         ]' k-width="600" k-height="500">
         <button id="export" class="k-button k-button-icontext"><span class="k-icon k-i-excel"></span>Export to Excel</button>
         <div id="pivotgrid"></div>
         <div kendo-splitter="splitter"
