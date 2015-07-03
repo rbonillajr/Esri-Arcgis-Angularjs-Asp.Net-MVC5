@@ -35,7 +35,14 @@ function ($q, $log,$http) {
                 TOM_Shell: element.properties.TOM_Shell,
                 TOM_Chevron: element.properties.TOM_Chevron,
                 TOM_Castrol: element.properties.TOM_Castrol,
-                TOM_Valvoline: element.properties.TOM_Valvoline
+                TOM_Valvoline: element.properties.TOM_Valvoline,
+                EXHIBIDOR_Mobil: element.properties.EXHIBIDOR_MOBIL,
+                EXHIBIDOR_Shell: element.properties.EXHIBIDOR_SHELL,
+                EXHIBIDOR_Castrol: element.properties.EXHIBIDOR_CASTROL,
+                EXHIBIDOR_Valvoline: element.properties.EXHIBIDOR_VALVOLINE,
+                EXHIBIDOR_Chevron: element.properties.EXHIBIDOR_CHEVRON,
+                RUTA_VENDEDOR: element.properties.RUTA_VENDEDOR,
+                ABC: element.properties.ABC
             })
         });
 
