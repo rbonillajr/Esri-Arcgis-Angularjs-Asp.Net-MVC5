@@ -1,26 +1,19 @@
-﻿//function bufferService($log) {
+﻿angular
+    .module('geomarketing.services')
+    .factory('bufferService', ['$q', '$log',
+function ($q, $log) {
+    var bufferService = {};
+    bufferService.get = '';
+    bufferService.get = function (radio, unidades, latlng, callback) {
+                
+        var marker = L.marker(latlng, {});
+        var pointMarker = marker.toGeoJSON();
+        buffered = turf.buffer(pointMarker, radio, unidades);
+               
+        callback(buffered);
+    };
 
-//    ProgressTrackerService.get = function () {
-//        return [{
-//            selected: true,
-//            url: '/planes',
-//            description: 'Seleccionar plan'
-//        },
-//        {
-//            selected: false,
-//            url: '/d',
-//            description: 'Registrar datos'
-//        },
-//        {
-//            selected: false,
-//            url: '/d',
-//            description: 'Comprar poliza'
-//        }];
-//    };
 
-//    return ProgressTrackerService;
-//}
 
-//angular
-//  .module('geomarketing')
-//  .factory('bufferService', bufferService);
+    return bufferService;
+}]);

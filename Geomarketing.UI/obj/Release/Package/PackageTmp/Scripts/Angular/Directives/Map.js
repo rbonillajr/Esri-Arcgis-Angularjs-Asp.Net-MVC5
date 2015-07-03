@@ -1,103 +1,378 @@
-﻿//angular.module("geomarketing")
-//    .directive('esriMap', function ($timeout) {
-//        return {
-//            //template: '<div></div>',          
-//            link: function postLink(scope, element, attrs) {
-//                //debugger;
+﻿angular.module("geomarketing")
+    .directive('esriMap', ['$timeout', 'bufferService', 'utilityService', function ($timeout, bufferService, utilityService) {
+        return {
+            template: "<div id='map'></div>",
+            link: function postLink(scope, element, attrs) {
+                
+                scope.buffer = function (radio, unidades) {
 
-//                var init = function () {
-//                    //MapSetting
+                    if (typeof buff != 'undefined') {
+                        map.removeLayer(buff);
+                    }
 
-//                    esri.config.defaults.io.proxyUrl = "/proxy/";
-//                    var startExtent = new esri.geometry.Extent({
-//                        "xmin": -9146655.03, "ymin": 780775.46,
-//                        "xmax": -8596308.43, "ymax": 1147673.20,
-//                        "spatialReference": { "wkid": 102100 }
-//                    });
+                    bufferService.get(radio, unidades, scope.latlng, function (buffered) {
+                        buff = L.geoJson(buffered);
+                        buff.addTo(map);
 
-//                    scope.map = new esri.Map(element[0], {
+                        scope.inside = turf.within(scope.stops, buffered);
+                        //debugger;
+                        var pointsNumber = 0;
 
-//                        basemap: 'topo',
-//                        sliderOrientation: "vertical",
-//                        extent: startExtent,
-//                        logo: false
-//                    });
+                        if (typeof pointsInside != 'undefined') {
+                            map.removeLayer(pointsInside);
+                        }
 
-//                    dojo.connect(scope.map, "onLoad", function (map) {
+                        pointsInside = L.geoJson(scope.inside, {
+                            onEachFeature: function (feature, layer) {
+                                pointsNumber++
+                                //layer.bindPopup("<h4>test</h4>"); si se quiere mostrar info del punto seleccionado
+                            },
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng);
+                            },
+                            style: { radius: 10, fillColor: "red", weight: 1 }
+                        }).addTo(map);
 
-//                        //BaseMapGallery
-//                        /*var basemaps = [];
-//                        basemaps.push(new esri.dijit.Basemap({
-//                            layers: [new esri.dijit.BasemapLayer({
-//                                type: 'GoogleMapsHybrid'
-//                            })],
-//                            title: "Google Hybrid",
-//                            id: 'GoogleHybrid',
-//                            thumbnailUrl: dojo.moduleUrl("agsjs.dijit", "images/googlehybrid.png")
-//                        }));*/
+                    });
+                }
 
-//                        var basemapGallery = new esri.dijit.BasemapGallery({
-//                            showArcGISBasemaps: true,
-//                            map: map
-//                        }, dojo.byId("basemapGallery"));
+                scope.addFeatures = function (url, filtro, callback) {
+                    L.esri.Tasks.query({
+                        url: url
+                    }).where(filtro).run(function (error, data, response) {
+
+                        scope.stops = data;
+
+                        L.geoJson(data, {
+
+                            onEachFeature: function (feature, layer) {
+
+                                layer.bindPopup('<center><strong>' + feature.properties.STATUS + '</strong></center><br/>' +                                                
+                                               '<img src="../Content/Fotos/thumbs/' + feature.properties.fotout + '"></img><br/>' +
+                                               '<strong>Nombre: </strong>' + feature.properties.NOMBRE + '<br/>' +
+                                               '<strong>Ruta - Vendedor: </strong>' + feature.properties.RUTA_VENDEDOR + '<br/>' +
+                                               '<strong>ABC: </strong>' + feature.properties.ABC + '<br/>' +
+                                               '<strong>Provincia: </strong>' + feature.properties.PROVINCIA + '<br/>' +
+                                               '<strong>Distrito: </strong>' + feature.properties.DISTRITO + '<br/>' +
+                                               '<strong>Corregimiento: </strong>' + feature.properties.CORREGIMIE + '<br/>' +
+                                               '<strong>Categoria: </strong>' + feature.properties.CATEGORIA + '<br/>' +
+                                               '<strong>Dirección: </strong>' + feature.properties.DIRECCION + '<br/>');
+                            },
+                            pointToLayer: function (feature, latlng) {
+                                
+                                switch (scope.verClientesPor) {
+                                    case 'tipo':
+                                        switch (feature.properties.STATUS) {
+
+                                            case 'CLIENTES':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'darkblue'
+                                                    })
+                                                })
+                                            default:
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'bookmark',
+                                                        markerColor: 'green'
+                                                    })
+                                                })
+                                        }
+                                        
+                                    case 'ruta':
+                                        switch (feature.properties.RUTA_VENDEDOR) {
+
+                                            case 'AG1 - JOHN VARELA':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'red'
+                                                    })
+                                                })
+                                            case 'AG2 - FELICIANO ORTEGA':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'darkred'
+                                                    })
+                                                })
+                                            case 'AG3 - IVAN BERMUDEZ':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'lightred'
+                                                    })
+                                                })
+                                            case 'AG4 - GABRIEL GONZALEZ':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'orange'
+                                                    })
+                                                })
+                                            case 'DA1 - OMAR SERRANO':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'beige'
+                                                    })
+                                                })
+                                            case 'DA2 - RAUL VILLARREAL':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'cadetblue'
+                                                    })
+                                                })
+                                            case 'DA4 - KAREN SERRANO':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'darkgreen'
+                                                    })
+                                                })
+                                            case 'JUAN CARLOS BARRIA':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'lightgreen'
+                                                    })
+                                                })
+                                            case 'PA1 - ALBERTO MUÑOZ':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'blue'
+                                                    })
+                                                })
+                                            case 'PA2 - CARLOS VARGAS':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'darkblue'
+                                                    })
+                                                })
+                                            case 'PA3 - ROGER DE LEON':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'lightblue'
+                                                    })
+                                                })
+                                            case 'PA4 - ARSENIO MIRANDA':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'purple'
+                                                    })
+                                                })
+                                            case 'PA5 - JAMES RUJANO':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'cadetblue'
+                                                    })
+                                                })
+                                            default:
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'bookmark',
+                                                        markerColor: 'green'
+                                                    })
+                                                })
+                                        }
+                                    case 'abc':
+                                        switch (feature.properties.ABC) {
+
+                                            case 'A':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'darkblue'
+                                                    })
+                                                })
+                                            case 'B':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'orange'
+                                                    })
+                                                })
+                                            case 'C':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'purple'
+                                                    })
+                                                })
+                                            default:
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'bookmark',
+                                                        markerColor: 'green'
+                                                    })
+                                                })
+                                        }
+
+                                    
+                                }
+                            }
+                        }).addTo(map);
+                        
+                    });
+                    
+                    createLegend();
+                    callback(null, true);
+
+                }
+                var legend1
+                function createLegend() {
+                    if (legend1 instanceof L.Control) { map.removeControl(legend1); }
+                    legend1 = L.control({ position: 'bottomleft' });
+                    legend1.onAdd = function (map) {
+                        switch (scope.verClientesPor) {
+                            case 'tipo':
+                                var div = L.DomUtil.create('div', 'info legend');
+                                div.innerHTML = '<div class="legend"><table><tr><td><div class="awesome-marker-icon-green awesome-marker-legend">' +
+                                    '<i class="glyphicon glyphicon-bookmark  icon-white"></i>' +
+                                    '</div></td><td><strong>Prospectos</strong></td></tr>' +
+                                    '<tr><td><div class="awesome-marker-icon-darkblue awesome-marker-legend">' +
+                                    '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
+                                    '</div></td><td><strong>Clientes</strong></td></tr>' +
+                                    '</table></div>';
+
+                                return div;
+                            case 'ruta':
+                                var div = L.DomUtil.create('div', 'info legend');
+                                div.innerHTML = '<div></div>';
+
+                                return div;
+                            case 'abc':
+                                var div = L.DomUtil.create('div', 'info legend');
+                                div.innerHTML = '<div class="legend"><table><tr><td><div class="awesome-marker-icon-green awesome-marker-legend">' +
+                                    '<i class="glyphicon glyphicon-bookmark  icon-white"></i>' +
+                                    '</div></td><td><strong>Prospectos</strong></td></tr>' +
+                                    '<tr><td><div class="awesome-marker-icon-darkblue awesome-marker-legend">' +
+                                    '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
+                                    '</div></td><td><strong>A</strong></td></tr>' +
+                                    '<tr><td><div class="awesome-marker-icon-orange awesome-marker-legend">' +
+                                    '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
+                                    '</div></td><td><strong>B</strong></td></tr>' +
+                                    '<tr><td><div class="awesome-marker-icon-purple awesome-marker-legend">' +
+                                    '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
+                                    '</div></td><td><strong>C</strong></td></tr>' +
+                                    '</table></div>';
+
+                                return div;
+
+                        }
 
 
-//                        var layer = new esri.dijit.BasemapLayer({
+                    };
+                    legend1.addTo(map);
+                };
+                scope.buffered = false;
+                var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
 
-//                            url: "http://190.97.161.17/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer/" //colocar dynamic factory
-//                            //url: "http://190.97.161.17/arcgis/rest/services/DEMOS/MAPA_DE_SECTORIZACION_CSS/MapServer"
-//                        });
-//                        var basemap = new esri.dijit.Basemap({
-//                            layers: [layer],
-//                            title: "Geoinfo",
-//                            id: 'Geoinfo',
-//                            thumbnailUrl: "../Content/Images/GeoBaseMap.png"
-//                        });
 
-//                        basemapGallery.add(basemap);
-//                        basemapGallery.select('Geoinfo');
-//                        basemapGallery.startup();
+                var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0';
+                scope.addFeatures(url, '1=1', function (error, result) {
 
-//                        //overviewMap
-//                        overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
+                });
 
-//                        basemapGallery.on("load", function () {
+                L.control.navbar().addTo(map);
+                
+                map.on('click', function (e) {
+                    if (scope.buffered) {
+                        scope.latlng = e.latlng;
+                        scope.winBuffer.open().center();
+                    } else {
+                        if (typeof buff != 'undefined') {
+                            map.removeLayer(buff);
+                        }
+                        if (typeof pointsInside != 'undefined') {
+                            map.removeLayer(pointsInside);
+                        }
+                    }
 
-//                            overviewMap.startup();
-//                        });
-//                        //overviewMap's event
-//                        basemapGallery.on("selection-change", function () {
+                });
 
-//                            overviewMap.destroy();
-//                            overviewMap = new esri.dijit.OverviewMap({ map: map }, dojo.byId("overviewDiv"));
-//                            overviewMap.startup();
-//                        });
-//                        basemapGallery.on("error", function (msg) {
-//                            console.log("basemap gallery error:  ", msg);
-//                        });
+                var mapaBaseGeoinfo = L.esri.tiledMapLayer('http://geobi.geoinfo-int.com/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer');
 
-//                        //Home Button
-//                        var homeButton = new esri.dijit.HomeButton({ map: map }, "HomeButton");
-//                        homeButton.startup();
+                // basemap layer groups so the hydro overlay always overlays the various basemaps
+                var nationalGeographic = L.layerGroup([
 
-//                        //LocateButton
-//                        geoLocate = new esri.dijit.LocateButton({
-//                            map: map
-//                        }, "LocateButton");
-//                        geoLocate.startup();
+                        L.esri.basemapLayer('NationalGeographic')
+                ]),
+                    esriTopo = L.layerGroup([
 
-//                        //ScaleBar
-//                        var scalebar = new esri.dijit.Scalebar({
-//                            map: map,
-//                            scalebarUnit: "dual"
-//                        });
+                        L.esri.basemapLayer('Topographic')
+                    ]),
+                    esriShadedRelief = L.layerGroup([
 
-//                    });
+                        L.esri.tiledMapLayer('ShadedReliefLabels'),
+                        L.esri.basemapLayer('ShadedRelief')
+                    ]),
+                    geoinfo = L.layerGroup([
 
-//                };
-//                //dojo.addOnLoad(init);
-//                dojo.ready(init);
+                        mapaBaseGeoinfo
+                    ])
 
-//            }
-//        };
-//    });
+                // add default layers to map
+                map.addLayer(geoinfo);
+
+                // json object for layer switcher control basemaps
+                var baseLayers = {
+                    "National Geographic": nationalGeographic,
+                    "Esri Topographic": esriTopo,
+                    "Shaded Relief": esriShadedRelief,
+                    "Geoinfo": geoinfo
+                };
+
+                var overlayMaps = {
+
+                };
+
+                // add layer groups to layer switcher control
+                var controlLayers = L.control.layers(baseLayers, overlayMaps).addTo(map);
+
+                // Query para filtrar los datos
+                scope.query = function (param, callback) {
+                    
+                    map.eachLayer(function (layer) {
+
+                        if (layer._leaflet_id > 42) {
+                            map.removeLayer(layer);
+                        }
+
+                    });
+                    if (param == '1=1') {
+                        filtro = param;
+                    } else {
+                        filtro = '';
+                        _.each(param, function (item, index) {
+                            if (param.length == 1 || index == 0) {
+                                filtro = item;
+                            } else {
+                                filtro = filtro + ' AND ' + item
+                            }
+                        });
+                    }
+                    scope.addFeatures(url, filtro, function (error, result) {
+                        //if (error) {
+                        //   return callback(error, null);
+                        //} else {
+                        //    return callback(null, result);
+                        //}
+
+                    });
+
+                    callback(null, true);
+                }
+
+
+
+            }
+        };
+    }]);

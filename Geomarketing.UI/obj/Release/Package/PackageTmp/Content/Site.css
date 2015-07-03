@@ -65,13 +65,15 @@ input[type="checkbox"].input-validation-error {
 }
 
 #LogoGeo {
-  display: inline-block;  
-  position: absolute;  
-  height: 46px;  
-  width: 46px;  
-  right: 5px;  
-  bottom: 15px;  
-  z-index: 50;  
-  background-image: url('../Content/Images/LogoGeo.png');  
-  cursor: pointer;  
+    display: inline-block;
+    position: absolute;
+    height: 46px;
+    width: 46px;
+    right: 5px;
+    bottom: 15px;
+    z-index: 10;
+    background-image: url('../Content/Images/LogoGeo.png');
+    cursor: pointer;
 }
+
+

@@ -2,105 +2,139 @@
     ViewBag.Title = "Mapa";
     Layout = "~/Views/Shared/_LayoutMaps.cshtml";
 }
-<div class="map" ng-controller="ViewerController as ctrl">
-    @*<nav class="navbar navbar-default" style="margin-bottom: 1px;" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+<div class="map" ng-controller="ViewerController as vm">
 
-                </div>
-                <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+    <div kendo-toolbar k-options="vm.toolbarOptions"></div>
 
-                    <form class="navbar-form navbar-left" role="menu">
-                        <div class="form-group" style="margin:2px">
-                            <button type="submit" class="btn btn-default">Detalle</button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                Mapa Base <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><div id="basemapGallery"></div></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                Analisis
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Zonas</a></li>
-                                <li><a href="#">Barrios</a></li>
+    <div style="height:93.5%">
 
-                            </ul>
-                        </div>
-                    </form>
-                    <form class="navbar-form navbar-right" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Busqueda">
-                        </div>
-                        <button type="submit" class="btn btn-default">Buscar</button>
-                    </form>
-
-                </div>
-            </div>
-        </nav>*@
-    <div kendo-toolbar k-options="ctrl.toolbarOptions"></div>
-    <div kendo-splitter="splitter"
-         k-panes="[ { collapsible: true, size: '15%' }, { collapsible: false, size: '85%'} ]"
-         k-orientation="'horizontal'"
-         style="height:93.5%">
-        <div ng-controller="TabController as tab">
-
-            <section class="tab">
-                <ul class="nav nav-pills">
-                    <li ng-class="{ active: tab.isSet(1) }">
-                        <a href ng-click="tab.setTab(1)">Contenido</a>
-                    </li>
-                    <li ng-class="{ active: tab.isSet(2) }">
-                        <a href ng-click="tab.setTab(2)">Leyenda</a>
-                    </li>
-                    @*<li ng-class="{ active: tab.isSet(3) }">
-                        <a href ng-click="tab.setTab(3)">Acerca</a>
-                    </li>*@
-                </ul>
-                <div ng-show="tab.isSet(1)">
-
-                    <blockquote>
-
-                        <input id="contenido" type="checkbox" ng-model="ctrl.checked" ng-change="ctrl.ver(ctrl.checked)" />
-                        <label for="contenido">Comercios</label><br />
-
-                    </blockquote>
-                </div>
-                <div ng-show="tab.isSet(2)">
-                    <div id="legend"></div>
-                </div>
-                @*<div ng-show="tab.isSet(3)">
-                    <h4>Reviews3</h4>
-                </div>*@
-            </section>
+        <div esri-map>
+            @*<div id="LocateButton"></div>
+                <div id="HomeButton"></div>*@
 
         </div>
-        <div >
-            <esri-map id="map" register-as="map" center="ctrl.map.center" zoom="ctrl.map.zoom" basemap="topo">
-                <esri-feature-layer url="http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0"></esri-feature-layer>
-                <div esri-legend target-id="legend"></div>
-                <div id="LocateButton"></div>
-                <div id="HomeButton"></div>
-                <div id="LogoGeo"></div>
-            </esri-map>
+        <div id="LogoGeo"></div>
+    </div>
 
-            @*<div esri-map>
+    <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="300" k-height="450">
+        <div class="container-fluid">
+            <div class="row"><strong>Ver Puntos de venta por: </strong></div>
+            <div class="row">
+                <br />
+                <label>
+                    <input type="radio" ng-model="verClientesPor" value="tipo" />
+                    Tipo Cliente                    
+                </label>
+                <br />
+                <label>
+                    <input type="radio" ng-model="verClientesPor" value="ruta" />
+                    Ruta - Vendedor
+                </label>
+                <br />
+                <label>
+                    <input type="radio" ng-model="verClientesPor" value="abc" />
+                    ABC
+                </label>
+            </div>
+            <div class="row"><br /><strong>Selccione los datos a filtrar: </strong></div>
+            <div class="row">
+                <br />
                 
-                
-                
-            </div>*@
+                <input kendo-drop-down-list
+                       k-option-label="'Todas las Categorias'"
+                       k-data-text-field="'text'"
+                       k-data-value-field="'value'"
+                       k-data-source="vm.categorias"
+                       ng-model="vm.selectedCategoria" />
+            </div>
+            <div class="row">
+                <br />
+                <input kendo-drop-down-list
+                       k-data-text-field="'text'"
+                       k-data-value-field="'value'"
+                       k-data-source="vm.data"
+                       ng-model="vm.selected" />
+            </div>
+            <div class="row">
+                <br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Mobil">
+                    Mobil
+                </label><br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Shell">
+                    Shell
+                </label><br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Castrol">
+                    Castrol
+                </label><br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Valvoline">
+                    Valvoline
+                </label><br />
+                <label>
+                    <input type="checkbox" ng-model="vm.filtroMarca.Chevron">
+                    Chevron
+                </label>
+            </div>
+            <div class="row">
+
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-primary" id="yesButton">Filtrar</button>
+                    <button class="btn btn-sm" id="noButton">Cancelar</button>
+                    <button class="btn btn-sm btn-info" id="limpiarFilter">Limpiar Filtro</button>
+                </div>
+            </div>
         </div>
     </div>
 
-
+    <div id="winBuffer" kendo-window="winBuffer" k-title="'Buffer'" k-visible="false" k-modal="true" k-width="300" k-height="250">
+        <div class="container-fluid">
+            <div class="row">Introduzca los datos del Buffer: </div>
+            <div class="row">
+                <br />
+                <strong>Radio: </strong>
+                <input kendo-numeric-text-box k-min="0" k-max="1000" k-ng-model="bufferValue" />
+            </div>
+            <div class="row">
+                <br />
+                <strong>Unidades: </strong>
+                <input kendo-drop-down-list
+                       k-data-text-field="'text'"
+                       k-data-value-field="'value'"
+                       k-data-source="vm.unidades"
+                       ng-model="selectedUnidades" />
+            </div>
+            <div class="row">
+                <br />
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-primary" id="yesBuffer" ng-click="vm.yesBuffer">Aplicar</button>
+                    <button class="btn btn-sm" id="cancelBuffer" ng-click="vm.cancelBuffer">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="winPivot" kendo-window="vm.winPivot" k-title="'Reportes'" k-visible="false" k-actions='[
+         "maximize",
+         "close"
+         ]' k-width="600" k-height="500">
+        <button id="export" class="k-button k-button-icontext"><span class="k-icon k-i-excel"></span>Export to Excel</button>
+        <div id="pivotgrid"></div>
+        <div kendo-splitter="splitter"
+             k-panes="[ {collapsed: true, collapsible: true, size: '20%' }, { collapsible: false, size: '80%'} ]"
+             k-orientation="'horizontal'"
+             style="height:100%">
+            <div>
+                <div id="ContentConfig">
+                    <div id="configurator"></div>
+                </div>
+            </div>
+            <div>
+                <div id="ContentPivot">
+                    <div id="pivotgrid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

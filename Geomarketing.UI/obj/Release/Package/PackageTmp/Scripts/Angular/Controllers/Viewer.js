@@ -1,62 +1,237 @@
 ﻿angular.module('geomarketing')
-    .controller('ViewerController', ['$scope', 'toolBarService','esriLoader', 'esriRegistry', function (scope, toolBarService, esriLoader, esriRegistry) {
+    .controller('ViewerController', ['$scope', 'utilityService', function (scope, utilityService) {
         var vm = this;
-        
-        vm.toolbarOptions = toolBarService.options;
-        vm.map = {
-            center: {
-                lng: -80.1649963378998,
-                lat: 8.41538419245198
-            },
-            zoom: 8,
-            basemap: 'topo',
-            logo: false,
-            sliderOrientation: 'horizontal',
-            sliderPosition: 'top-right'
+        scope.verClientesPor= "tipo";
+        scope.bufferValue = 3;
+        scope.selectedUnidades;
+
+        vm.selectedCategoria = '';
+        vm.categorias = [{ text: "Estación de gasolina", value: "Estación de gasolina" },
+                        { text: "Ferretería", value: "Ferretería" },
+                        { text: "Hipermercado", value: "Hipermercado" },
+                        { text: "Repuestos de autos", value: "Repuestos de autos" },
+                        { text: "Supercentro", value: "Supercentro" },
+                        { text: "Supermercado", value: "Supermercado" },
+                        { text: "Supermercado Cadena", value: "Supermercado Cadena" },
+                        { text: "Taller Automotriz", value: "Taller Automotriz" },
+                        { text: "Tienda de conveniencia", value: "Tienda de conveniencia" }];
+        vm.selected;
+        vm.data = [
+                { text: "Disponibilidad", value: 7 },
+                /*{ text: "Exhibidores", value: 9 },
+                { text: "Comunicación Interna", value: 10 },*/
+                { text: "Top Of Mind", value: 11 }
+        ];
+        vm.unidades = [
+                { text: "Kilometros", value: "kilometers" },
+                { text: "Millas", value: "miles" }
+        ];
+
+
+        vm.filtroMarca = {
+            Mobil: false,
+            Shell: false,
+            Castrol: false,
+            Valvoline: false,
+            Chevron: false
+        }
+
+
+        vm.filtros = function () {
+            $("#yesButton").unbind();
+            $('#yesButton').click(function (e) {
+                
+                filtro = [];
+                if (vm.selectedCategoria != '') {
+                    filtro.push("CATEGORIA_1='" + vm.selectedCategoria + "'");
+                }
+                switch (vm.selected) {
+                    case '7':
+                        if (vm.filtroMarca.Mobil) {
+                            filtro.push("MOBIL=1");
+                        }
+                        if (vm.filtroMarca.Shell) {
+                            filtro.push("SHELL=1");
+                        }
+                        if (vm.filtroMarca.Castrol) {
+                            filtro.push("CASTROL=1");
+                        }
+                        if (vm.filtroMarca.Valvoline) {
+                            filtro.push("VALVOLINE =1");
+                        }
+                        if (vm.filtroMarca.Chevron) {
+                            filtro.push("CHEVRON  =1");
+                        }
+                        break
+                    case '11':
+                        if (vm.filtroMarca.Mobil) {
+                            filtro.push("TOM_Mobil=1");
+                        }
+                        if (vm.filtroMarca.Shell) {
+                            filtro.push("TOM_Shell=1");
+                        }
+                        if (vm.filtroMarca.Castrol) {
+                            filtro.push("TOM_Castrol=1");
+                        }
+                        if (vm.filtroMarca.Valvoline) {
+                            filtro.push("TOM_Valvoline =1");
+                        }
+                        if (vm.filtroMarca.Chevron) {
+                            filtro.push("TOM_Chevron  =1");
+                        }
+                        break;
+                    default:
+
+                }
+                if (filtro.length == 0) {
+                    filtro = '1=1';
+                }
+                scope.query(filtro, function (error, result) {
+                    vm.window.close();
+                });
+
+            });
+            $("#noButton").unbind();
+            $('#noButton').click(function (e) {
+                vm.window.close();
+            });
+            $("#limpiarFilter").unbind();
+            $('#limpiarFilter').click(function (e) {
+                scope.query("1=1", function (error, result) {
+                    vm.window.close();
+                });
+
+            });
+            vm.window.open().center();
         };
-        esriRegistry.get('map').then(function (map) {
-            esriLoader('esri/dijit/LocateButton').then(function (locateButton) {
-                var LocateButton = new locateButton({ map: map }, 'LocateButton');
-                LocateButton.startup();
-             
-            });
-            esriLoader('esri/dijit/HomeButton').then(function (homeButton) {
 
-                var HomeButton = new homeButton({ map: map }, 'homeButton');
-                HomeButton.startup();
+        vm.buffer = function () {
+
+            if (scope.buffered) {
+                scope.buffered = false;
+            }
+            else {
+                scope.buffered = true;
+            }
+            $("#yesBuffer").unbind();
+            $('#yesBuffer').click(function (e) {
+                scope.buffer(scope.bufferValue, scope.selectedUnidades);
+                scope.winBuffer.close();
+            });
+            $("#cancelBuffer").unbind();
+            $('#cancelBuffer').click(function (e) {
+                scope.winBuffer.close();
             });
 
-            esriLoader('esri/dijit/OverviewMap').then(function (overviewMap) {
-             
-                var OverviewMap = new overviewMap({ map: map }, dojo.byId("overviewDiv"));
-                OverviewMap.startup();
-            });
-        });
-        vm.ver = function (checked) {
+            //vm.winBuffer.open().center();
+
+        };
+        vm.bufferReporte = function () {
             
-        //    ////Adding map leyers 
-        //    //var e = true; 
-        //    if (checked)
-        //    {
-        //        //http://190.97.161.17/arcgis/rest/services/DEMOS/DEMO_MAPFRE/MapServer/0
-        //        featurelayer = new esri.layers.FeatureLayer("http://190.97.161.17/arcgis/rest/services/MOBIL/MOBIL/MapServer/0",
-        //            {
-        //                id: "capa3",
-        //                visible: true,
-        //                infoTemplate: new esri.InfoTemplate(" ", "${GENERALES.PDV} <br/> <img src='../Content/Fotos/${GENERALES.fotout}'  height='200' width='200'/>"),
-        //                outFields: ["*"]
-        //            });
-        //        scope.map.addLayer(featurelayer);
-        //    }
-        //    else
-        //    {
-        //        scope.map.graphics.clear();
-        //        scope.map.infoWindow.hide();
+            $("#pivotgrid").remove();
+            $("#ContentPivot").append("<div id='pivotgrid'></div>")
 
-        //        scope.map.removeLayer(featurelayer);
-        //    }
+            $("#configurator").remove();
+            $("#ContentConfig").append("<div id='configurator'></div>")
 
+            vm.winPivot.open().center();
+            utilityService.geoJsonToPivot(scope.inside.features, function (error, response) {
+
+                var pivotgrid = $("#pivotgrid").kendoPivotGrid({
+                    columnWidth: 120,
+                    height: 700,
+                    excel: {
+                        fileName: "BufferResult.xlsx",
+                        proxyURL: "http://demos.telerik.com/kendo-ui/service/export",
+                        filterable: true
+                    },
+                    dataSource: {
+                        data: response,
+                        schema: {
+                            model: {
+                                fields: {
+                                    Nombre: { type: "string" },
+                                    Categoria: { type: "string" },
+                                    Provincia: { type: "string" },
+                                    Distrito: { type: "string" },
+                                    Corregimiento: { type: "string" },
+                                    Barrio: { type: "string" },
+                                    Tipo: { type: "string" },
+                                    Mobil: { type: "number" },
+                                    Shell: { type: "number" },
+                                    Chevron: { type: "number" },
+                                    Castrol: { type: "number" },
+                                    Valvoline: { type: "number" },
+                                    TOM_Movil: { type: "number" },
+                                    TOM_Shell: { type: "number" },
+                                    TOM_Chevron: { type: "number" },
+                                    TOM_Castrol: { type: "number" },
+                                    TOM_Valvoline: { type: "number" }
+                                }
+                            },
+                            cube: {
+                                dimensions: {
+                                    Nombre: { caption: "PDVs" },
+                                    Categoria: { caption: "Categorias" },
+                                    Provincia: { caption: "Provincias" },
+                                    Distrito: { caption: "Distrito" },
+                                    Corregimiento: { caption: "Corregimiento" },
+                                    Barrio: { caption: "Barrio" },
+                                    Tipo: { caption: "Tipo" }/*,                                    
+                                    Mobil: { caption: "Mobil" },
+                                    Shell: { caption: "Shell" },
+                                    Chevron: { caption: "Chevron" },
+                                    Castrol: {caption: "Castrol"},
+                                    Valvoline: { caption: "Valvoline" },
+                                    TOM_Mobil: { caption: "TOM_Mobil" },
+                                    TOM_Shell: { caption: "TOM_Shell" },
+                                    TOM_Chevron: { caption: "TOM_Chevron" },
+                                    TOM_Castrol: { caption: "TOM_Castrol" },
+                                    TOM_Valvoline: { caption: "TOM_Valvoline" }*/
+                                },
+                                measures: {
+                                    "Disp_Mobil": { field: "Mobil", format: "{0}", aggregate: "sum" },
+                                    "Disp_Shell": { field: "Shell", format: "{0}", aggregate: "sum" },
+                                    "Disp_Chevron": { field: "Chevron", format: "{0}", aggregate: "sum" },
+                                    "Disp_Castrol": { field: "Castrol", format: "{0}", aggregate: "sum" },
+                                    "Disp_Valvoline": { field: "Valvoline", format: "{0}", aggregate: "sum" },
+                                    "TOM_Mobil": { field: "TOM_Mobil", format: "{0}", aggregate: "sum" },
+                                    "TOM_Shell": { field: "TOM_Shell", format: "{0}", aggregate: "sum" },
+                                    "TOM_Chevron": { field: "TOM_Chevron", format: "{0}", aggregate: "sum" },
+                                    "TOM_Castrol": { field: "TOM_Castrol", format: "{0}", aggregate: "sum" },
+                                    "TOM_Valvoline": { field: "TOM_Valvoline", format: "{0}", aggregate: "sum" }
+                                }
+                            }
+                        },
+                        columns: [{ name: "Tipo", expand: true }],
+                        rows: [{ name: "Provincia", expand: true },
+                                { name: "Distrito", expand: false },
+                                { name: "Corregimiento", expand: false },
+                                { name: "Barrio", expand: false },
+                                { name: "Categoria", expand: false }],
+                        measures: ["Disp_Mobil"]
+                    }
+                }).data("kendoPivotGrid");
+                $("#configurator").kendoPivotConfigurator({
+                    dataSource: pivotgrid.dataSource,
+                    height: 570
+                });
+                $("#export").unbind();
+                $("#export").click(function () {
+                    pivotgrid.saveAsExcel();
+                });
+            });
+
+           
+        };
+        vm.toolbarOptions = {
+            items: [
+                { type: "button", text: "Filtros", click: vm.filtros },
+                { type: "button", text: "Analisis" },
+                { type: "button", text: "Buffer", togglable: true, toggle: vm.buffer },
+                { type: "button", text: "Reportes Buffer", click: vm.bufferReporte }
+            ]
         };
 
-        
+
     }]);
