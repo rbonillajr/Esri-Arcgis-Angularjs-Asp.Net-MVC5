@@ -17,7 +17,7 @@
                         { text: "Tienda de conveniencia", value: "Tienda de conveniencia" }];
 
         vm.selectOptions = {
-            placeholder: "Select products...",
+            placeholder: "Seleccione Categorias...",
             dataTextField: "text",
             dataValueField: "value",
             valuePrimitive: true,
