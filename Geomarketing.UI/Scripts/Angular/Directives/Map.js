@@ -355,7 +355,7 @@
                             if (param.length == 1 || index == 0) {
                                 filtro = item;
                             } else {
-                                filtro = filtro + ' AND ' + item
+                                filtro = filtro + ' OR ' + item
                             }
                         });
                     }

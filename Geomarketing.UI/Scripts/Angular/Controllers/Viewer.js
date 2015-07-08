@@ -53,59 +53,59 @@
                 filtro = [];
                 if (vm.selectedCategoria.length > 0) {
                     _.each(vm.selectedCategoria, function (item, index) {                        
-                        filtro.push("CATEGORIA_1='" + item + "'");
+                        filtro.push({ filtro: "CATEGORIA_1='" + item + "'", operador: "OR",grupo: 1 });
                     });                    
                 }
                 switch (vm.selected) {
                     case '7':
                         if (vm.filtroMarca.Mobil) {
-                            filtro.push("MOBIL=1");
+                            filtro.push({ filtro: "MOBIL=1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Shell) {
-                            filtro.push("SHELL=1");
+                            filtro.push({ filtro: "SHELL=1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Castrol) {
-                            filtro.push("CASTROL=1");
+                            filtro.push({ filtro: "CASTROL=1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Valvoline) {
-                            filtro.push("VALVOLINE =1");
+                            filtro.push({ filtro: "VALVOLINE =1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Chevron) {
-                            filtro.push("CHEVRON  =1");
+                            filtro.push({ filtro: "CHEVRON  =1", operador: "AND", grupo: 2 });
                         }
                         break
                     case '9':
                         if (vm.filtroMarca.Mobil) {
-                            filtro.push("EXHIBIDOR_MOBIL=1");
+                            filtro.push({ filtro: "EXHIBIDOR_MOBIL=1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Shell) {
-                            filtro.push("EXHIBIDOR_SHELL=1");
+                            filtro.push({ filtro: "EXHIBIDOR_SHELL=1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Castrol) {
-                            filtro.push("EXHIBIDOR_CASTROL=1");
+                            filtro.push({ filtro: "EXHIBIDOR_CASTROL=1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Valvoline) {
-                            filtro.push("EXHIBIDOR_VALVOLINE =1");
+                            filtro.push({ filtro: "EXHIBIDOR_VALVOLINE =1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Chevron) {
-                            filtro.push("EXHIBIDOR_CHEVRON  =1");
+                            filtro.push({ filtro: "EXHIBIDOR_CHEVRON  =1", operador: "AND", grupo: 2 });
                         }
                         break
                     case '11':
                         if (vm.filtroMarca.Mobil) {
-                            filtro.push("TOM_Mobil=1");
+                            filtro.push({ filtro: "TOM_Mobil=1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Shell) {
-                            filtro.push("TOM_Shell=1");
+                            filtro.push({ filtro: "TOM_Shell=1", operador: "AND", grupo: 2 });
                         }
                         if (vm.filtroMarca.Castrol) {
-                            filtro.push("TOM_Castrol=1");
+                            filtro.push({ filtro: "TOM_Castrol=1", operador: "OR", grupo: 2 });
                         }
                         if (vm.filtroMarca.Valvoline) {
-                            filtro.push("TOM_Valvoline =1");
+                            filtro.push({ filtro: "TOM_Valvoline =1", operador: "OR", grupo: 2 });
                         }
                         if (vm.filtroMarca.Chevron) {
-                            filtro.push("TOM_Chevron  =1");
+                            filtro.push({ filtro: "TOM_Chevron  =1", operador: "OR", grupo: 2 });
                         }
                         break;
                     default:
