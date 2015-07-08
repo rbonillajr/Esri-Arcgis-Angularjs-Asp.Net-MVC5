@@ -39,13 +39,14 @@
             <div class="row"><br /><strong>Selccione los datos a filtrar: </strong></div>
             <div class="row">
                 <br />
-                
-                <input kendo-drop-down-list
+                <select kendo-multi-select k-options="vm.selectOptions" k-ng-model="vm.selectedCategoria"></select>
+
+                @*<input kendo-drop-down-list
                        k-option-label="'Todas las Categorias'"
                        k-data-text-field="'text'"
                        k-data-value-field="'value'"
                        k-data-source="vm.categorias"
-                       ng-model="vm.selectedCategoria" />
+                       ng-model="vm.selectedCategoria" />*@
             </div>
             <div class="row">
                 <br />

@@ -5,7 +5,7 @@
         scope.bufferValue = 3;
         scope.selectedUnidades;
 
-        vm.selectedCategoria = '';
+        vm.selectedCategoria = [];
         vm.categorias = [{ text: "Estación de gasolina", value: "Estación de gasolina" },
                         { text: "Ferretería", value: "Ferretería" },
                         { text: "Hipermercado", value: "Hipermercado" },
@@ -15,6 +15,15 @@
                         { text: "Supermercado Cadena", value: "Supermercado Cadena" },
                         { text: "Taller Automotriz", value: "Taller Automotriz" },
                         { text: "Tienda de conveniencia", value: "Tienda de conveniencia" }];
+
+        vm.selectOptions = {
+            placeholder: "Select products...",
+            dataTextField: "text",
+            dataValueField: "value",
+            valuePrimitive: true,
+        
+            dataSource: vm.categorias
+        };
         vm.selected;
         vm.data = [
                 { text: "Disponibilidad", value: 7 },
@@ -40,10 +49,12 @@
         vm.filtros = function () {
             $("#yesButton").unbind();
             $('#yesButton').click(function (e) {
-                
+               
                 filtro = [];
-                if (vm.selectedCategoria != '') {
-                    filtro.push("CATEGORIA_1='" + vm.selectedCategoria + "'");
+                if (vm.selectedCategoria.length > 0) {
+                    _.each(vm.selectedCategoria, function (item, index) {                        
+                        filtro.push("CATEGORIA_1='" + item + "'");
+                    });                    
                 }
                 switch (vm.selected) {
                     case '7':
