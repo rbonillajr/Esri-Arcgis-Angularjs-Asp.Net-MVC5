@@ -379,19 +379,33 @@
 
                     callback(null, true);
                 }
-
+                
                 scope.analisis = function () {
-                    debugger;
+                    
                     mapaBaseGeoinfo.bringToBack();
                     mapaBaseGeoinfo.find().layers('71').text('BOCAS DEL TORO').fields('DISTRITO')
                      .run(function (error, featureCollection, response) {
-                         L.geoJson(featureCollection, {
+                        var collection = L.geoJson(featureCollection, {
                              style: { color: 'red' },
                              onEachFeature: function (feature, layer) {
                                  layer.bindPopup(feature.properties.GNIS_NAME);
-                             }
+                             }                             
+                        });
+                        collection.addTo(map)
+                        debugger;
+                        var pilygon = turf.polygon(featureCollection.features[0].geometry.coordinates);
+                        poly = turf.featurecollection([pilygon]);
+                         scope.insidePoly = turf.within(scope.stops, poly);
+                         pointsInside = L.geoJson(scope.inside, {
+                             onEachFeature: function (feature, layer) {
+                                 pointsNumber++
+                                 //layer.bindPopup("<h4>test</h4>"); si se quiere mostrar info del punto seleccionado
+                             },
+                             pointToLayer: function (feature, latlng) {
+                                 return L.circleMarker(latlng);
+                             },
+                             style: { radius: 10, fillColor: "red", weight: 1 }
                          }).addTo(map);
-
                      });
                 }
 
