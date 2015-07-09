@@ -5,7 +5,7 @@
         scope.bufferValue = 3;
         scope.selectedUnidades;
 
-        vm.selectedCategoria = '';
+        vm.selectedCategoria = [];
         vm.categorias = [{ text: "Estación de gasolina", value: "Estación de gasolina" },
                         { text: "Ferretería", value: "Ferretería" },
                         { text: "Hipermercado", value: "Hipermercado" },
@@ -15,11 +15,20 @@
                         { text: "Supermercado Cadena", value: "Supermercado Cadena" },
                         { text: "Taller Automotriz", value: "Taller Automotriz" },
                         { text: "Tienda de conveniencia", value: "Tienda de conveniencia" }];
+
+        vm.selectOptions = {
+            placeholder: "Seleccione Categorias...",
+            dataTextField: "text",
+            dataValueField: "value",
+            valuePrimitive: true,
+        
+            dataSource: vm.categorias
+        };
         vm.selected;
         vm.data = [
                 { text: "Disponibilidad", value: 7 },
-                /*{ text: "Exhibidores", value: 9 },
-                { text: "Comunicación Interna", value: 10 },*/
+                { text: "Exhibidores", value: 9 },
+                /*{ text: "Comunicación Interna", value: 10 },*/
                 { text: "Top Of Mind", value: 11 }
         ];
         vm.unidades = [
@@ -40,44 +49,63 @@
         vm.filtros = function () {
             $("#yesButton").unbind();
             $('#yesButton').click(function (e) {
-                
+               
                 filtro = [];
-                if (vm.selectedCategoria != '') {
-                    filtro.push("CATEGORIA_1='" + vm.selectedCategoria + "'");
+                if (vm.selectedCategoria.length > 0) {
+                    _.each(vm.selectedCategoria, function (item, index) {                        
+                        filtro.push({ filtro: "CATEGORIA_1='" + item + "'",grupo: 1 });
+                    });                    
                 }
                 switch (vm.selected) {
                     case '7':
                         if (vm.filtroMarca.Mobil) {
-                            filtro.push("MOBIL=1");
+                            filtro.push({ filtro: "MOBIL=1", grupo: 2 });
                         }
                         if (vm.filtroMarca.Shell) {
-                            filtro.push("SHELL=1");
+                            filtro.push({ filtro: "SHELL=1", grupo: 2 });
                         }
                         if (vm.filtroMarca.Castrol) {
-                            filtro.push("CASTROL=1");
+                            filtro.push({ filtro: "CASTROL=1", grupo: 2 });
                         }
                         if (vm.filtroMarca.Valvoline) {
-                            filtro.push("VALVOLINE =1");
+                            filtro.push({ filtro: "VALVOLINE =1", grupo: 2 });
                         }
                         if (vm.filtroMarca.Chevron) {
-                            filtro.push("CHEVRON  =1");
+                            filtro.push({ filtro: "CHEVRON  =1",grupo: 2 });
+                        }
+                        break
+                    case '9':
+                        if (vm.filtroMarca.Mobil) {
+                            filtro.push({ filtro: "EXHIBIDOR_MOBIL=1", grupo: 2 });
+                        }
+                        if (vm.filtroMarca.Shell) {
+                            filtro.push({ filtro: "EXHIBIDOR_SHELL=1", grupo: 2 });
+                        }
+                        if (vm.filtroMarca.Castrol) {
+                            filtro.push({ filtro: "EXHIBIDOR_CASTROL=1", grupo: 2 });
+                        }
+                        if (vm.filtroMarca.Valvoline) {
+                            filtro.push({ filtro: "EXHIBIDOR_VALVOLINE =1", grupo: 2 });
+                        }
+                        if (vm.filtroMarca.Chevron) {
+                            filtro.push({ filtro: "EXHIBIDOR_CHEVRON  =1", grupo: 2 });
                         }
                         break
                     case '11':
                         if (vm.filtroMarca.Mobil) {
-                            filtro.push("TOM_Mobil=1");
+                            filtro.push({ filtro: "TOM_Mobil=1", grupo: 2 });
                         }
                         if (vm.filtroMarca.Shell) {
-                            filtro.push("TOM_Shell=1");
+                            filtro.push({ filtro: "TOM_Shell=1", grupo: 2 });
                         }
                         if (vm.filtroMarca.Castrol) {
-                            filtro.push("TOM_Castrol=1");
+                            filtro.push({ filtro: "TOM_Castrol=1", grupo: 2 });
                         }
                         if (vm.filtroMarca.Valvoline) {
-                            filtro.push("TOM_Valvoline =1");
+                            filtro.push({ filtro: "TOM_Valvoline =1", grupo: 2 });
                         }
                         if (vm.filtroMarca.Chevron) {
-                            filtro.push("TOM_Chevron  =1");
+                            filtro.push({ filtro: "TOM_Chevron  =1", grupo: 2 });
                         }
                         break;
                     default:
@@ -156,6 +184,8 @@
                                     Distrito: { type: "string" },
                                     Corregimiento: { type: "string" },
                                     Barrio: { type: "string" },
+                                    RUTA_VENDEDOR: { type: "string" },
+                                    ABC: { type: "string" },
                                     Tipo: { type: "string" },
                                     Mobil: { type: "number" },
                                     Shell: { type: "number" },
@@ -166,7 +196,12 @@
                                     TOM_Shell: { type: "number" },
                                     TOM_Chevron: { type: "number" },
                                     TOM_Castrol: { type: "number" },
-                                    TOM_Valvoline: { type: "number" }
+                                    TOM_Valvoline: { type: "number" },
+                                    EXHIBIDOR_Mobil: { type: "number" },
+                                    EXHIBIDOR_Shell: { type: "number" },
+                                    EXHIBIDOR_Castrol: { type: "number" },
+                                    EXHIBIDOR_Valvoline: { type: "number" },
+                                    EXHIBIDOR_Chevron: { type: "number" }
                                 }
                             },
                             cube: {
@@ -177,17 +212,9 @@
                                     Distrito: { caption: "Distrito" },
                                     Corregimiento: { caption: "Corregimiento" },
                                     Barrio: { caption: "Barrio" },
-                                    Tipo: { caption: "Tipo" }/*,                                    
-                                    Mobil: { caption: "Mobil" },
-                                    Shell: { caption: "Shell" },
-                                    Chevron: { caption: "Chevron" },
-                                    Castrol: {caption: "Castrol"},
-                                    Valvoline: { caption: "Valvoline" },
-                                    TOM_Mobil: { caption: "TOM_Mobil" },
-                                    TOM_Shell: { caption: "TOM_Shell" },
-                                    TOM_Chevron: { caption: "TOM_Chevron" },
-                                    TOM_Castrol: { caption: "TOM_Castrol" },
-                                    TOM_Valvoline: { caption: "TOM_Valvoline" }*/
+                                    Tipo: { caption: "Tipo" },
+                                    RUTA_VENDEDOR: {caption: "Ruta_Vendedor"},
+                                    ABC: { caption: "ABC" }
                                 },
                                 measures: {
                                     "Disp_Mobil": { field: "Mobil", format: "{0}", aggregate: "sum" },
@@ -199,7 +226,12 @@
                                     "TOM_Shell": { field: "TOM_Shell", format: "{0}", aggregate: "sum" },
                                     "TOM_Chevron": { field: "TOM_Chevron", format: "{0}", aggregate: "sum" },
                                     "TOM_Castrol": { field: "TOM_Castrol", format: "{0}", aggregate: "sum" },
-                                    "TOM_Valvoline": { field: "TOM_Valvoline", format: "{0}", aggregate: "sum" }
+                                    "TOM_Valvoline": { field: "TOM_Valvoline", format: "{0}", aggregate: "sum" },
+                                    "Exhibidor_Mobil": { field: "EXHIBIDOR_Mobil", format: "{0}", aggregate: "sum" },
+                                    "Exhibidor_Shell": { field: "EXHIBIDOR_Shell", format: "{0}", aggregate: "sum" },
+                                    "Exhibidor_Castrol": { field: "EXHIBIDOR_Castrol", format: "{0}", aggregate: "sum" },
+                                    "Exhibidor_Valvoline": { field: "EXHIBIDOR_Valvoline", format: "{0}", aggregate: "sum" },
+                                    "Exhibidor_Chevron": { field: "EXHIBIDOR_Chevron", format: "{0}", aggregate: "sum" }
                                 }
                             }
                         },

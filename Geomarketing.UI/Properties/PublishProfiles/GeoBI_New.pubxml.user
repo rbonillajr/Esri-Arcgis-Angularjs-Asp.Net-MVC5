@@ -2053,10 +2053,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/Viewer.js">
-      <publishTime>07/02/2015 21:51:44</publishTime>
+      <publishTime>07/08/2015 20:11:28</publishTime>
     </File>
     <File Include="Scripts/Angular/Directives/Map.js">
-      <publishTime>07/02/2015 22:53:40</publishTime>
+      <publishTime>07/08/2015 20:30:09</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/Buffer.js">
       <publishTime>06/12/2015 19:27:20</publishTime>
@@ -2065,7 +2065,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2015 20:11:44</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/UtilityService.js">
-      <publishTime>06/28/2015 22:03:07</publishTime>
+      <publishTime>07/08/2015 19:57:43</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2212,7 +2212,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/GeoBI/Viewer.cshtml">
-      <publishTime>07/02/2015 22:54:58</publishTime>
+      <publishTime>07/08/2015 19:57:43</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>

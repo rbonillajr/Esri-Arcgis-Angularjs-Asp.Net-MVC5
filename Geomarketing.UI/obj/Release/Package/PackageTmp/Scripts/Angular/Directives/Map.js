@@ -3,7 +3,7 @@
         return {
             template: "<div id='map'></div>",
             link: function postLink(scope, element, attrs) {
-                
+
                 scope.buffer = function (radio, unidades) {
 
                     if (typeof buff != 'undefined') {
@@ -47,7 +47,7 @@
 
                             onEachFeature: function (feature, layer) {
 
-                                layer.bindPopup('<center><strong>' + feature.properties.STATUS + '</strong></center><br/>' +                                                
+                                layer.bindPopup('<center><strong>' + feature.properties.STATUS + '</strong></center><br/>' +
                                                '<img src="../Content/Fotos/thumbs/' + feature.properties.fotout + '"></img><br/>' +
                                                '<strong>Nombre: </strong>' + feature.properties.NOMBRE + '<br/>' +
                                                '<strong>Ruta - Vendedor: </strong>' + feature.properties.RUTA_VENDEDOR + '<br/>' +
@@ -59,7 +59,7 @@
                                                '<strong>Dirección: </strong>' + feature.properties.DIRECCION + '<br/>');
                             },
                             pointToLayer: function (feature, latlng) {
-                                
+
                                 switch (scope.verClientesPor) {
                                     case 'tipo':
                                         switch (feature.properties.STATUS) {
@@ -79,7 +79,7 @@
                                                     })
                                                 })
                                         }
-                                        
+
                                     case 'ruta':
                                         switch (feature.properties.RUTA_VENDEDOR) {
 
@@ -215,13 +215,13 @@
                                                 })
                                         }
 
-                                    
+
                                 }
                             }
                         }).addTo(map);
-                        
+
                     });
-                    
+
                     createLegend();
                     callback(null, true);
 
@@ -282,7 +282,7 @@
                 });
 
                 L.control.navbar().addTo(map);
-                
+
                 map.on('click', function (e) {
                     if (scope.buffered) {
                         scope.latlng = e.latlng;
@@ -339,7 +339,7 @@
 
                 // Query para filtrar los datos
                 scope.query = function (param, callback) {
-                    
+
                     map.eachLayer(function (layer) {
 
                         if (layer._leaflet_id > 42) {
@@ -351,13 +351,22 @@
                         filtro = param;
                     } else {
                         filtro = '';
+                        grupoPreview = 0;
                         _.each(param, function (item, index) {
+                            debugger;
                             if (param.length == 1 || index == 0) {
-                                filtro = item;
+                                filtro = '(' + item.filtro;
                             } else {
-                                filtro = filtro + ' AND ' + item
+                                if (item.grupo != grupoPreview) {
+                                    filtro = filtro + ') AND (' + item.filtro
+                                }
+                                else {
+                                    filtro = filtro + ' OR ' + item.filtro
+                                }                                
                             }
+                            grupoPreview = item.grupo
                         });
+                        filtro = filtro + ')';
                     }
                     scope.addFeatures(url, filtro, function (error, result) {
                         //if (error) {
