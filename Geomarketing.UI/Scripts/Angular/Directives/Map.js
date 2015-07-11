@@ -50,13 +50,13 @@
                                 layer.bindPopup('<center><strong>' + feature.properties.STATUS + '</strong></center><br/>' +
                                                '<img src="../Content/Fotos/thumbs/' + feature.properties.fotout + '"></img><br/>' +
                                                '<strong>Nombre: </strong>' + feature.properties.NOMBRE + '<br/>' +
+                                               '<strong>Codigo: </strong>' + feature.properties.COD_CLIENT + '<br/>' +
                                                '<strong>Ruta - Vendedor: </strong>' + feature.properties.RUTA_VENDEDOR + '<br/>' +
                                                '<strong>ABC: </strong>' + feature.properties.ABC + '<br/>' +
                                                '<strong>Provincia: </strong>' + feature.properties.PROVINCIA + '<br/>' +
                                                '<strong>Distrito: </strong>' + feature.properties.DISTRITO + '<br/>' +
                                                '<strong>Corregimiento: </strong>' + feature.properties.CORREGIMIE + '<br/>' +
-                                               '<strong>Categoria: </strong>' + feature.properties.CATEGORIA + '<br/>' +
-                                               '<strong>Dirección: </strong>' + feature.properties.DIRECCION + '<br/>');
+                                               '<strong>Categoria: </strong>' + feature.properties.CATEGORIA + '<br/>');
                             },
                             pointToLayer: function (feature, latlng) {
 
@@ -283,7 +283,7 @@
 
                 L.control.navbar().addTo(map);
 
-                map.on('click', function (e) {
+                map.on('click', function (e) {                    
                     if (scope.buffered) {
                         scope.latlng = e.latlng;
                         scope.winBuffer.open().center();
@@ -379,24 +379,32 @@
 
                     callback(null, true);
                 }
-                
+
                 scope.analisis = function () {
-                    
+
                     mapaBaseGeoinfo.bringToBack();
-                    mapaBaseGeoinfo.find().layers('71').text('BOCAS DEL TORO').fields('DISTRITO')
-                     .run(function (error, featureCollection, response) {
-                        var collection = L.geoJson(featureCollection, {
-                             style: { color: 'red' },
+                    mapaBaseGeoinfo.find().layers('73').text('BOCAS DEL TORO').fields('PROVINCIA')
+                     .run(function (error, Polygon, response) {
+                         var collection = L.geoJson(Polygon, {
+                             style: { color: 'yellow' },
                              onEachFeature: function (feature, layer) {
                                  layer.bindPopup(feature.properties.GNIS_NAME);
-                             }                             
-                        });
-                        collection.addTo(map)
-                        debugger;
-                        var pilygon = turf.polygon(featureCollection.features[0].geometry.coordinates);
-                        poly = turf.featurecollection([pilygon]);
-                         scope.insidePoly = turf.within(scope.stops, poly);
-                         pointsInside = L.geoJson(scope.inside, {
+                             }
+                         });
+                         collection.addTo(map)
+                       
+
+                         var pointsWithin = turf.featurecollection([]);
+                         for (var i = 0; i < Polygon.features.length; i++) {
+                             for (var j = 0; j < scope.stops.features.length; j++) {
+                                 var isInside = turf.inside(scope.stops.features[j], Polygon.features[i]);
+                                 if (isInside) {
+                                     pointsWithin.features.push(scope.stops.features[j]);
+                                 }
+                             }
+                         }
+                         var pointsNumber = 0;
+                         L.geoJson(pointsWithin, {
                              onEachFeature: function (feature, layer) {
                                  pointsNumber++
                                  //layer.bindPopup("<h4>test</h4>"); si se quiere mostrar info del punto seleccionado
@@ -406,6 +414,7 @@
                              },
                              style: { radius: 10, fillColor: "red", weight: 1 }
                          }).addTo(map);
+                        
                      });
                 }
 
