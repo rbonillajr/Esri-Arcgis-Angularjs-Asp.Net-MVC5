@@ -7,15 +7,207 @@
     <div kendo-toolbar k-options="vm.toolbarOptions"></div>
 
     <div style="height:93.5%">
-
-        <div esri-map>
-            @*<div id="LocateButton"></div>
-                <div id="HomeButton"></div>*@
-
-        </div>
+        <div esri-map></div>
         <div id="LogoGeo"></div>
     </div>
+    <div id="sidebar">
+        <h1>Leyenda</h1>
 
+        <blockquote>
+            <div id="tipo">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-green awesome-marker-legend">
+                                <i class="glyphicon glyphicon-bookmark  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>Prospectos</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-darkblue awesome-marker-legend">
+
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+
+                            </div>
+                        </td>
+                        <td><strong>Clientes</strong></td>
+                    </tr>
+
+                </table>
+            </div>
+            <div id="ruta">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-green awesome-marker-legend">
+                                <i class="glyphicon glyphicon-bookmark  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>Prospectos</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-red awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>PA4 – Arsenio Miranda</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-orange awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>DA2 – Raúl Villarreal</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-lightgray awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>PA1 – Alberto Muñoz</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-blue awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>AG1 – John Varela</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-purple awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>PA3 – Roger De León</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-darkpurple awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>DA1 – Omar Serrano</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-lightred awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>PA2 – Carlos Vargas</strong></td>
+                    </tr>
+                    @*<tr>
+                            <td>
+                                <div class="awesome-marker-icon-gray awesome-marker-legend">
+                                    <i class="glyphicon glyphicon-flag  icon-white"></i>
+                                </div>
+                            </td>
+                            <td><strong>DA3 – Edward Nuñez</strong></td>
+                        </tr>*@
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-black awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>AG2 – Feliciano Ortega</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-beige awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>AG3 – Ivan Bermúdez</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-cadetblue awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>AG4 – Gabriel González</strong></td>
+                    </tr>
+                    @*<tr>
+                            <td>
+                                <div class="awesome-marker-icon-pink awesome-marker-legend">
+                                    <i class="glyphicon glyphicon-flag  icon-white"></i>
+                                </div>
+                            </td>
+                            <td><strong>PA6 – Jorge Gooding</strong></td>
+                        </tr>*@
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-darkred awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>Juan Carlos Barría</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-lightgreen awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>DA4 – Karen Serrano</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-darkgreen awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>PA5 – James Rujano</strong></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="abc">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-green awesome-marker-legend">
+                                <i class="glyphicon glyphicon-bookmark  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>Prospectos</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-darkblue awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>A</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-orange awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>B</strong></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="awesome-marker-icon-purple awesome-marker-legend">
+                                <i class="glyphicon glyphicon-flag  icon-white"></i>
+                            </div>
+                        </td>
+                        <td><strong>C</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </blockquote>
+
+    </div>
     <div id="window" kendo-window="vm.window" k-title="'Filtros'" k-visible="false" k-modal="true" k-width="300" k-height="450">
         <div class="container-fluid">
             <div class="row"><strong>Ver Puntos de venta por: </strong></div>
@@ -23,7 +215,7 @@
                 <br />
                 <label>
                     <input type="radio" ng-model="verClientesPor" value="tipo" />
-                    Tipo Cliente                    
+                    Tipo Cliente
                 </label>
                 <br />
                 <label>
@@ -36,16 +228,17 @@
                     ABC
                 </label>
             </div>
-            <div class="row"><br /><strong>Selccione los datos a filtrar: </strong></div>
+            <div class="row"><br /><strong>Seleccione los datos a filtrar: </strong></div>
             <div class="row">
                 <br />
-                
-                <input kendo-drop-down-list
-                       k-option-label="'Todas las Categorias'"
-                       k-data-text-field="'text'"
-                       k-data-value-field="'value'"
-                       k-data-source="vm.categorias"
-                       ng-model="vm.selectedCategoria" />
+                <select kendo-multi-select k-options="vm.selectOptions" k-ng-model="vm.selectedCategoria"></select>
+
+                @*<input kendo-drop-down-list
+                    k-option-label="'Todas las Categorias'"
+                    k-data-text-field="'text'"
+                    k-data-value-field="'value'"
+                    k-data-source="vm.categorias"
+                    ng-model="vm.selectedCategoria" />*@
             </div>
             <div class="row">
                 <br />
@@ -137,4 +330,34 @@
             </div>
         </div>
     </div>
-</div>
+    <div id="winAnalisis" kendo-window="vm.winAnalisis" k-title="'Analisis'" k-modal="true" k-visible="false" k-actions='[
+         "close"
+         ]' k-width="300" k-height="270">
+        <div class="container-fluid">
+            <div class="row">
+                <br />
+                <strong>División Política</strong>
+            </div>
+            <div class="row">
+                <br />
+                <input id="provincia" style="width: 200px" />
+            </div>
+            <div class="row">
+                <br />
+                <input id="distrito" style="width: 200px" />
+            </div>
+            <div class="row">
+                <br />
+                <input id="corregimiento" style="width: 200px" />
+            </div>
+            <div class="row">
+                <br />
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-primary" id="yesAnalisis">Aplicar</button>
+                    <button class="btn btn-sm" id="cancelAnalisis">Cancelar</button>
+                    <button class="btn btn-sm btn-info" id="limpiarAnalisis">Limpiar Filtro</button>
+                </div>
+            </div>
+        </div>
+
+    </div>

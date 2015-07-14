@@ -19,7 +19,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="bin/Geomarketing.UI.dll">
-      <publishTime>06/30/2015 16:28:49</publishTime>
+      <publishTime>07/12/2015 22:13:32</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>05/05/2015 22:30:01</publishTime>
@@ -2041,7 +2041,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Scripts/Angular/app.js">
-      <publishTime>05/26/2015 22:32:38</publishTime>
+      <publishTime>07/12/2015 13:13:36</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/About.js">
       <publishTime>05/05/2015 22:29:59</publishTime>
@@ -2053,10 +2053,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:29:59</publishTime>
     </File>
     <File Include="Scripts/Angular/Controllers/Viewer.js">
-      <publishTime>07/02/2015 21:51:44</publishTime>
+      <publishTime>07/12/2015 23:51:03</publishTime>
     </File>
     <File Include="Scripts/Angular/Directives/Map.js">
-      <publishTime>07/02/2015 22:53:40</publishTime>
+      <publishTime>07/13/2015 00:09:28</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/Buffer.js">
       <publishTime>06/12/2015 19:27:20</publishTime>
@@ -2065,7 +2065,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2015 20:11:44</publishTime>
     </File>
     <File Include="Scripts/Angular/Services/UtilityService.js">
-      <publishTime>06/28/2015 22:03:07</publishTime>
+      <publishTime>07/08/2015 19:57:43</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2100,6 +2100,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
+    <File Include="Scripts/leaflerSpin/leaflet.spin.js">
+      <publishTime>07/12/2015 21:03:23</publishTime>
+    </File>
+    <File Include="Scripts/leaflerSpin/spin.min.js">
+      <publishTime>07/12/2015 21:12:30</publishTime>
+    </File>
     <File Include="Scripts/LeafletNavBar/img/arrow-left_000000_14.png">
       <publishTime>06/30/2015 15:57:08</publishTime>
     </File>
@@ -2123,6 +2129,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/LeafletNavBar/Leaflet.NavBar.js">
       <publishTime>06/30/2015 15:57:08</publishTime>
+    </File>
+    <File Include="Scripts/leafletSideBar/L.Control.Sidebar.css">
+      <publishTime>07/11/2015 23:54:27</publishTime>
+    </File>
+    <File Include="Scripts/leafletSideBar/L.Control.Sidebar.js">
+      <publishTime>07/11/2015 19:24:04</publishTime>
+    </File>
+    <File Include="Scripts/leafletSideBar/L.Control.Sidebar.scss">
+      <publishTime>07/11/2015 19:24:04</publishTime>
     </File>
     <File Include="Scripts/Markers/images/markers-matte%402x.png">
       <publishTime>06/12/2015 20:55:57</publishTime>
@@ -2212,7 +2227,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/05/2015 22:30:00</publishTime>
     </File>
     <File Include="Views/GeoBI/Viewer.cshtml">
-      <publishTime>07/02/2015 22:54:58</publishTime>
+      <publishTime>07/12/2015 23:56:23</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>05/05/2015 22:30:00</publishTime>
@@ -2266,7 +2281,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/21/2015 23:29:25</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutMaps.cshtml">
-      <publishTime>06/30/2015 16:20:33</publishTime>
+      <publishTime>07/12/2015 21:12:46</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>06/21/2015 23:24:13</publishTime>

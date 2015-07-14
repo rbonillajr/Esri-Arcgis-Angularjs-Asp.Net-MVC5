@@ -176,6 +176,10 @@
     <Content Include="Scripts\Angular\Services\ToolBarService.js" />
     <Content Include="Scripts\Angular\Services\UtilityService.js" />
     <Content Include="Scripts\dojo.js" />
+    <Content Include="Scripts\leaflerSpin\leaflet.spin.js" />
+    <Content Include="Scripts\leaflerSpin\spin.min.js" />
+    <Content Include="Scripts\leafletSideBar\L.Control.Sidebar.css" />
+    <Content Include="Scripts\leafletSideBar\L.Control.Sidebar.js" />
     <Content Include="Scripts\LeafletNavBar\img\arrow-left_000000_14.png" />
     <Content Include="Scripts\LeafletNavBar\img\arrow-left_bbbbbb_14.png" />
     <Content Include="Scripts\LeafletNavBar\img\arrow-right_000000_14.png" />
@@ -199,6 +203,7 @@
     <Content Include="Views\Shared\_LayoutMaps.cshtml" />
     <None Include="Properties\PublishProfiles\GeoBI_New.pubxml" />
     <Content Include="Scripts\Underscore\underscore-min.map" />
+    <Content Include="Scripts\leafletSideBar\L.Control.Sidebar.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
