@@ -219,7 +219,6 @@ C:\fuentes\Geomarketing\Geomarketing.UI\bin\System.Web.Razor.xml
 C:\fuentes\Geomarketing\Geomarketing.UI\bin\System.Web.WebPages.xml
 C:\fuentes\Geomarketing\Geomarketing.UI\bin\System.Web.WebPages.Deployment.xml
 C:\fuentes\Geomarketing\Geomarketing.UI\bin\System.Web.WebPages.Razor.xml
-C:\fuentes\Geomarketing\Geomarketing.UI\obj\Debug\Geomarketing.UI.csprojResolveAssemblyReference.cache
 C:\fuentes\Geomarketing\Geomarketing.UI\obj\Debug\Geomarketing.UI.Migrations.InitialCreate.resources
 C:\fuentes\Geomarketing\Geomarketing.UI\obj\Debug\Geomarketing.UI.csproj.GenerateResource.Cache
 C:\fuentes\Geomarketing\Geomarketing.UI\obj\Debug\Geomarketing.UI.dll

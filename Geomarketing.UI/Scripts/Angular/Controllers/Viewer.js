@@ -1,60 +1,48 @@
 ﻿angular.module('geomarketing')
     .controller('ViewerController', ['$scope', 'utilityService', function (scope, utilityService) {
         var vm = this;
-        scope.verClientesPor= "tipo";
-        scope.bufferValue = 3;
-        scope.selectedUnidades;
-
-        vm.selectedCategoria = [];
-        vm.categorias = [{ text: "Estación de gasolina", value: "Estación de gasolina" },
-                        { text: "Ferretería", value: "Ferretería" },
-                        { text: "Hipermercado", value: "Hipermercado" },
-                        { text: "Repuestos de autos", value: "Repuestos de autos" },
-                        { text: "Supercentro", value: "Supercentro" },
-                        { text: "Supermercado", value: "Supermercado" },
-                        { text: "Supermercado Cadena", value: "Supermercado Cadena" },
-                        { text: "Taller Automotriz", value: "Taller Automotriz" },
-                        { text: "Tienda de conveniencia", value: "Tienda de conveniencia" }];
-
-        vm.selectOptions = {
-            placeholder: "Seleccione Categorias...",
-            dataTextField: "text",
-            dataValueField: "value",
-            valuePrimitive: true,
         
-            dataSource: vm.categorias
+
+        vm.leyenda = function (e) {
+            scope.sidebar.show();
+            //if (e.checked) {
+            //    scope.sidebar.show();
+            //}
+            //else {
+            //    scope.sidebar.hide();
+            //}
         };
-        vm.selected;
-        vm.data = [
-                { text: "Disponibilidad", value: 7 },
-                { text: "Exhibidores", value: 9 },
-                /*{ text: "Comunicación Interna", value: 10 },*/
-                { text: "Top Of Mind", value: 11 }
-        ];
-        vm.unidades = [
-                { text: "Kilometros", value: "kilometers" },
-                { text: "Millas", value: "miles" }
-        ];
+        vm.activateLeyenda = function (leyenda) {
 
-
-        vm.filtroMarca = {
-            Mobil: false,
-            Shell: false,
-            Castrol: false,
-            Valvoline: false,
-            Chevron: false
+            switch (leyenda) {
+                case 'tipo':
+                    $('#' + leyenda).show();
+                    $('#ruta').hide();
+                    $('#abc').hide();
+                    break;
+                case 'ruta':
+                    $('#' + leyenda).show();
+                    $('#tipo').hide();
+                    $('#abc').hide();
+                    break;
+                case 'abc':
+                    $('#' + leyenda).show();
+                    $('#ruta').hide();
+                    $('#tipo').hide();
+                    break;
+            }
         }
-
-
         vm.filtros = function () {
+            
             $("#yesButton").unbind();
             $('#yesButton').click(function (e) {
-               
+                
+                scope.sidebar.hide();
                 filtro = [];
                 if (vm.selectedCategoria.length > 0) {
-                    _.each(vm.selectedCategoria, function (item, index) {                        
-                        filtro.push({ filtro: "CATEGORIA_1='" + item + "'",grupo: 1 });
-                    });                    
+                    _.each(vm.selectedCategoria, function (item, index) {
+                        filtro.push({ filtro: "CATEGORIA_1='" + item + "'", grupo: 1 });
+                    });
                 }
                 switch (vm.selected) {
                     case '7':
@@ -71,7 +59,7 @@
                             filtro.push({ filtro: "VALVOLINE =1", grupo: 2 });
                         }
                         if (vm.filtroMarca.Chevron) {
-                            filtro.push({ filtro: "CHEVRON  =1",grupo: 2 });
+                            filtro.push({ filtro: "CHEVRON  =1", grupo: 2 });
                         }
                         break
                     case '9':
@@ -116,6 +104,11 @@
                 }
                 scope.query(filtro, function (error, result) {
                     vm.window.close();
+                    vm.activateLeyenda(scope.verClientesPor);
+                    setTimeout(function () {
+                        scope.sidebar.show();                        
+                    }, 1000);
+                    
                 });
 
             });
@@ -132,7 +125,6 @@
             });
             vm.window.open().center();
         };
-
         vm.buffer = function () {
 
             if (scope.buffered) {
@@ -155,7 +147,7 @@
 
         };
         vm.bufferReporte = function () {
-            
+
             $("#pivotgrid").remove();
             $("#ContentPivot").append("<div id='pivotgrid'></div>")
 
@@ -213,7 +205,7 @@
                                     Corregimiento: { caption: "Corregimiento" },
                                     Barrio: { caption: "Barrio" },
                                     Tipo: { caption: "Tipo" },
-                                    RUTA_VENDEDOR: {caption: "Ruta_Vendedor"},
+                                    RUTA_VENDEDOR: { caption: "Ruta_Vendedor" },
                                     ABC: { caption: "ABC" }
                                 },
                                 measures: {
@@ -254,19 +246,147 @@
                 });
             });
 
-           
+
         };
         vm.analisis = function () {
-            scope.analisis();
+            vm.winAnalisis.open().center();
+
+            $("#yesAnalisis").unbind();
+            $('#yesAnalisis').click(function (e) {
+                
+                var provincia = $("#provincia").data("kendoDropDownList").text();
+                var distrito = $("#distrito").data("kendoDropDownList").text();
+                var corregimiento = $("#corregimiento").data("kendoDropDownList").text();
+                
+                if (provincia != 'Seleccione Provincia' && distrito != 'Seleccione Distrito' && corregimiento != 'Seleccione Corregimiento')
+                {
+                    scope.analisis('67', corregimiento, 'CORREGIMIENTOS.CORREG');
+                    vm.winAnalisis.close();
+                } else if (provincia != 'Seleccione Provincia' && distrito != 'Seleccione Distrito' && corregimiento == 'Seleccione Corregimiento')
+                {
+                    scope.analisis('71', distrito, 'DISTRITO');
+                    vm.winAnalisis.close();
+                } else if (provincia != 'Seleccione Provincia' && distrito == 'Seleccione Distrito' && corregimiento == 'Seleccione Corregimiento')
+                {
+                    scope.analisis('73', provincia,'PROVINCIA');
+                    vm.winAnalisis.close();
+                } else
+                {
+                    alert('Estimado favor seleccionar una opción.');
+                }               
+                
+            });
+            $("#cancelAnalisis").unbind();
+            $('#cancelAnalisis').click(function (e) {
+                vm.winAnalisis.close();
+            });
+            $("#limpiarAnalisis").unbind();
+            $('#limpiarAnalisis').click(function (e) {
+                scope.analisis('', '', '');
+                vm.winAnalisis.close();
+            });
+
+           
         };
         vm.toolbarOptions = {
             items: [
+                { type: "button", text: "Leyenda", click: vm.leyenda },
                 { type: "button", text: "Filtros", click: vm.filtros },
                 { type: "button", text: "Analisis", click: vm.analisis },
                 { type: "button", text: "Buffer", togglable: true, toggle: vm.buffer },
-                { type: "button", text: "Reportes Buffer", click: vm.bufferReporte }
+                { type: "button", text: "Reporte", click: vm.bufferReporte }
             ]
         };
+
+        scope.verClientesPor = "tipo";
+        vm.activateLeyenda(scope.verClientesPor);
+
+        scope.bufferValue = 3;
+        scope.selectedUnidades;
+
+        vm.selectedCategoria = [];
+        vm.categorias = [{ text: "Estación de gasolina", value: "Estación de gasolina" },
+                        { text: "Ferretería", value: "Ferretería" },
+                        { text: "Hipermercado", value: "Hipermercado" },
+                        { text: "Repuestos de autos", value: "Repuestos de autos" },
+                        { text: "Supercentro", value: "Supercentro" },
+                        { text: "Supermercado", value: "Supermercado" },
+                        { text: "Supermercado Cadena", value: "Supermercado Cadena" },
+                        { text: "Taller Automotriz", value: "Taller Automotriz" },
+                        { text: "Tienda de conveniencia", value: "Tienda de conveniencia" }];
+
+        vm.selectOptions = {
+            placeholder: "Seleccione Categorias...",
+            dataTextField: "text",
+            dataValueField: "value",
+            valuePrimitive: true,
+
+            dataSource: vm.categorias
+        };
+        vm.selected;
+        vm.data = [
+                { text: "Disponibilidad", value: 7 },
+                { text: "Exhibidores", value: 9 },
+                /*{ text: "Comunicación Interna", value: 10 },*/
+                { text: "Top Of Mind", value: 11 }
+        ];
+        vm.unidades = [
+                { text: "Kilometros", value: "kilometers" },
+                { text: "Millas", value: "miles" }
+        ];
+
+
+        vm.filtroMarca = {
+            Mobil: false,
+            Shell: false,
+            Castrol: false,
+            Valvoline: false,
+            Chevron: false
+        }
+
+        ///////////////////////////////////////////////
+        var provincia = $("#provincia").kendoDropDownList({
+            optionLabel: "Seleccione Provincia",
+            dataTextField: "Provincia",
+            dataValueField: "IdProvincia",
+            dataSource: {
+                type: "json",
+                serverFiltering: true,
+                transport: {
+                    read: "http://geobi.geoinfo-int.com/Seguridad.Service/Service1.svc/getprovincias"
+                }
+            }
+        }).data("kendoDropDownList");
+
+        var distrito = $("#distrito").kendoDropDownList({
+            autoBind: false,
+            cascadeFrom: "provincia",
+            optionLabel: "Seleccione Distrito",
+            dataTextField: "Distrito",
+            dataValueField: "IdDistrito",
+            dataSource: {
+                type: "json",
+                serverFiltering: false,
+                transport: {
+                    read: "http://geobi.geoinfo-int.com/Seguridad.Service/Service1.svc/getdistritos"
+                }
+            }
+        }).data("kendoDropDownList");
+
+        var corregimiento = $("#corregimiento").kendoDropDownList({
+            autoBind: false,
+            cascadeFrom: "distrito",
+            optionLabel: "Seleccione Corregimiento",
+            dataTextField: "Corregimiento",
+            dataValueField: "IdCorregimiento",
+            dataSource: {
+                type: "json",
+                serverFiltering: false,
+                transport: {
+                    read: "http://geobi.geoinfo-int.com/Seguridad.Service/Service1.svc/getcorregimientos"
+                }
+            }
+        }).data("kendoDropDownList");
 
 
     }]);

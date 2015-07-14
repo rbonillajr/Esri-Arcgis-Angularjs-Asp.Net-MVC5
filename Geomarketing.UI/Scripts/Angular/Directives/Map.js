@@ -4,37 +4,6 @@
             template: "<div id='map'></div>",
             link: function postLink(scope, element, attrs) {
 
-                scope.buffer = function (radio, unidades) {
-
-                    if (typeof buff != 'undefined') {
-                        map.removeLayer(buff);
-                    }
-
-                    bufferService.get(radio, unidades, scope.latlng, function (buffered) {
-                        buff = L.geoJson(buffered);
-                        buff.addTo(map);
-
-                        scope.inside = turf.within(scope.stops, buffered);
-                        //debugger;
-                        var pointsNumber = 0;
-
-                        if (typeof pointsInside != 'undefined') {
-                            map.removeLayer(pointsInside);
-                        }
-
-                        pointsInside = L.geoJson(scope.inside, {
-                            onEachFeature: function (feature, layer) {
-                                pointsNumber++
-                                //layer.bindPopup("<h4>test</h4>"); si se quiere mostrar info del punto seleccionado
-                            },
-                            pointToLayer: function (feature, latlng) {
-                                return L.circleMarker(latlng);
-                            },
-                            style: { radius: 10, fillColor: "red", weight: 1 }
-                        }).addTo(map);
-
-                    });
-                }
 
                 scope.addFeatures = function (url, filtro, callback) {
                     L.esri.Tasks.query({
@@ -49,6 +18,7 @@
 
                                 layer.bindPopup('<center><strong>' + feature.properties.STATUS + '</strong></center><br/>' +
                                                '<img src="../Content/Fotos/thumbs/' + feature.properties.fotout + '"></img><br/>' +
+                                               '<img src="../Content/Fotos/thumbs/' + feature.properties.fotin + '"></img><br/>' +
                                                '<strong>Nombre: </strong>' + feature.properties.NOMBRE + '<br/>' +
                                                '<strong>Codigo: </strong>' + feature.properties.COD_CLIENT + '<br/>' +
                                                '<strong>Ruta - Vendedor: </strong>' + feature.properties.RUTA_VENDEDOR + '<br/>' +
@@ -82,96 +52,95 @@
 
                                     case 'ruta':
                                         switch (feature.properties.RUTA_VENDEDOR) {
-
-                                            case 'AG1 - JOHN VARELA':
+                                            case 'PA4 - ARSENIO MIRANDA':
                                                 return L.marker(latlng, {
                                                     icon: L.AwesomeMarkers.icon({
                                                         icon: 'flag',
                                                         markerColor: 'red'
                                                     })
                                                 })
-                                            case 'AG2 - FELICIANO ORTEGA':
-                                                return L.marker(latlng, {
-                                                    icon: L.AwesomeMarkers.icon({
-                                                        icon: 'flag',
-                                                        markerColor: 'darkred'
-                                                    })
-                                                })
-                                            case 'AG3 - IVAN BERMUDEZ':
-                                                return L.marker(latlng, {
-                                                    icon: L.AwesomeMarkers.icon({
-                                                        icon: 'flag',
-                                                        markerColor: 'lightred'
-                                                    })
-                                                })
-                                            case 'AG4 - GABRIEL GONZALEZ':
+                                            case 'DA2 - RAUL VILLARREAL':
                                                 return L.marker(latlng, {
                                                     icon: L.AwesomeMarkers.icon({
                                                         icon: 'flag',
                                                         markerColor: 'orange'
                                                     })
                                                 })
-                                            case 'DA1 - OMAR SERRANO':
-                                                return L.marker(latlng, {
-                                                    icon: L.AwesomeMarkers.icon({
-                                                        icon: 'flag',
-                                                        markerColor: 'beige'
-                                                    })
-                                                })
-                                            case 'DA2 - RAUL VILLARREAL':
-                                                return L.marker(latlng, {
-                                                    icon: L.AwesomeMarkers.icon({
-                                                        icon: 'flag',
-                                                        markerColor: 'cadetblue'
-                                                    })
-                                                })
-                                            case 'DA4 - KAREN SERRANO':
-                                                return L.marker(latlng, {
-                                                    icon: L.AwesomeMarkers.icon({
-                                                        icon: 'flag',
-                                                        markerColor: 'darkgreen'
-                                                    })
-                                                })
-                                            case 'JUAN CARLOS BARRIA':
-                                                return L.marker(latlng, {
-                                                    icon: L.AwesomeMarkers.icon({
-                                                        icon: 'flag',
-                                                        markerColor: 'lightgreen'
-                                                    })
-                                                })
                                             case 'PA1 - ALBERTO MUÑOZ':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'lightgray'
+                                                    })
+                                                })
+                                            case 'AG1 - JOHN VARELA':
                                                 return L.marker(latlng, {
                                                     icon: L.AwesomeMarkers.icon({
                                                         icon: 'flag',
                                                         markerColor: 'blue'
                                                     })
                                                 })
-                                            case 'PA2 - CARLOS VARGAS':
-                                                return L.marker(latlng, {
-                                                    icon: L.AwesomeMarkers.icon({
-                                                        icon: 'flag',
-                                                        markerColor: 'darkblue'
-                                                    })
-                                                })
                                             case 'PA3 - ROGER DE LEON':
-                                                return L.marker(latlng, {
-                                                    icon: L.AwesomeMarkers.icon({
-                                                        icon: 'flag',
-                                                        markerColor: 'lightblue'
-                                                    })
-                                                })
-                                            case 'PA4 - ARSENIO MIRANDA':
                                                 return L.marker(latlng, {
                                                     icon: L.AwesomeMarkers.icon({
                                                         icon: 'flag',
                                                         markerColor: 'purple'
                                                     })
                                                 })
-                                            case 'PA5 - JAMES RUJANO':
+                                            case 'DA1 - OMAR SERRANO':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'darkpurple'
+                                                    })
+                                                })
+                                            case 'PA2 - CARLOS VARGAS':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'lightred'
+                                                    })
+                                                })
+                                            case 'AG2 - FELICIANO ORTEGA':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'black'
+                                                    })
+                                                })
+                                            case 'AG3 - IVAN BERMUDEZ':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'beige'
+                                                    })
+                                                })
+                                            case 'AG4 - GABRIEL GONZALEZ':
                                                 return L.marker(latlng, {
                                                     icon: L.AwesomeMarkers.icon({
                                                         icon: 'flag',
                                                         markerColor: 'cadetblue'
+                                                    })
+                                                })
+                                            case 'JUAN CARLOS BARRIA':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'darkred'
+                                                    })
+                                                })
+                                            case 'DA4 - KAREN SERRANO':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'lightgreen'
+                                                    })
+                                                })
+                                            case 'PA5 - JAMES RUJANO':
+                                                return L.marker(latlng, {
+                                                    icon: L.AwesomeMarkers.icon({
+                                                        icon: 'flag',
+                                                        markerColor: 'darkgreen'
                                                     })
                                                 })
                                             default:
@@ -222,81 +191,13 @@
 
                     });
 
-                    createLegend();
+
                     callback(null, true);
 
                 }
-                var legend1
-                function createLegend() {
-                    if (legend1 instanceof L.Control) { map.removeControl(legend1); }
-                    legend1 = L.control({ position: 'bottomleft' });
-                    legend1.onAdd = function (map) {
-                        switch (scope.verClientesPor) {
-                            case 'tipo':
-                                var div = L.DomUtil.create('div', 'info legend');
-                                div.innerHTML = '<div class="legend"><table><tr><td><div class="awesome-marker-icon-green awesome-marker-legend">' +
-                                    '<i class="glyphicon glyphicon-bookmark  icon-white"></i>' +
-                                    '</div></td><td><strong>Prospectos</strong></td></tr>' +
-                                    '<tr><td><div class="awesome-marker-icon-darkblue awesome-marker-legend">' +
-                                    '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
-                                    '</div></td><td><strong>Clientes</strong></td></tr>' +
-                                    '</table></div>';
 
-                                return div;
-                            case 'ruta':
-                                var div = L.DomUtil.create('div', 'info legend');
-                                div.innerHTML = '<div></div>';
-
-                                return div;
-                            case 'abc':
-                                var div = L.DomUtil.create('div', 'info legend');
-                                div.innerHTML = '<div class="legend"><table><tr><td><div class="awesome-marker-icon-green awesome-marker-legend">' +
-                                    '<i class="glyphicon glyphicon-bookmark  icon-white"></i>' +
-                                    '</div></td><td><strong>Prospectos</strong></td></tr>' +
-                                    '<tr><td><div class="awesome-marker-icon-darkblue awesome-marker-legend">' +
-                                    '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
-                                    '</div></td><td><strong>A</strong></td></tr>' +
-                                    '<tr><td><div class="awesome-marker-icon-orange awesome-marker-legend">' +
-                                    '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
-                                    '</div></td><td><strong>B</strong></td></tr>' +
-                                    '<tr><td><div class="awesome-marker-icon-purple awesome-marker-legend">' +
-                                    '<i class="glyphicon glyphicon-flag  icon-white"></i>' +
-                                    '</div></td><td><strong>C</strong></td></tr>' +
-                                    '</table></div>';
-
-                                return div;
-
-                        }
-
-
-                    };
-                    legend1.addTo(map);
-                };
                 scope.buffered = false;
                 var map = L.map('map').setView([8.488481600020107, -79.89260990593574], 8);
-
-
-                var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0';
-                scope.addFeatures(url, '1=1', function (error, result) {
-
-                });
-
-                L.control.navbar().addTo(map);
-
-                map.on('click', function (e) {                    
-                    if (scope.buffered) {
-                        scope.latlng = e.latlng;
-                        scope.winBuffer.open().center();
-                    } else {
-                        if (typeof buff != 'undefined') {
-                            map.removeLayer(buff);
-                        }
-                        if (typeof pointsInside != 'undefined') {
-                            map.removeLayer(pointsInside);
-                        }
-                    }
-
-                });
 
                 var mapaBaseGeoinfo = L.esri.dynamicMapLayer('http://geobi.geoinfo-int.com/arcgis/rest/services/GEOBI/MAPA_BASE_GEOBI/MapServer');
 
@@ -337,9 +238,40 @@
                 // add layer groups to layer switcher control
                 var controlLayers = L.control.layers(baseLayers, overlayMaps).addTo(map);
 
+                // add feature
+                var url = 'http://gis.geoinfo-int.com/arcgis/rest/services/MOBIL/MOBIL/MapServer/0';
+                scope.addFeatures(url, '1=1', function (error, result) {
+
+                });
+
+                // NavBar
+                L.control.navbar().addTo(map);
+
+                // SideBar
+                scope.sidebar = L.control.sidebar('sidebar', {
+                    closeButton: true,
+                    position: 'left'
+                });
+                map.addControl(scope.sidebar);
+
+                map.on('click', function (e) {
+                    if (scope.buffered) {
+                        scope.latlng = e.latlng;
+                        scope.winBuffer.open().center();
+                    } else {
+                        if (typeof buff != 'undefined') {
+                            map.removeLayer(buff);
+                        }
+                        if (typeof pointsInside != 'undefined') {
+                            map.removeLayer(pointsInside);
+                        }
+                    }
+
+                });
+
                 // Query para filtrar los datos
                 scope.query = function (param, callback) {
-
+                    map.spin(true);
                     map.eachLayer(function (layer) {
 
                         if (layer._leaflet_id > 42) {
@@ -353,7 +285,7 @@
                         filtro = '';
                         grupoPreview = 0;
                         _.each(param, function (item, index) {
-                            debugger;
+
                             if (param.length == 1 || index == 0) {
                                 filtro = '(' + item.filtro;
                             } else {
@@ -374,52 +306,97 @@
                         //} else {
                         //    return callback(null, result);
                         //}
-
+                        map.spin(false);
                     });
 
                     callback(null, true);
                 }
+                scope.buffer = function (radio, unidades) {
 
-                scope.analisis = function () {
-
+                    if (typeof buff != 'undefined') {
+                        map.removeLayer(buff);
+                    }
                     mapaBaseGeoinfo.bringToBack();
-                    mapaBaseGeoinfo.find().layers('73').text('BOCAS DEL TORO').fields('PROVINCIA')
-                     .run(function (error, Polygon, response) {
-                         var collection = L.geoJson(Polygon, {
-                             style: { color: 'yellow' },
-                             onEachFeature: function (feature, layer) {
-                                 layer.bindPopup(feature.properties.GNIS_NAME);
-                             }
-                         });
-                         collection.addTo(map)
-                       
+                    bufferService.get(radio, unidades, scope.latlng, function (buffered) {
+                        buff = L.geoJson(buffered);
+                        buff.addTo(map);
 
-                         var pointsWithin = turf.featurecollection([]);
-                         for (var i = 0; i < Polygon.features.length; i++) {
-                             for (var j = 0; j < scope.stops.features.length; j++) {
-                                 var isInside = turf.inside(scope.stops.features[j], Polygon.features[i]);
-                                 if (isInside) {
-                                     pointsWithin.features.push(scope.stops.features[j]);
+                        scope.inside = turf.within(scope.stops, buffered);
+                        //debugger;
+                        var pointsNumber = 0;
+
+                        if (typeof pointsInside != 'undefined') {
+                            map.removeLayer(pointsInside);
+                        }
+
+                        pointsInside = L.geoJson(scope.inside, {
+                            onEachFeature: function (feature, layer) {
+                                pointsNumber++
+                                //layer.bindPopup("<h4>test</h4>"); si se quiere mostrar info del punto seleccionado
+                            },
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng);
+                            },
+                            style: { radius: 10, fillColor: "red", weight: 1 }
+                        }).addTo(map);
+                        map.fitBounds(pointsInside);
+                    });
+                }
+                scope.analisis = function (layer, textSearch, fieldSearch) {
+
+                    if (layer == '') {
+                        if (typeof collection != 'undefined') {
+                            map.removeLayer(collection);
+                        }
+                        if (typeof pointsInside != 'undefined') {
+                            map.removeLayer(pointsInside);
+                        }
+                    } else {
+                        map.spin(true);
+                        mapaBaseGeoinfo.bringToBack();
+                        if (typeof collection != 'undefined') {
+                            map.removeLayer(collection);
+                        }
+                        mapaBaseGeoinfo.find().layers(layer).text(textSearch).fields(fieldSearch)
+                         .run(function (error, Polygon, response) {
+                             collection = L.geoJson(Polygon, {
+                                 style: { color: 'yellow' },
+                                 onEachFeature: function (feature, layer) {
+                                     layer.bindPopup(feature.properties.GNIS_NAME);
+                                 }
+                             });
+                             collection.addTo(map)
+
+
+                             pointsWithin = turf.featurecollection([]);
+                             for (var i = 0; i < Polygon.features.length; i++) {
+                                 for (var j = 0; j < scope.stops.features.length; j++) {
+                                     var isInside = turf.inside(scope.stops.features[j], Polygon.features[i]);
+                                     if (isInside) {
+                                         pointsWithin.features.push(scope.stops.features[j]);
+                                     }
                                  }
                              }
-                         }
-                         var pointsNumber = 0;
-                         L.geoJson(pointsWithin, {
-                             onEachFeature: function (feature, layer) {
-                                 pointsNumber++
-                                 //layer.bindPopup("<h4>test</h4>"); si se quiere mostrar info del punto seleccionado
-                             },
-                             pointToLayer: function (feature, latlng) {
-                                 return L.circleMarker(latlng);
-                             },
-                             style: { radius: 10, fillColor: "red", weight: 1 }
-                         }).addTo(map);
-                        
-                     });
+                             scope.inside = pointsWithin;
+                             if (typeof pointsInside != 'undefined') {
+                                 map.removeLayer(pointsInside);
+                             }
+                             var pointsNumber = 0;
+                             pointsInside = L.geoJson(pointsWithin, {
+                                 onEachFeature: function (feature, layer) {
+                                     pointsNumber++
+                                     //layer.bindPopup("<h4>test</h4>"); si se quiere mostrar info del punto seleccionado
+                                 },
+                                 pointToLayer: function (feature, latlng) {
+                                     return L.circleMarker(latlng);
+                                 },
+                                 style: { radius: 10, fillColor: "red", weight: 1 }
+                             }).addTo(map);
+                             map.spin(false);
+                             map.fitBounds(pointsInside);
+                         });
+                    }
                 }
-
-
-
             }
         };
     }]);

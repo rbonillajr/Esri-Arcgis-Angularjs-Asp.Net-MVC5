@@ -15,12 +15,15 @@
     @Scripts.Render("~/bundles/Angular")
     @Scripts.Render("~/bundles/Underscore")
 
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>    
     <link href="http://cdn.kendostatic.com/2015.2.624/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="http://cdn.kendostatic.com/2015.2.624/styles/kendo.bootstrap.min.css" rel="stylesheet" />
-    
+
     @*<script src="http://cdn.kendostatic.com/2015.2.624/js/kendo.ui.core.min.js"></script>*@
     <script src="http://cdn.kendostatic.com/2015.2.624/js/jszip.min.js"></script>
     <script src="http://cdn.kendostatic.com/2015.2.624/js/kendo.all.min.js"></script>
+
+
 
     <!-- Load Leaflet from CDN-->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.css" />
@@ -30,7 +33,7 @@
     <!-- we encourage you to replace 'latest' with a hardcode version number (like '1.0.0-rc.7') in production applications -->
     <script src="//cdn.jsdelivr.net/leaflet.esri/latest/esri-leaflet.js"></script>
     <script type="text/javascript" src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js"></script>
-    
+
     <!--Icons-->
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
     <link href="~/Scripts/Markers/leaflet.awesome-markers.css" rel="stylesheet" />
@@ -39,17 +42,27 @@
     <!--Leaflet NavBar-->
     <link href="~/Scripts/LeafletNavBar/Leaflet.NavBar.css" rel="stylesheet" />
     <script src="~/Scripts/LeafletNavBar/Leaflet.NavBar.js"></script>
-    @*<script type="text/javascript">   
+
+    <!--Leaflet SideBar-->
+    <link href="~/Scripts/leafletSideBar/L.Control.Sidebar.css" rel="stylesheet" />
+    <script src="~/Scripts/leafletSideBar/L.Control.Sidebar.js"></script>
+
+    <!--Leaflet Spin-->
+    <script src="~/Scripts/leaflerSpin/leaflet.spin.js"></script>
+    <script src="~/Scripts/leaflerSpin/spin.min.js"></script>
     
+
+    @*<script type="text/javascript">
+
         var dojoConfig = {
-            paths: {                
+            paths: {
                 agsjs: location.pathname.replace(/\/[^/]+$/, '') + '/../Scripts/agsjs'
-            }           
+            }
     };
     </script>*@
-            
+
     @*<script src="http://jsdev.arcgis.com/3.14/"></script>*@
-    
+
  <script type="text/javascript">
         //dojo.require('dojo.parser');
         //dojo.require('dijit.layout.BorderContainer');
@@ -69,13 +82,13 @@
 
         //dojo.require('agsjs.dijit.TOC');
 
-             
+
     </script>
     @*<link rel="stylesheet" href="http://jsdev.arcgis.com/3.14/dijit/themes/claro/claro.css">
     <link rel="stylesheet" type="text/css" href="http://jsdev.arcgis.com/3.14/esri/css/esri.css">
     <link rel="stylesheet" type="text/css" href="~/Scripts/agsjs/css/agsjs.css">*@
 
-   
+
     <style>
         html, body {
             margin: 0;
@@ -87,7 +100,7 @@
     </style>
 
 
-    
+
 </head>
 
 <body>
